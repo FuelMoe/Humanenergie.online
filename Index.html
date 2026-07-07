@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bastian Dießlin — Ganzheitliche energetische Begleitung</title>
+<meta name="description" content="Bastian Dießlin, Dipl. Humanenergetiker i.A. in Ausbildung — Klangreisen, Klangmassagen und Chakren-Harmonisierung. Ein Raum für Balance und Regeneration.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#0c0718;
+    --bg-1:#160c28;
+    --bg-2:#20143b;
+    --bg-3:#33204f;
+    --gold:#d8b45c;
+    --gold-bright:#f4e29a;
+    --gold-mid:#c39a45;
+    --gold-deep:#7a5f2c;
+    --cream:#ece4d1;
+    --cream-dim:#c4b99e;
+    --line:rgba(216,180,92,.20);
+    --line-soft:rgba(216,180,92,.12);
+    --maxw:1120px;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{
+    scroll-behavior:smooth;
+    scroll-padding-top:84px;
+  }
+
+  body{
+    margin:0;
+    font-family:'Montserrat','Segoe UI',system-ui,sans-serif;
+    font-weight:300;
+    color:var(--cream);
+    background:var(--bg-0);
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+
+  /* ===== persistent sacred-geometry field ===== */
+  .ambient{
+    position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+    background:
+      radial-gradient(120% 70% at 82% -6%, var(--bg-3) 0%, rgba(51,32,79,0) 46%),
+      radial-gradient(140% 110% at 30% 8%,  var(--bg-2) 0%, var(--bg-1) 46%, var(--bg-0) 78%);
+  }
+  .ambient .glow{
+    position:absolute; border-radius:50%;
+    background:radial-gradient(circle, rgba(247,205,106,.16) 0%, rgba(247,205,106,0) 70%);
+    filter:blur(6px);
+  }
+  .glow--a{ width:52vw; height:52vw; top:-14vw; left:-12vw; }
+  .glow--b{ width:44vw; height:44vw; bottom:-16vw; right:-10vw; background:radial-gradient(circle, rgba(247,205,106,.20) 0%, rgba(247,205,106,0) 70%); }
+  .ambient .fol{
+    position:absolute; top:-9vw; right:-7vw; width:44vw; min-width:340px; aspect-ratio:1/1;
+    color:var(--gold-deep); opacity:.42;
+    -webkit-mask-image:radial-gradient(circle at 62% 38%, #000 26%, transparent 72%);
+            mask-image:radial-gradient(circle at 62% 38%, #000 26%, transparent 72%);
+  }
+  .fol circle{ fill:none; stroke:currentColor; stroke-width:.6; }
+
+  .page{ position:relative; z-index:1; }
+
+  /* ===== nav ===== */
+  .nav{
+    position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px clamp(20px,5vw,40px);
+    transition:background .35s ease, box-shadow .35s ease, backdrop-filter .35s ease;
+  }
+  .nav.scrolled{
+    background:rgba(12,7,24,.82);
+    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+    box-shadow:0 1px 0 var(--line-soft);
+  }
+  .brand{ display:flex; align-items:center; gap:11px; text-decoration:none; color:var(--gold); }
+  .brand svg{ width:30px; height:30px; flex:none; }
+  .brand svg path{ fill:none; stroke:currentColor; stroke-width:2.4; stroke-linejoin:round; stroke-linecap:round; }
+  .brand b{
+    font-family:'Cormorant Garamond',Georgia,serif; font-weight:600;
+    font-size:1.32rem; letter-spacing:.02em; color:var(--gold-bright);
+  }
+
+  .nav-links{ display:flex; align-items:center; gap:clamp(18px,3vw,38px); }
+  .nav-links a{
+    color:var(--cream-dim); text-decoration:none;
+    font-size:.82rem; letter-spacing:.16em; text-transform:uppercase;
+    transition:color .25s ease; position:relative; padding:4px 0;
+  }
+  .nav-links a:not(.nav-cta)::after{
+    content:""; position:absolute; left:0; right:100%; bottom:-2px; height:1px;
+    background:var(--gold); transition:right .3s ease;
+  }
+  .nav-links a:not(.nav-cta):hover{ color:var(--gold-bright); }
+  .nav-links a:not(.nav-cta):hover::after{ right:0; }
+  .nav-cta{
+    border:1px solid var(--gold); border-radius:999px;
+    padding:9px 20px; color:var(--gold-bright);
+    transition:background .3s ease, color .3s ease;
+  }
+  .nav-cta:hover{ background:var(--gold); color:var(--bg-0); }
+
+  .nav-toggle{
+    display:none; background:none; border:0; cursor:pointer; padding:8px;
+    flex-direction:column; gap:5px;
+  }
+  .nav-toggle span{ width:24px; height:2px; background:var(--gold); border-radius:2px; transition:transform .3s ease, opacity .3s ease; }
+
+  /* ===== layout helpers ===== */
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 clamp(20px,5vw,40px); }
+  section{ padding:clamp(72px,11vw,132px) 0; }
+
+  .eyebrow{
+    font-size:.76rem; letter-spacing:.34em; text-transform:uppercase;
+    color:var(--gold); font-weight:400; margin:0 0 18px;
+  }
+  h2.section-title{
+    font-family:'Cormorant Garamond',Georgia,serif; font-weight:500;
+    font-size:clamp(1.95rem,4.4vw,3rem); line-height:1.1;
+    color:var(--cream); margin:0 0 clamp(28px,4vw,48px);
+  }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family:'Montserrat',sans-serif; font-weight:500;
+    font-size:.8rem; letter-spacing:.14em; text-transform:uppercase;
+    padding:15px 30px; border-radius:999px; text-decoration:none; cursor:pointer;
+    border:1px solid transparent; transition:transform .25s ease, box-shadow .3s ease, background .3s ease, color .3s ease;
+  }
+  .btn--primary{
+    background:linear-gradient(135deg,var(--gold-bright),var(--gold-mid));
+    color:#231708; box-shadow:0 10px 30px -12px rgba(216,180,92,.6);
+  }
+  .btn--primary:hover{ transform:translateY(-2px); box-shadow:0 16px 40px -12px rgba(216,180,92,.75); }
+  .btn--ghost{ border-color:var(--line); color:var(--gold-bright); }
+  .btn--ghost:hover{ border-color:var(--gold); background:rgba(216,180,92,.08); transform:translateY(-2px); }
+  .btn:focus-visible{ outline:2px solid var(--gold-bright); outline-offset:3px; }
+
+  /* ===== hero ===== */
+  .hero{
+    min-height:100svh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center;
+    padding-top:96px; padding-bottom:64px; position:relative;
+  }
+  .hero .lotus{
+    width:clamp(78px,12vw,116px); color:var(--gold); margin-bottom:22px;
+    filter:drop-shadow(0 0 14px rgba(216,180,92,.3));
+  }
+  .hero .lotus path{ fill:none; stroke:currentColor; stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round; }
+  .hero-name{
+    font-family:'Cormorant Garamond',Georgia,serif; font-weight:600;
+    font-size:clamp(3rem,8.6vw,6rem); line-height:.98; letter-spacing:.01em; margin:0;
+    background:linear-gradient(180deg,var(--gold-bright) 0%,var(--gold) 48%,var(--gold-mid) 100%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+    filter:drop-shadow(0 2px 14px rgba(216,180,92,.22));
+  }
+  .hero-credential{
+    font-family:'Cormorant Garamond',Georgia,serif; font-weight:500;
+    font-size:clamp(1.15rem,3vw,1.7rem); letter-spacing:.05em; color:var(--gold);
+    margin:10px 0 0;
+  }
+  .hero-divider{
+    width:min(60%,300px); height:1px; margin:clamp(24px,4vw,38px) 0;
+    background:linear-gradient(90deg,transparent,rgba(216,180,92,.55),transparent);
+  }
+  .hero-tagline{
+    font-family:'Cormorant Garamond',Georgia,serif; font-weight:500;
+    font-size:clamp(1.5rem,3.6vw,2.5rem); line-height:1.18; color:var(--cream);
+    margin:0; max-width:16ch;
+  }
+  .hero-sub{
+    font-size:.82rem; letter-spacing:.32em; text-transform:uppercase;
+    color:var(--gold); margin:18px 0 0;
+  }
+  .hero-cta{ display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-top:clamp(34px,5vw,52px); }
+
+  .scroll-cue{
+    position:absolute; bottom:26px; left:50%; transform:translateX(-50%);
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    color:var(--gold-mid); font-size:.62rem; letter-spacing:.28em; text-transform:uppercase;
+  }
+  .scroll-cue span{ width:1px; height:34px; background:linear-gradient(180deg,var(--gold),transparent); animation:cue 2.4s ease-in-out infinite; }
+  @keyframes cue{ 0%,100%{ transform:scaleY(.4); opacity:.4; transform-origin:top; } 50%{ transform:scaleY(1); opacity:1; transform-origin:top; } }
+
+  /* ===== philosophy ===== */
+  .statement{ text-align:center; }
+  .statement .lead{
+    font-family:'Cormorant Garamond',Georgia,serif; font-weight:500;
+    font-size:clamp(1.5rem,3.4vw,2.35rem); line-height:1.35; color:var(--cream);
+    margin:0 auto 26px; max-width:20ch;
+  }
+  .statement p.body{
+    max-width:60ch; margin:0 auto; color:var(--cream-dim);
+    font-size:clamp(1rem,1.6vw,1.08rem);
+  }
+  .statement .mini-lotus{ width:34px; color:var(--gold); opacity:.85; margin:0 auto 26px; display:block; }
+  .statement .mini-lotus path{ fill:none; stroke:currentColor; stroke-width:2.4; stroke-linejoin:round; stroke-linecap:round; }
+
+  /* ===== services ===== */
+  #angebote{ border-top:1px solid var(--line-soft); }
+  .services{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(18px,2.4vw,28px); }
+  .card{
+    position:relative; padding:clamp(28px,3vw,40px) clamp(24px,2.6vw,34px);
+    border:1px solid var(--line); border-radius:18px;
+    background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+    transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease;
+    overflow:hidden;
+  }
+  .card::before{
+    content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+    background:radial-gradient(120% 80% at 50% -10%, rgba(216,180,92,.10), transparent 60%);
+    opacity:0; transition:opacity .35s ease;
+  }
+  .card:hover{ transform:translateY(-6px); border-color:rgba(216,180,92,.5); box-shadow:0 24px 50px -26px rgba(0,0,0,.8); }
+  .card:hover::before{ opacity:1; }
+  .card .icon{
+    width:64px; height:64px; color:var(--gold); margin-bottom:22px;
+    filter:drop-shadow(0 0 8px rgba(216,180,92,.22));
+  }
+  .icon .ring{ fill:none; stroke:currentColor; stroke-width:1.4; opacity:.9; }
+  .icon .stroke{ fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .icon .fill{ fill:currentColor; }
+  .card h3{
+    font-size:.98rem; letter-spacing:.14em; text-transform:uppercase; font-weight:500;
+    color:var(--gold-bright); margin:0 0 14px; line-height:1.4;
+  }
+  .card p{ margin:0; color:var(--cream-dim); font-size:.96rem; }
+
+  /* ===== ablauf ===== */
+  #ablauf{ border-top:1px solid var(--line-soft); }
+  .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(24px,3vw,44px); }
+  .step{ position:relative; padding-top:14px; }
+  .step .num{
+    font-family:'Cormorant Garamond',Georgia,serif; font-weight:500;
+    font-size:clamp(2.4rem,4vw,3.4rem); line-height:1; color:var(--gold);
+    opacity:.55; margin-bottom:14px;
+  }
+  .step h3{
+    font-family:'Cormorant Garamond',Georgia,serif; font-weight:600;
+    font-size:1.4rem; color:var(--cream); margin:0 0 10px;
+  }
+  .step p{ margin:0; color:var(--cream-dim); font-size:.96rem; }
+  .step::before{
+    content:""; position:absolute; top:0; left:0; width:44px; height:1px; background:var(--gold);
+  }
+
+  /* ===== contact ===== */
+  #kontakt{ border-top:1px solid var(--line-soft); }
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(32px,6vw,72px); align-items:start; }
+  .contact-intro p{ color:var(--cream-dim); max-width:42ch; margin:0 0 32px; font-size:1.05rem; }
+  .contact-tiles{ display:flex; flex-direction:column; gap:16px; }
+  .tile{
+    display:flex; align-items:center; gap:16px; text-decoration:none;
+    padding:16px 20px; border:1px solid var(--line); border-radius:14px; color:var(--cream);
+    transition:border-color .3s ease, background .3s ease, transform .25s ease;
+  }
+  .tile:hover{ border-color:rgba(216,180,92,.5); background:rgba(216,180,92,.06); transform:translateY(-2px); }
+  .tile:focus-visible{ outline:2px solid var(--gold-bright); outline-offset:3px; }
+  .tile svg{ width:40px; height:40px; color:var(--gold); flex:none; }
+  .tile .ring{ fill:none; stroke:currentColor; stroke-width:1.4; }
+  .tile .stroke{ fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+  .tile .fill{ fill:currentColor; }
+  .tile .lbl{ display:block; font-size:.68rem; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:3px; }
+  .tile .val{ font-size:1.02rem; letter-spacing:.01em; }
+
+  .form{ display:flex; flex-direction:column; gap:16px; }
+  .field label{ display:block; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
+  .field input, .field textarea{
+    width:100%; padding:13px 16px; border-radius:12px;
+    border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--cream);
+    font-family:inherit; font-size:1rem; transition:border-color .25s ease, background .25s ease;
+  }
+  .field textarea{ resize:vertical; min-height:130px; }
+  .field input::placeholder, .field textarea::placeholder{ color:rgba(196,185,158,.5); }
+  .field input:focus, .field textarea:focus{ outline:none; border-color:var(--gold); background:rgba(216,180,92,.05); }
+  .form .note{ font-size:.78rem; color:var(--cream-dim); margin:2px 0 0; }
+
+  /* ===== footer ===== */
+  .footer{
+    border-top:1px solid var(--line-soft);
+    padding:clamp(52px,7vw,80px) 0 40px; text-align:center;
+  }
+  .footer .foot-lotus{ width:40px; color:var(--gold); opacity:.8; margin:0 auto 22px; display:block; }
+  .footer .foot-lotus path{ fill:none; stroke:currentColor; stroke-width:2.4; stroke-linejoin:round; stroke-linecap:round; }
+  .footer .slogan{
+    font-size:.72rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); line-height:2; margin:0 0 26px;
+  }
+  .footer .foot-contact{ display:flex; gap:26px; justify-content:center; flex-wrap:wrap; margin-bottom:26px; }
+  .footer .foot-contact a{ color:var(--cream-dim); text-decoration:none; font-size:.92rem; transition:color .25s ease; }
+  .footer .foot-contact a:hover{ color:var(--gold-bright); }
+  .footer .foot-links{ display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-bottom:22px; }
+  .footer .foot-links a{ color:var(--gold-mid); text-decoration:none; font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; }
+  .footer .foot-links a:hover{ color:var(--gold-bright); }
+  .footer .copy{ font-size:.76rem; color:rgba(196,185,158,.55); letter-spacing:.04em; margin:0; }
+
+  /* ===== legal placeholder ===== */
+  .legal{ border-top:1px solid var(--line-soft); }
+  .legal h2{ font-family:'Cormorant Garamond',Georgia,serif; font-weight:600; font-size:1.8rem; color:var(--cream); margin:0 0 16px; }
+  .legal p{ color:var(--cream-dim); max-width:70ch; font-size:.96rem; }
+  .placeholder-tag{
+    display:inline-block; font-size:.66rem; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--gold); border:1px solid var(--line); border-radius:999px; padding:4px 12px; margin-bottom:16px;
+  }
+
+  /* ===== reveal ===== */
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); transition-delay:var(--d,0s); }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* ===== responsive ===== */
+  @media (max-width:860px){
+    .services, .steps{ grid-template-columns:1fr; }
+    .contact-grid{ grid-template-columns:1fr; }
+    .step{ padding-left:0; }
+  }
+  @media (max-width:680px){
+    .nav-links{
+      position:absolute; top:100%; right:clamp(20px,5vw,40px); left:clamp(20px,5vw,40px);
+      flex-direction:column; align-items:stretch; gap:0;
+      background:rgba(18,10,34,.96); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      border:1px solid var(--line); border-radius:14px; padding:10px;
+      opacity:0; transform:translateY(-10px) scale(.98); pointer-events:none;
+      transition:opacity .25s ease, transform .25s ease;
+    }
+    .nav.open .nav-links{ opacity:1; transform:none; pointer-events:auto; }
+    .nav-links a{ padding:13px 14px; letter-spacing:.14em; }
+    .nav-links a:not(.nav-cta)::after{ display:none; }
+    .nav-cta{ text-align:center; margin-top:6px; }
+    .nav-toggle{ display:flex; }
+    .nav.open .nav-toggle span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+    .nav.open .nav-toggle span:nth-child(2){ opacity:0; }
+    .nav.open .nav-toggle span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .scroll-cue span{ animation:none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- persistent sacred-geometry background -->
+  <div class="ambient" aria-hidden="true">
+    <div class="glow glow--a"></div>
+    <div class="glow glow--b"></div>
+    <svg class="fol" viewBox="-100 -100 200 200">
+      <circle cx="0" cy="0" r="90"/>
+      <circle cx="0" cy="0" r="30"/>
+      <circle cx="30" cy="0" r="30"/><circle cx="15" cy="25.98" r="30"/><circle cx="-15" cy="25.98" r="30"/>
+      <circle cx="-30" cy="0" r="30"/><circle cx="-15" cy="-25.98" r="30"/><circle cx="15" cy="-25.98" r="30"/>
+      <circle cx="60" cy="0" r="30"/><circle cx="30" cy="51.96" r="30"/><circle cx="-30" cy="51.96" r="30"/>
+      <circle cx="-60" cy="0" r="30"/><circle cx="-30" cy="-51.96" r="30"/><circle cx="30" cy="-51.96" r="30"/>
+      <circle cx="45" cy="25.98" r="30"/><circle cx="0" cy="51.96" r="30"/><circle cx="-45" cy="25.98" r="30"/>
+      <circle cx="-45" cy="-25.98" r="30"/><circle cx="0" cy="-51.96" r="30"/><circle cx="45" cy="-25.98" r="30"/>
+    </svg>
+  </div>
+
+  <div class="page">
+
+    <!-- ===== NAV ===== -->
+    <nav class="nav" id="nav">
+      <a class="brand" href="#top" aria-label="Bastian Dießlin — Startseite">
+        <svg viewBox="0 0 120 78" aria-hidden="true">
+          <g transform="translate(60,70)">
+            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z"/>
+            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z" transform="rotate(-42) scale(.8 .8)"/>
+            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z" transform="rotate(42) scale(.8 .8)"/>
+          </g>
+        </svg>
+        <b>Bastian Dießlin</b>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="navLinks">
+        <a href="#angebote">Angebote</a>
+        <a href="#ablauf">Ablauf</a>
+        <a href="#kontakt" class="nav-cta">Termin anfragen</a>
+      </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <header class="hero" id="top">
+      <svg class="lotus" viewBox="0 0 260 158" role="img" aria-label="Lotus">
+        <g transform="translate(130,140)">
+          <path d="M0 0 C -22 -30 -22 -62 0 -94 C 22 -62 22 -30 0 0 Z" transform="rotate(-60) scale(.82 .78)"/>
+          <path d="M0 0 C -22 -30 -22 -62 0 -94 C 22 -62 22 -30 0 0 Z" transform="rotate(60) scale(.82 .78)"/>
+          <path d="M0 0 C -22 -30 -22 -62 0 -94 C 22 -62 22 -30 0 0 Z" transform="rotate(-31) scale(.95 .92)"/>
+          <path d="M0 0 C -22 -30 -22 -62 0 -94 C 22 -62 22 -30 0 0 Z" transform="rotate(31) scale(.95 .92)"/>
+          <path d="M0 0 C -22 -30 -22 -62 0 -94 C 22 -62 22 -30 0 0 Z"/>
+          <path d="M0 0 C -13 -26 -13 -52 0 -78 C 13 -52 13 -26 0 0 Z" transform="scale(.66 .82)"/>
+        </g>
+      </svg>
+      <h1 class="hero-name">Bastian Dießlin</h1>
+      <p class="hero-credential">Dipl. Humanenergetiker i.A.</p>
+      <div class="hero-divider" aria-hidden="true"></div>
+      <p class="hero-tagline">Ganzheitliche energetische Begleitung</p>
+      <p class="hero-sub">Raum für Balance und Regeneration</p>
+      <div class="hero-cta">
+        <a href="#kontakt" class="btn btn--primary">Termin anfragen</a>
+        <a href="#angebote" class="btn btn--ghost">Angebote entdecken</a>
+      </div>
+      <div class="scroll-cue" aria-hidden="true"><span></span>Scroll</div>
+    </header>
+
+    <!-- ===== PHILOSOPHY ===== -->
+    <section id="ankommen">
+      <div class="wrap statement reveal">
+        <svg class="mini-lotus" viewBox="0 0 120 78" aria-hidden="true">
+          <g transform="translate(60,70)">
+            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z"/>
+            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z" transform="rotate(-42) scale(.8 .8)"/>
+            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z" transform="rotate(42) scale(.8 .8)"/>
+          </g>
+        </svg>
+        <p class="lead">Zeit für dich. Zeit zum Ankommen. Zeit, deinen eigenen Rhythmus wieder zu spüren.</p>
+        <p class="body">In einer energetischen Begleitung geht es darum, für einen Moment zur Ruhe zu kommen – abseits von Reizüberflutung und Alltagstempo. Klang und achtsame Aufmerksamkeit können dabei unterstützen, den eigenen Rhythmus wieder wahrzunehmen und neue Kraft zu schöpfen.</p>
+      </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section id="angebote">
+      <div class="wrap">
+        <p class="eyebrow reveal">Angebote</p>
+        <h2 class="section-title reveal" style="--d:.05s">Wege zu mehr Ruhe und Ausgleich</h2>
+        <div class="services">
+
+          <article class="card reveal" style="--d:.05s">
+            <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+              <circle class="ring" cx="32" cy="32" r="27"/>
+              <g class="stroke" stroke-width="2.4">
+                <line x1="17" y1="24" x2="17" y2="40"/>
+                <line x1="22" y1="18" x2="22" y2="46"/>
+                <line x1="27" y1="27" x2="27" y2="37"/>
+                <line x1="32" y1="14" x2="32" y2="50"/>
+                <line x1="37" y1="23" x2="37" y2="41"/>
+                <line x1="42" y1="19" x2="42" y2="45"/>
+                <line x1="47" y1="28" x2="47" y2="36"/>
+              </g>
+            </svg>
+            <h3>Klangreisen</h3>
+            <p>Tauche ein in die Welt der Klänge und schenke dir Zeit für Ruhe, Achtsamkeit und neue Impulse.</p>
+          </article>
+
+          <article class="card reveal" style="--d:.12s">
+            <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+              <circle class="ring" cx="32" cy="32" r="27"/>
+              <ellipse class="stroke" cx="32" cy="30" rx="13" ry="3.4"/>
+              <path class="stroke" d="M19 30 C 19 42 25.5 46.5 32 46.5 C 38.5 46.5 45 42 45 30"/>
+              <path class="stroke" d="M31 29 L 45 15"/>
+              <circle class="fill" cx="45.4" cy="14.6" r="2.6"/>
+            </svg>
+            <h3>Klangmassagen</h3>
+            <p>Sanfte Klänge können dabei unterstützen, zur Ruhe zu kommen und das eigene Wohlbefinden bewusst wahrzunehmen.</p>
+          </article>
+
+          <article class="card reveal" style="--d:.19s">
+            <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
+              <circle class="ring" cx="32" cy="32" r="27"/>
+              <circle class="stroke" cx="32" cy="18" r="4"/>
+              <path class="stroke" d="M32 23 C 40 31 45.5 43 47.5 47.5 L 16.5 47.5 C 18.5 43 24 31 32 23 Z"/>
+              <path class="stroke" stroke-width="1.6" d="M23 41 C 20 43 18.5 45.5 19 47.5"/>
+              <path class="stroke" stroke-width="1.6" d="M41 41 C 44 43 45.5 45.5 45 47.5"/>
+              <g class="fill">
+                <circle cx="32" cy="28" r="1.7"/><circle cx="32" cy="33" r="1.7"/>
+                <circle cx="32" cy="38" r="1.7"/><circle cx="32" cy="43" r="1.7"/>
+              </g>
+            </svg>
+            <h3>Chakren-Harmonisierung</h3>
+            <p>Aktiviere und harmonisiere deine Chakren für mehr Lebenskraft, Ausgeglichenheit und inneren Frieden.</p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ABLAUF ===== -->
+    <section id="ablauf">
+      <div class="wrap">
+        <p class="eyebrow reveal">Ablauf einer Sitzung</p>
+        <h2 class="section-title reveal" style="--d:.05s">In deinem Tempo — Schritt für Schritt</h2>
+        <div class="steps">
+          <div class="step reveal" style="--d:.05s">
+            <div class="num">01</div>
+            <h3>Ankommen</h3>
+            <p>Wir nehmen uns Zeit für ein kurzes Gespräch, damit du entspannt und in deinem Tempo ankommen kannst.</p>
+          </div>
+          <div class="step reveal" style="--d:.12s">
+            <div class="num">02</div>
+            <h3>Klang &amp; Energie</h3>
+            <p>Sanfte Klänge und energetische Arbeit schaffen einen geschützten Raum, in dem du einfach loslassen darfst.</p>
+          </div>
+          <div class="step reveal" style="--d:.19s">
+            <div class="num">03</div>
+            <h3>Nachspüren</h3>
+            <p>Zum Abschluss bleibt Raum, um dem Erlebten nachzuspüren und die Ruhe in den Alltag mitzunehmen.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="kontakt">
+      <div class="wrap">
+        <div class="contact-grid">
+          <div class="contact-intro reveal">
+            <p class="eyebrow">Kontakt</p>
+            <h2 class="section-title">Lass uns in Verbindung treten</h2>
+            <p>Du möchtest einen Termin vereinbaren oder hast eine Frage zu den Angeboten? Melde dich gern – ich freue mich, von dir zu hören.</p>
+            <div class="contact-tiles">
+              <a class="tile" href="mailto:B.diesslin@gmail.com">
+                <svg viewBox="0 0 48 48" aria-hidden="true">
+                  <circle class="ring" cx="24" cy="24" r="21.5"/>
+                  <rect class="stroke" x="14" y="18" width="20" height="13" rx="1.6"/>
+                  <path class="stroke" d="M14.5 19 L24 26 L33.5 19"/>
+                </svg>
+                <span><span class="lbl">E-Mail</span><span class="val">B.diesslin@gmail.com</span></span>
+              </a>
+              <a class="tile" href="tel:+491794194250">
+                <svg viewBox="0 0 48 48" aria-hidden="true">
+                  <circle class="ring" cx="24" cy="24" r="21.5"/>
+                  <path class="fill" d="M19.4 15.6c-.9-.4-2-.1-2.6.7l-1.7 2.3c-.5.7-.6 1.6-.2 2.4 2.6 5.2 6.8 9.4 12 12 .8.4 1.7.3 2.4-.2l2.3-1.7c.8-.6 1.1-1.7.7-2.6l-1.3-3c-.4-.9-1.4-1.4-2.4-1.1l-2.7.7c-.5.1-1 0-1.4-.3-1.5-1.2-2.8-2.5-4-4-.3-.4-.4-.9-.3-1.4l.7-2.7c.3-1-.2-2-1.1-2.4z"/>
+                </svg>
+                <span><span class="lbl">Telefon</span><span class="val">+49 179 4194250</span></span>
+              </a>
+            </div>
+          </div>
+
+          <form class="form reveal" id="contactForm" style="--d:.1s" novalidate>
+            <div class="field">
+              <label for="cName">Name</label>
+              <input type="text" id="cName" name="name" placeholder="Dein Name" required>
+            </div>
+            <div class="field">
+              <label for="cMail">E-Mail</label>
+              <input type="email" id="cMail" name="email" placeholder="deine@mail.de">
+            </div>
+            <div class="field">
+              <label for="cMsg">Deine Nachricht</label>
+              <textarea id="cMsg" name="message" placeholder="Worum geht es? Wann würde es dir passen?" required></textarea>
+            </div>
+            <button type="submit" class="btn btn--primary">Nachricht senden</button>
+            <p class="note">Öffnet dein E-Mail-Programm mit vorbereiteter Nachricht.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+      <div class="wrap">
+        <svg class="foot-lotus" viewBox="0 0 120 78" aria-hidden="true">
+          <g transform="translate(60,70)">
+            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z"/>
+            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z" transform="rotate(-42) scale(.8 .8)"/>
+            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z" transform="rotate(42) scale(.8 .8)"/>
+          </g>
+        </svg>
+        <p class="slogan">Klänge. Energie. Du.<br>Im Einklang mit dir selbst.</p>
+        <div class="foot-contact">
+          <a href="mailto:B.diesslin@gmail.com">B.diesslin@gmail.com</a>
+          <a href="tel:+491794194250">+49 179 4194250</a>
+        </div>
+        <div class="foot-links">
+          <a href="#impressum">Impressum</a>
+          <a href="#datenschutz">Datenschutz</a>
+        </div>
+        <p class="copy">© <span id="year"></span> Bastian Dießlin · Alle Rechte vorbehalten</p>
+      </div>
+    </footer>
+
+    <!-- ===== LEGAL PLACEHOLDERS (für ein deutsches Angebot Pflicht) ===== -->
+    <section class="legal" id="impressum">
+      <div class="wrap">
+        <span class="placeholder-tag">Platzhalter — bitte ausfüllen</span>
+        <h2>Impressum</h2>
+        <p>Angaben gemäß § 5 DDG / § 18 Abs. 2 MStV: vollständiger Name, ladungsfähige Anschrift, E-Mail und Telefon sowie ggf. Angaben zur Berufsbezeichnung und zuständigen Aufsichtsbehörde. Dieser Abschnitt ist ein Platzhalter und muss vor Veröffentlichung mit den echten Daten befüllt werden.</p>
+      </div>
+    </section>
+    <section class="legal" id="datenschutz">
+      <div class="wrap">
+        <span class="placeholder-tag">Platzhalter — bitte ausfüllen</span>
+        <h2>Datenschutz</h2>
+        <p>Datenschutzerklärung nach DSGVO: welche Daten beim Besuch der Seite und über das Kontaktformular verarbeitet werden, Rechtsgrundlagen, Speicherdauer und Betroffenenrechte. Da das Kontaktformular per E-Mail-Programm arbeitet, werden auf der Seite selbst keine Formulardaten gespeichert oder übertragen. Auch dieser Abschnitt ist ein Platzhalter.</p>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // nav background on scroll
+    var nav = document.getElementById('nav');
+    var onScroll = function(){ nav.classList.toggle('scrolled', window.scrollY > 20); };
+    onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
+
+    // mobile menu
+    var toggle = document.getElementById('navToggle');
+    toggle.addEventListener('click', function(){
+      var open = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    });
+    document.getElementById('navLinks').addEventListener('click', function(e){
+      if (e.target.tagName === 'A') { nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
+    });
+
+    // scroll reveal
+    var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced || !('IntersectionObserver' in window)) {
+      reveals.forEach(function(el){ el.classList.add('in'); });
+    } else {
+      var io = new IntersectionObserver(function(entries, obs){
+        entries.forEach(function(en){
+          if (en.isIntersecting) { en.target.classList.add('in'); obs.unobserve(en.target); }
+        });
+      }, { threshold:0.14, rootMargin:'0px 0px -8% 0px' });
+      reveals.forEach(function(el){ io.observe(el); });
+    }
+
+    // contact form -> mailto
+    var form = document.getElementById('contactForm');
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var name = document.getElementById('cName').value.trim();
+      var mail = document.getElementById('cMail').value.trim();
+      var msg  = document.getElementById('cMsg').value.trim();
+      if (!name || !msg) { form.reportValidity(); return; }
+      var subject = encodeURIComponent('Anfrage über die Website – ' + name);
+      var lines = msg + '\n\n—\n' + name + (mail ? '\n' + mail : '');
+      var body = encodeURIComponent(lines);
+      window.location.href = 'mailto:B.diesslin@gmail.com?subject=' + subject + '&body=' + body;
+    });
+  </script>
+
+</body>
+</html>

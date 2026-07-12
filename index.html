@@ -273,15 +273,41 @@
 
   .form{ display:flex; flex-direction:column; gap:16px; }
   .field label{ display:block; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
-  .field input, .field textarea{
+  .field input, .field textarea, .field select{
     width:100%; padding:13px 16px; border-radius:12px;
     border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--cream);
     font-family:inherit; font-size:1rem; transition:border-color .25s ease, background .25s ease;
   }
   .field textarea{ resize:vertical; min-height:130px; }
+  .field select{
+    width:100%; padding:13px 16px; border-radius:12px;
+    border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--cream);
+    font-family:inherit; font-size:1rem; transition:border-color .25s ease, background .25s ease;
+  }
+  .field select option{ color:#231708; background:var(--cream); }
   .field input::placeholder, .field textarea::placeholder{ color:rgba(196,185,158,.5); }
-  .field input:focus, .field textarea:focus{ outline:none; border-color:var(--gold); background:rgba(216,180,92,.05); }
+  .field input:focus, .field textarea:focus, .field select:focus{ outline:none; border-color:var(--gold); background:rgba(216,180,92,.05); }
   .form .note{ font-size:.78rem; color:var(--cream-dim); margin:2px 0 0; }
+
+
+  .btn:disabled{
+    opacity:.58;
+    cursor:not-allowed;
+    transform:none;
+    box-shadow:none;
+  }
+  .hp-field{
+    position:absolute !important;
+    left:-10000px !important;
+    top:auto !important;
+    width:1px !important;
+    height:1px !important;
+    overflow:hidden !important;
+    opacity:0 !important;
+    pointer-events:none !important;
+  }
+  .form-status[data-state="success"]{ color:var(--gold-bright); }
+  .form-status[data-state="error"]{ color:#ffb4b4; }
 
   /* ===== footer ===== */
   .footer{
@@ -305,6 +331,22 @@
   .legal{ border-top:1px solid var(--line-soft); }
   .legal h2{ font-family:'Cormorant Garamond',Georgia,serif; font-weight:600; font-size:1.8rem; color:var(--cream); margin:0 0 16px; }
   .legal p{ color:var(--cream-dim); max-width:70ch; font-size:.96rem; }
+
+  .legal .legal-block{ max-width:78ch; }
+  .legal h3{
+    font-family:'Cormorant Garamond',Georgia,serif;
+    font-weight:600; font-size:1.35rem; color:var(--cream);
+    margin:34px 0 10px;
+  }
+  .legal h4{
+    font-size:.82rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--gold-bright); margin:24px 0 8px;
+  }
+  .legal p, .legal li{ color:var(--cream-dim); font-size:.96rem; }
+  .legal ul{ padding-left:1.2rem; }
+  .legal a{ color:var(--gold-bright); }
+  .legal address{ font-style:normal; color:var(--cream-dim); line-height:1.8; }
+
   .placeholder-tag{
     display:inline-block; font-size:.66rem; letter-spacing:.18em; text-transform:uppercase;
     color:var(--gold); border:1px solid var(--line); border-radius:999px; padding:4px 12px; margin-bottom:16px;
@@ -345,6 +387,7 @@
     .scroll-cue span{ animation:none; }
   }
 </style>
+<script defer src="https://cloud.umami.is/script.js" data-website-id="fb317397-3a39-4a7b-b389-d1c19196386f"></script>
 </head>
 <body>
 
@@ -538,18 +581,41 @@
           <form class="form reveal" id="contactForm" style="--d:.1s" novalidate>
             <div class="field">
               <label for="cName">Name</label>
-              <input type="text" id="cName" name="name" placeholder="Dein Name" required>
+              <input type="text" id="cName" name="name" placeholder="Dein Name" minlength="2" maxlength="100" autocomplete="name" required>
             </div>
             <div class="field">
               <label for="cMail">E-Mail</label>
-              <input type="email" id="cMail" name="email" placeholder="deine@mail.de">
+              <input type="email" id="cMail" name="email" placeholder="deine@mail.de" maxlength="254" autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="cPhone">Telefonnummer <span aria-hidden="true">(optional)</span></label>
+              <input type="tel" id="cPhone" name="phone" placeholder="+49 …" maxlength="40" autocomplete="tel">
+            </div>
+            <div class="field">
+              <label for="cService">Angebot</label>
+              <select id="cService" name="service" required>
+                <option value="" selected disabled>Bitte auswählen</option>
+                <option value="Klangreise">Klangreise</option>
+                <option value="Klangmassage">Klangmassage</option>
+                <option value="Chakren-Harmonisierung">Chakren-Harmonisierung</option>
+                <option value="Kinesiologischer Muskeltest">Kinesiologischer Muskeltest</option>
+                <option value="Allgemeine Anfrage">Allgemeine Anfrage</option>
+              </select>
             </div>
             <div class="field">
               <label for="cMsg">Deine Nachricht</label>
-              <textarea id="cMsg" name="message" placeholder="Worum geht es? Wann würde es dir passen?" required></textarea>
+              <textarea id="cMsg" name="message" placeholder="Worum geht es? Wann würde es dir passen?" minlength="5" maxlength="5000" required></textarea>
             </div>
+
+            <div class="hp-field" aria-hidden="true">
+              <label for="cWebsite">Website</label>
+              <input type="text" id="cWebsite" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
             <button type="submit" class="btn btn--primary">Nachricht senden</button>
-            <p class="note">Öffnet dein E-Mail-Programm mit vorbereiteter Nachricht.</p>
+            <p class="note form-status" id="formStatus" role="status" aria-live="polite">
+              Deine Angaben werden zur Bearbeitung der Anfrage übermittelt.
+            </p>
           </form>
         </div>
       </div>
@@ -578,19 +644,116 @@
       </div>
     </footer>
 
-    <!-- ===== LEGAL PLACEHOLDERS (für ein deutsches Angebot Pflicht) ===== -->
+    <!-- ===== IMPRESSUM ===== -->
     <section class="legal" id="impressum">
-      <div class="wrap">
-        <span class="placeholder-tag">Platzhalter — bitte ausfüllen</span>
+      <div class="wrap legal-block">
+        <p class="eyebrow">Rechtliches</p>
         <h2>Impressum</h2>
-        <p>Angaben gemäß § 5 DDG / § 18 Abs. 2 MStV: vollständiger Name, ladungsfähige Anschrift, E-Mail und Telefon sowie ggf. Angaben zur Berufsbezeichnung und zuständigen Aufsichtsbehörde. Dieser Abschnitt ist ein Platzhalter und muss vor Veröffentlichung mit den echten Daten befüllt werden.</p>
+
+        <h3>Angaben gemäß § 5 DDG</h3>
+        <address>
+          Bastian Diesslin<br>
+          Breitensteinweg 2<br>
+          83064 Raubling<br>
+          Deutschland
+        </address>
+
+        <h3>Kontakt</h3>
+        <p>
+          Telefon: <a href="tel:+491794194250">+49 179 4194250</a><br>
+          E-Mail: <a href="mailto:B.diesslin@gmail.com">B.diesslin@gmail.com</a>
+        </p>
+
+        <h3>Berufsbezeichnung</h3>
+        <p>Dipl. Humanenergetiker i.A. (in Ausbildung)</p>
+
+        <h3>Verantwortlich für den Inhalt</h3>
+        <address>
+          Bastian Diesslin<br>
+          Breitensteinweg 2<br>
+          83064 Raubling
+        </address>
+
+        <h3>Haftung für Inhalte</h3>
+        <p>Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden.</p>
+
+        <h3>Haftung für Links</h3>
+        <p>Diese Website kann Links zu externen Websites enthalten, auf deren Inhalte kein Einfluss besteht. Für diese fremden Inhalte ist stets der jeweilige Anbieter oder Betreiber verantwortlich.</p>
+
+        <h3>Urheberrecht</h3>
+        <p>Die auf dieser Website erstellten Inhalte und Werke unterliegen dem deutschen Urheberrecht. Jede nicht gesetzlich gestattete Verwertung bedarf der vorherigen schriftlichen Zustimmung des jeweiligen Rechteinhabers.</p>
+
+        <h3>Hinweis zu den angebotenen Leistungen</h3>
+        <p>Die angebotenen energetischen Anwendungen dienen der Entspannung und der Förderung des allgemeinen Wohlbefindens. Sie ersetzen keine ärztliche, psychotherapeutische oder sonstige heilkundliche Diagnose oder Behandlung.</p>
       </div>
     </section>
+
+    <!-- ===== DATENSCHUTZ ===== -->
     <section class="legal" id="datenschutz">
-      <div class="wrap">
-        <span class="placeholder-tag">Platzhalter — bitte ausfüllen</span>
-        <h2>Datenschutz</h2>
-        <p>Datenschutzerklärung nach DSGVO: welche Daten beim Besuch der Seite und über das Kontaktformular verarbeitet werden, Rechtsgrundlagen, Speicherdauer und Betroffenenrechte. Da das Kontaktformular per E-Mail-Programm arbeitet, werden auf der Seite selbst keine Formulardaten gespeichert oder übertragen. Auch dieser Abschnitt ist ein Platzhalter.</p>
+      <div class="wrap legal-block">
+        <p class="eyebrow">Rechtliches</p>
+        <h2>Datenschutzerklärung</h2>
+
+        <h3>1. Verantwortlicher</h3>
+        <address>
+          Bastian Diesslin<br>
+          Breitensteinweg 2<br>
+          83064 Raubling<br>
+          Deutschland<br>
+          Telefon: <a href="tel:+491794194250">+49 179 4194250</a><br>
+          E-Mail: <a href="mailto:B.diesslin@gmail.com">B.diesslin@gmail.com</a>
+        </address>
+
+        <h3>2. Allgemeine Hinweise</h3>
+        <p>Personenbezogene Daten sind alle Informationen, mit denen eine Person direkt oder indirekt identifiziert werden kann. Diese Datenschutzerklärung erläutert, welche Daten beim Besuch dieser Website und bei Nutzung des Kontaktformulars verarbeitet werden.</p>
+
+        <h3>3. Hosting über GitHub Pages</h3>
+        <p>Diese Website wird über GitHub Pages bereitgestellt. Beim Aufruf der Website können technisch erforderliche Verbindungsdaten verarbeitet werden, insbesondere IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Seite, Browsertyp, Betriebssystem und Referrer-URL. Die Verarbeitung erfolgt zur sicheren und stabilen Bereitstellung der Website auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in der zuverlässigen und sicheren Bereitstellung des Internetauftritts.</p>
+        <p>Anbieter ist GitHub, Inc., 88 Colin P Kelly Jr Street, San Francisco, CA 94107, USA. Eine Übermittlung in die USA kann nicht ausgeschlossen werden. Weitere Informationen enthält die Datenschutzerklärung von GitHub: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub-Datenschutzerklärung</a>.</p>
+
+        <h3>4. Kontaktformular</h3>
+        <p>Wenn du das Kontaktformular nutzt, werden folgende Angaben verarbeitet:</p>
+        <ul>
+          <li>Name</li>
+          <li>E-Mail-Adresse</li>
+          <li>freiwillig angegebene Telefonnummer</li>
+          <li>ausgewähltes Angebot</li>
+          <li>Nachricht</li>
+          <li>IP-Adresse</li>
+          <li>Datum und Uhrzeit der Übermittlung</li>
+        </ul>
+        <p>Die Verarbeitung erfolgt zur Bearbeitung deiner Anfrage. Soweit die Anfrage auf den Abschluss oder die Durchführung eines Vertrags gerichtet ist, ist Art. 6 Abs. 1 lit. b DSGVO die Rechtsgrundlage. In allen übrigen Fällen erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse besteht in der Bearbeitung und Dokumentation von Anfragen sowie im Schutz des Formulars vor Missbrauch und Spam.</p>
+        <p>Die IP-Adresse wird zur Missbrauchs- und Spamabwehr gespeichert. Kontaktanfragen werden spätestens zwölf Monate nach Eingang automatisch gelöscht, sofern keine gesetzlichen Aufbewahrungspflichten oder die weitere Bearbeitung der Anfrage eine längere Speicherung erfordern.</p>
+
+        <h3>5. Verarbeitung durch Supabase</h3>
+        <p>Für die Verarbeitung und Speicherung der Kontaktanfragen wird Supabase eingesetzt. Anbieter ist Supabase, Inc., 970 Toa Payoh North #07-04, Singapore 318992. Die Daten werden in einer PostgreSQL-Datenbank gespeichert und über eine Supabase Edge Function verarbeitet. Eine Verarbeitung außerhalb der Europäischen Union beziehungsweise des Europäischen Wirtschaftsraums kann abhängig von der gewählten Projektregion und den eingesetzten Unterauftragnehmern nicht ausgeschlossen werden.</p>
+        <p>Die Verarbeitung erfolgt im Rahmen einer Auftragsverarbeitung. Weitere Informationen: <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Supabase</a> und <a href="https://supabase.com/legal/dpa" target="_blank" rel="noopener noreferrer">Data Processing Addendum von Supabase</a>.</p>
+
+        <h3>6. Reichweitenmessung mit Umami</h3>
+        <p>Diese Website verwendet Umami Cloud zur statistischen Auswertung der Nutzung. Dabei werden insbesondere Seitenaufrufe, Referrer, verwendeter Browser, Betriebssystem, Gerätetyp und ungefähre geografische Angaben verarbeitet. Umami setzt nach Angaben des Anbieters keine Cookies ein, führt kein websiteübergreifendes Tracking durch und erhebt keine unmittelbar personenbezogenen Daten.</p>
+        <p>Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in der datensparsamen Auswertung der Nutzung und der technischen sowie inhaltlichen Verbesserung der Website. Anbieter ist Umami Software, Inc. Weitere Informationen: <a href="https://umami.is/privacy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Umami</a>.</p>
+
+        <h3>7. Google Fonts</h3>
+        <p>Diese Website lädt die Schriftarten „Cormorant Garamond“ und „Montserrat“ von Servern von Google. Beim Aufruf der Website wird dadurch eine Verbindung zu Google-Servern hergestellt. Dabei kann insbesondere die IP-Adresse des verwendeten Geräts an Google übertragen werden. Die Nutzung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in einer einheitlichen und ansprechenden Darstellung der Website.</p>
+        <p>Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Eine Übermittlung an Google LLC in den USA kann nicht ausgeschlossen werden. Weitere Informationen: <a href="https://policies.google.com/privacy?hl=de" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Google</a>.</p>
+
+        <h3>8. Empfänger der Daten</h3>
+        <p>Empfänger personenbezogener Daten können die für Hosting, Datenbankbetrieb, Formularverarbeitung und Reichweitenmessung eingesetzten Dienstleister sein. Eine Weitergabe an andere Dritte erfolgt nur, wenn dies gesetzlich erlaubt oder erforderlich ist.</p>
+
+        <h3>9. Speicherdauer</h3>
+        <p>Personenbezogene Daten werden nur so lange gespeichert, wie es für den jeweiligen Zweck erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen. Kontaktanfragen werden grundsätzlich nach zwölf Monaten gelöscht. Technische Protokoll- und Analysedaten richten sich nach den Speicherfristen der jeweiligen Dienstleister.</p>
+
+        <h3>10. Deine Rechte</h3>
+        <p>Du hast im Rahmen der gesetzlichen Voraussetzungen insbesondere das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch gegen eine Verarbeitung auf Grundlage berechtigter Interessen. Außerdem besteht ein Beschwerderecht bei einer Datenschutzaufsichtsbehörde.</p>
+
+        <h3>11. Widerspruchsrecht</h3>
+        <p>Werden personenbezogene Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO verarbeitet, kannst du aus Gründen, die sich aus deiner besonderen Situation ergeben, jederzeit Widerspruch gegen diese Verarbeitung einlegen.</p>
+
+        <h3>12. SSL- beziehungsweise TLS-Verschlüsselung</h3>
+        <p>Diese Website wird verschlüsselt übertragen. Eine verschlüsselte Verbindung ist an „https://“ und dem Schloss-Symbol im Browser erkennbar.</p>
+
+        <h3>13. Stand</h3>
+        <p>Stand: Juli 2026</p>
       </div>
     </section>
 
@@ -630,18 +793,67 @@
       reveals.forEach(function(el){ io.observe(el); });
     }
 
-    // contact form -> mailto
+    // contact form -> Supabase Edge Function
+    var SUPABASE_FUNCTION_URL =
+      'https://muahhtlggbbcafojswho.supabase.co/functions/v1/contact-request';
+    var SUPABASE_PUBLISHABLE_KEY =
+      'sb_publishable_e7I7mmX1gFZR9mduGmd2-A_CdNcrHcX';
+
     var form = document.getElementById('contactForm');
-    form.addEventListener('submit', function(e){
+    var formStatus = document.getElementById('formStatus');
+    var submitButton = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', async function(e){
       e.preventDefault();
-      var name = document.getElementById('cName').value.trim();
-      var mail = document.getElementById('cMail').value.trim();
-      var msg  = document.getElementById('cMsg').value.trim();
-      if (!name || !msg) { form.reportValidity(); return; }
-      var subject = encodeURIComponent('Anfrage über die Website – ' + name);
-      var lines = msg + '\n\n—\n' + name + (mail ? '\n' + mail : '');
-      var body = encodeURIComponent(lines);
-      window.location.href = 'mailto:B.diesslin@gmail.com?subject=' + subject + '&body=' + body;
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      var payload = {
+        name: document.getElementById('cName').value.trim(),
+        email: document.getElementById('cMail').value.trim(),
+        phone: document.getElementById('cPhone').value.trim(),
+        service: document.getElementById('cService').value,
+        message: document.getElementById('cMsg').value.trim(),
+        website: document.getElementById('cWebsite').value.trim()
+      };
+
+      submitButton.disabled = true;
+      submitButton.textContent = 'Wird gesendet …';
+      formStatus.dataset.state = '';
+      formStatus.textContent = 'Deine Anfrage wird übermittelt …';
+
+      try {
+        var response = await fetch(SUPABASE_FUNCTION_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_PUBLISHABLE_KEY
+          },
+          body: JSON.stringify(payload)
+        });
+
+        var result = await response.json().catch(function(){ return {}; });
+
+        if (!response.ok) {
+          throw new Error(result.error || 'Die Anfrage konnte nicht gespeichert werden.');
+        }
+
+        form.reset();
+        formStatus.dataset.state = 'success';
+        formStatus.textContent =
+          'Vielen Dank. Deine Anfrage wurde erfolgreich übermittelt.';
+      } catch (error) {
+        console.error('Kontaktformular-Fehler:', error);
+        formStatus.dataset.state = 'error';
+        formStatus.textContent =
+          'Die Anfrage konnte nicht gesendet werden. Bitte versuche es erneut oder nutze die angegebene E-Mail-Adresse.';
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Nachricht senden';
+      }
     });
   </script>
 

@@ -2,904 +2,934 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Humanenergie | Bastian Dießlin</title>
-  <meta name="description" content="Humanenergie – Klangarbeit, energetische Begleitung, Atem und Entspannung mit Bastian Dießlin in Raubling.">
-  <meta name="theme-color" content="#dce7ec">
+<title>Bastian Dießlin – Ganzheitliche energetische Begleitung</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="description" content="Bastian Dießlin, Dipl. Humanenergetiker – Klangreisen, Klangmassagen und Chakren-Harmonisierung. Ein Raum für Balance und Regeneration.">
 
-  <style>
-    :root {
-      --blue: #dce7ec;
-      --blue-light: #edf3f5;
-      --blue-mid: #b8cbd4;
-      --blue-dark: #344e5d;
-      --blue-deep: #263d4b;
-      --gold: #b99a60;
-      --gold-light: #d9c69d;
-      --text: #344650;
-      --white: #ffffff;
-      --shadow: 0 12px 35px rgba(38, 61, 75, .09);
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg-0: #101b2a;
+    --bg-1: #192b40;
+    --bg-2: #263d56;
+    --bg-3: #38566e;
+
+    --gold: #d8b45c;
+    --gold-bright: #f4e29a;
+    --gold-mid: #c39a45;
+    --gold-deep: #7a5f2c;
+
+    --cream: #ece4d1;
+    --cream-dim: #c4b99e;
+
+    --line: rgba(216,180,92,.20);
+    --line-soft: rgba(216,180,92,.12);
+
+    --maxw: 1120px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--bg-0);
+    color: var(--cream);
+    font-weight: 300;
+    line-height: 1.8;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button, input, textarea {
+    font: inherit;
+}
+
+.container {
+    width: min(90%, var(--maxw));
+    margin: 0 auto;
+}
+
+.section {
+    padding: 110px 0;
+    position: relative;
+}
+
+.section-label {
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-size: .7rem;
+    margin-bottom: 22px;
+}
+
+.section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--cream);
+    margin-bottom: 28px;
+}
+
+.section-text {
+    color: var(--cream-dim);
+    max-width: 680px;
+    font-size: .9rem;
+    line-height: 2;
+}
+
+/* Hintergrund */
+
+.background-glow {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -2;
+    background:
+        radial-gradient(ellipse at 15% 20%, rgba(56,86,110,.25), transparent 45%),
+        radial-gradient(ellipse at 85% 75%, rgba(38,61,86,.3), transparent 45%),
+        linear-gradient(145deg, var(--bg-0), var(--bg-1) 55%, var(--bg-0));
+}
+
+.geometry {
+    position: fixed;
+    width: 600px;
+    height: 600px;
+    top: 15%;
+    right: -250px;
+    border: 1px solid rgba(216,180,92,.07);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.geometry::before,
+.geometry::after {
+    content: "";
+    position: absolute;
+    inset: 55px;
+    border: 1px solid rgba(216,180,92,.06);
+    border-radius: 50%;
+}
+
+.geometry::after {
+    inset: 110px;
+}
+
+/* Navigation */
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 22px 0;
+    transition: .35s ease;
+}
+
+.nav.scrolled {
+    background: rgba(16,27,42,.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line-soft);
+    padding: 13px 0;
+}
+
+.nav-inner {
+    width: min(92%, 1300px);
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.logo-symbol {
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+}
+
+.logo-name {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--gold-bright);
+    font-size: 1.35rem;
+    letter-spacing: 1px;
+}
+
+.logo-sub {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: .53rem;
+    color: var(--cream-dim);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-links a {
+    font-size: .68rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    transition: color .3s;
+}
+
+.nav-links a:hover {
+    color: var(--gold-bright);
+}
+
+.nav-contact {
+    border: 1px solid var(--gold-mid);
+    padding: 10px 19px;
+    color: var(--gold-bright) !important;
+}
+
+.menu-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--gold);
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+/* Hero */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 150px 0 100px;
+}
+
+.hero-content {
+    max-width: 900px;
+    margin: auto;
+}
+
+.hero-lotus {
+    width: 90px;
+    height: 90px;
+    border: 1px solid var(--gold-mid);
+    border-radius: 50%;
+    margin: 0 auto 38px;
+    display: grid;
+    place-items: center;
+    color: var(--gold-bright);
+    font-size: 3rem;
+    font-family: 'Cormorant Garamond', serif;
+    box-shadow: 0 0 50px rgba(216,180,92,.09);
+}
+
+.hero-kicker {
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-size: .68rem;
+    color: var(--gold);
+    margin-bottom: 24px;
+}
+
+.hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.4rem, 8vw, 6.7rem);
+    font-weight: 400;
+    line-height: .98;
+    color: var(--cream);
+    margin-bottom: 28px;
+}
+
+.hero h1 span {
+    display: block;
+    color: var(--gold-bright);
+    font-style: italic;
+}
+
+.hero-description {
+    max-width: 620px;
+    margin: 0 auto 38px;
+    color: var(--cream-dim);
+    font-size: .9rem;
+    line-height: 2;
+}
+
+.hero-button {
+    display: inline-block;
+    padding: 15px 32px;
+    border: 1px solid var(--gold-mid);
+    color: var(--gold-bright);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: .68rem;
+    transition: .3s;
+}
+
+.hero-button:hover {
+    background: var(--gold);
+    color: var(--bg-0);
+}
+
+/* Trennlinie */
+
+.gold-line {
+    width: 70px;
+    height: 1px;
+    background: var(--gold);
+    margin: 30px auto;
+}
+
+/* Über mich */
+
+.about-grid {
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+    gap: 90px;
+    align-items: center;
+}
+
+.about-emblem {
+    min-height: 420px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--line);
+    background: linear-gradient(145deg, rgba(56,86,110,.22), rgba(16,27,42,.1));
+    position: relative;
+}
+
+.about-emblem::before {
+    content: "";
+    position: absolute;
+    width: 230px;
+    height: 230px;
+    border: 1px solid rgba(216,180,92,.3);
+    border-radius: 50%;
+}
+
+.about-emblem::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border: 1px solid rgba(216,180,92,.2);
+    border-radius: 50%;
+}
+
+.about-emblem span {
+    z-index: 1;
+    color: var(--gold-bright);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 6rem;
+}
+
+.about-copy p {
+    color: var(--cream-dim);
+    margin-bottom: 20px;
+    font-size: .88rem;
+}
+
+/* Angebote */
+
+.services {
+    background: linear-gradient(180deg, transparent, rgba(25,43,64,.45), transparent);
+}
+
+.services-heading {
+    text-align: center;
+    margin-bottom: 65px;
+}
+
+.services-heading .section-text {
+    margin: auto;
+}
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.service-card {
+    padding: 42px 38px;
+    border: 1px solid var(--line);
+    background: linear-gradient(145deg, rgba(38,61,86,.55), rgba(16,27,42,.35));
+    transition: .35s;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(216,180,92,.55);
+    background: linear-gradient(145deg, rgba(56,86,110,.55), rgba(16,27,42,.5));
+}
+
+.service-number {
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.3rem;
+    margin-bottom: 22px;
+}
+
+.service-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 1.8rem;
+    color: var(--gold-bright);
+    margin-bottom: 15px;
+}
+
+.service-card p {
+    color: var(--cream-dim);
+    font-size: .82rem;
+    line-height: 2;
+}
+
+/* Haltung */
+
+.statement {
+    text-align: center;
+    padding: 120px 0;
+}
+
+.statement blockquote {
+    max-width: 850px;
+    margin: auto;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.3rem);
+    line-height: 1.35;
+    color: var(--cream);
+    font-style: italic;
+}
+
+.statement blockquote span {
+    color: var(--gold-bright);
+}
+
+/* Ablauf */
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 35px;
+    margin-top: 60px;
+}
+
+.process-step {
+    border-top: 1px solid var(--gold-mid);
+    padding-top: 25px;
+}
+
+.process-step span {
+    color: var(--gold);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+}
+
+.process-step h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--gold-bright);
+    margin: 14px 0;
+}
+
+.process-step p {
+    color: var(--cream-dim);
+    font-size: .8rem;
+}
+
+/* Kontakt */
+
+.contact {
+    background: linear-gradient(180deg, transparent, rgba(25,43,64,.5));
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap: 65px;
+}
+
+.contact-details {
+    margin-top: 35px;
+}
+
+.contact-item {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line-soft);
+}
+
+.contact-item small {
+    display: block;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: .62rem;
+    margin-bottom: 5px;
+}
+
+.contact-item a,
+.contact-item span {
+    color: var(--cream);
+    font-size: .9rem;
+}
+
+.contact-form {
+    padding: 38px;
+    border: 1px solid var(--line);
+    background: rgba(16,27,42,.45);
+}
+
+.contact-form label {
+    display: block;
+    color: var(--cream-dim);
+    font-size: .7rem;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    background: rgba(38,61,86,.35);
+    border: 1px solid var(--line);
+    color: var(--cream);
+    padding: 13px 15px;
+    margin-bottom: 20px;
+    outline: none;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--gold-mid);
+}
+
+.contact-form textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.contact-form button {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--gold-mid);
+    color: var(--gold-bright);
+    padding: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: .68rem;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.contact-form button:hover {
+    background: var(--gold);
+    color: var(--bg-0);
+}
+
+.form-note {
+    color: var(--cream-dim);
+    font-size: .68rem;
+    margin-top: 14px;
+}
+
+/* Footer */
+
+footer {
+    padding: 45px 0;
+    border-top: 1px solid var(--line-soft);
+    text-align: center;
+}
+
+.footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--gold-bright);
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.footer-links a {
+    font-size: .65rem;
+    color: var(--cream-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-copy {
+    color: rgba(196,185,158,.55);
+    font-size: .65rem;
+}
+
+/* Rechtliches */
+
+.legal-section {
+    padding: 70px 0;
+    border-top: 1px solid var(--line-soft);
+}
+
+.legal-section h2 {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--gold-bright);
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.legal-section p {
+    color: var(--cream-dim);
+    font-size: .78rem;
+    margin-bottom: 12px;
+}
+
+/* Animation */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity .8s ease, transform .8s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Mobile */
+
+@media (max-width: 800px) {
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 25px;
+        background: rgba(25,43,64,.97);
+        border-bottom: 1px solid var(--line);
+        flex-direction: column;
+        gap: 22px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    .nav-links.open {
+        display: flex;
     }
 
-    html {
-      scroll-behavior: smooth;
+    .menu-toggle {
+        display: block;
     }
 
-    body {
-      background: var(--blue-light);
-      color: var(--text);
-      font-family: 'Montserrat', sans-serif;
-      font-size: 15px;
-      line-height: 1.8;
+    .about-grid,
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button, input, textarea, select {
-      font: inherit;
-    }
-
-    .serif {
-      font-family: 'Cormorant Garamond', serif;
-    }
-
-    .gold {
-      color: var(--gold);
-    }
-
-    .container {
-      width: min(1120px, 90%);
-      margin: 0 auto;
-    }
-
-    /* Navigation */
-
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(237, 243, 245, .94);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(185, 154, 96, .25);
-    }
-
-    .nav {
-      min-height: 78px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 25px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--blue-deep);
-    }
-
-    .brand-icon {
-      width: 43px;
-      height: 43px;
-    }
-
-    .brand-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 27px;
-      letter-spacing: 2px;
-      line-height: 1;
-    }
-
-    .brand-sub {
-      display: block;
-      color: var(--gold);
-      font-size: 9px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-top: 5px;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      gap: 28px;
-    }
-
-    nav a {
-      font-size: 11px;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: var(--blue-dark);
-      transition: color .2s;
-    }
-
-    nav a:hover {
-      color: var(--gold);
-    }
-
-    .menu-button {
-      display: none;
-      border: 1px solid var(--gold);
-      background: transparent;
-      color: var(--blue-deep);
-      padding: 7px 12px;
-      cursor: pointer;
-    }
-
-    /* Buttons */
-
-    .button {
-      display: inline-block;
-      padding: 13px 27px;
-      border: 1px solid var(--gold);
-      background: var(--gold);
-      color: white;
-      font-size: 11px;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      transition: .25s;
-      cursor: pointer;
-    }
-
-    .button:hover {
-      background: transparent;
-      color: var(--blue-deep);
-    }
-
-    .button-outline {
-      background: transparent;
-      color: var(--blue-deep);
-    }
-
-    .button-outline:hover {
-      background: var(--gold);
-      color: white;
-    }
-
-    /* Hero */
-
-    .hero {
-      min-height: 660px;
-      display: flex;
-      align-items: center;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-      background:
-        radial-gradient(ellipse at 50% 45%, rgba(255,255,255,.85), transparent 60%),
-        linear-gradient(135deg, #eaf1f4, #cbdce3);
-      border-bottom: 1px solid rgba(185,154,96,.3);
-    }
-
-    .hero::before,
-    .hero::after {
-      content: "";
-      position: absolute;
-      width: 350px;
-      height: 350px;
-      border: 1px solid rgba(185,154,96,.18);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .hero::before {
-      top: -210px;
-      left: -150px;
-    }
-
-    .hero::after {
-      bottom: -240px;
-      right: -150px;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 1;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 80px 0;
-    }
-
-    .hero-lotus {
-      width: 105px;
-      height: 105px;
-      margin: 0 auto 25px;
-      color: var(--gold);
-    }
-
-    .eyebrow {
-      color: var(--gold);
-      font-size: 11px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-    }
-
-    h1 {
-      color: var(--blue-deep);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(48px, 8vw, 82px);
-      font-weight: 400;
-      line-height: 1.05;
-      letter-spacing: 2px;
-    }
-
-    .hero h2 {
-      color: var(--blue-dark);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(23px, 4vw, 34px);
-      font-weight: 400;
-      margin: 17px 0;
-    }
-
-    .hero p {
-      max-width: 590px;
-      margin: 20px auto 32px;
-      color: #526772;
-      font-weight: 300;
-    }
-
-    .hero-line {
-      width: 75px;
-      height: 1px;
-      background: var(--gold);
-      margin: 25px auto;
-    }
-
-    /* General sections */
-
-    section {
-      padding: 100px 0;
-    }
-
-    .section-heading {
-      text-align: center;
-      max-width: 720px;
-      margin: 0 auto 55px;
-    }
-
-    .section-heading h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(38px, 5vw, 54px);
-      color: var(--blue-deep);
-      font-weight: 400;
-      line-height: 1.15;
-    }
-
-    .section-heading p {
-      margin-top: 15px;
-      color: #667984;
-      font-weight: 300;
-    }
-
-    .small-line {
-      width: 55px;
-      height: 1px;
-      background: var(--gold);
-      margin: 20px auto;
-    }
-
-    /* About */
-
-    .about {
-      background: var(--white);
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 70px;
-      align-items: center;
-    }
-
-    .about-mark {
-      min-height: 380px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(145deg, #e5eef1, #c8d9e0);
-      border: 1px solid rgba(185,154,96,.45);
-      position: relative;
-    }
-
-    .about-mark::before {
-      content: "";
-      position: absolute;
-      inset: 18px;
-      border: 1px solid rgba(185,154,96,.45);
-    }
-
-    .about-mark svg {
-      width: 150px;
-      height: 150px;
-      color: var(--gold);
-      position: relative;
-    }
-
-    .about-text h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 48px;
-      font-weight: 400;
-      color: var(--blue-deep);
-      line-height: 1.1;
-      margin-bottom: 22px;
-    }
-
-    .about-text p {
-      margin-bottom: 16px;
-      color: #61737c;
-      font-weight: 300;
-    }
-
-    .signature {
-      margin-top: 25px;
-      color: var(--gold);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 27px;
-    }
-
-    /* Services */
-
-    .services {
-      background: var(--blue);
+    .about-emblem {
+        min-height: 280px;
     }
 
     .service-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .service-card {
-      background: rgba(255,255,255,.72);
-      padding: 38px 28px;
-      border: 1px solid rgba(185,154,96,.35);
-      text-align: center;
-      transition: transform .25s, box-shadow .25s;
-    }
-
-    .service-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow);
-    }
-
-    .service-icon {
-      width: 55px;
-      height: 55px;
-      margin: 0 auto 20px;
-      color: var(--gold);
-    }
-
-    .service-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 29px;
-      font-weight: 500;
-      color: var(--blue-deep);
-      margin-bottom: 15px;
-      line-height: 1.2;
-    }
-
-    .service-card p {
-      color: #647780;
-      font-size: 13px;
-      font-weight: 300;
-    }
-
-    .service-card ul {
-      list-style: none;
-      margin-top: 18px;
-      color: #526772;
-      font-size: 12px;
-    }
-
-    .service-card li {
-      padding: 5px 0;
-      border-top: 1px solid rgba(185,154,96,.18);
-    }
-
-    /* Philosophy */
-
-    .philosophy {
-      background: var(--blue-deep);
-      color: white;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .philosophy .section-heading h2 {
-      color: white;
-    }
-
-    .philosophy .section-heading p {
-      color: #d0dce1;
-    }
-
-    .philosophy-text {
-      max-width: 760px;
-      margin: auto;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(25px, 4vw, 36px);
-      line-height: 1.5;
-      color: #e9e1d0;
-    }
-
-    /* Process */
-
-    .process {
-      background: var(--white);
+        grid-template-columns: 1fr;
     }
 
     .process-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      text-align: center;
+        grid-template-columns: 1fr;
+        gap: 30px;
     }
 
-    .process-number {
-      width: 48px;
-      height: 48px;
-      margin: 0 auto 18px;
-      border: 1px solid var(--gold);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--gold);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
-    }
-
-    .process-grid h3 {
-      color: var(--blue-deep);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 27px;
-      font-weight: 500;
-      margin-bottom: 10px;
-    }
-
-    .process-grid p {
-      color: #6b7d85;
-      font-size: 13px;
-      font-weight: 300;
-    }
-
-    /* Contact */
-
-    .contact {
-      background: linear-gradient(135deg, #dce7ec, #edf3f5);
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 55px;
-      align-items: start;
-    }
-
-    .contact-info h2 {
-      color: var(--blue-deep);
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 48px;
-      font-weight: 400;
-      line-height: 1.1;
-      margin-bottom: 20px;
-    }
-
-    .contact-info p {
-      color: #60737d;
-      font-weight: 300;
-      margin-bottom: 25px;
-    }
-
-    .contact-item {
-      display: flex;
-      gap: 15px;
-      align-items: center;
-      padding: 15px 0;
-      border-bottom: 1px solid rgba(185,154,96,.3);
-    }
-
-    .contact-item strong {
-      display: block;
-      color: var(--blue-deep);
-      font-size: 12px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    .contact-item span,
-    .contact-item a {
-      color: #637780;
-      font-size: 13px;
-    }
-
-    .contact-symbol {
-      color: var(--gold);
-      font-size: 22px;
-      width: 30px;
-      text-align: center;
-    }
-
-    .contact-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 25px;
+    .section {
+        padding: 80px 0;
     }
 
     .contact-form {
-      background: rgba(255,255,255,.8);
-      border: 1px solid rgba(185,154,96,.4);
-      padding: 35px;
-      box-shadow: var(--shadow);
-    }
-
-    .contact-form h3 {
-      font-family: 'Cormorant Garamond', serif;
-      color: var(--blue-deep);
-      font-size: 32px;
-      font-weight: 500;
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 16px;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: var(--blue-dark);
-      margin-bottom: 6px;
-    }
-
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #c8d6dc;
-      background: white;
-      color: var(--text);
-      outline: none;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-      border-color: var(--gold);
-    }
-
-    .form-group textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .form-note {
-      color: #71828a;
-      font-size: 10px;
-      margin-top: 12px;
-    }
-
-    /* Footer */
-
-    footer {
-      background: var(--blue-deep);
-      color: #d6e0e4;
-      padding: 40px 0;
-      text-align: center;
-    }
-
-    .footer-brand {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 30px;
-      letter-spacing: 2px;
-      color: white;
-    }
-
-    footer p {
-      font-size: 11px;
-      color: #b7c7ce;
-      margin-top: 8px;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 22px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
-
-    .footer-links a {
-      color: var(--gold-light);
-      font-size: 11px;
-    }
-
-    .footer-links a:hover {
-      color: white;
-    }
-
-    /* Legal sections */
-
-    .legal {
-      background: #f7f9fa;
-      padding: 55px 0;
-    }
-
-    .legal h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 34px;
-      font-weight: 500;
-      color: var(--blue-deep);
-      margin-bottom: 15px;
-    }
-
-    .legal h3 {
-      color: var(--blue-dark);
-      font-size: 15px;
-      margin: 22px 0 8px;
-    }
-
-    .legal p {
-      color: #657780;
-      font-size: 12px;
-      margin-bottom: 10px;
-    }
-
-    /* Mobile */
-
-    @media (max-width: 800px) {
-      .menu-button {
-        display: block;
-      }
-
-      nav {
-        display: none;
-        position: absolute;
-        top: 78px;
-        left: 0;
-        right: 0;
-        background: var(--blue-light);
         padding: 25px;
-        flex-direction: column;
-        gap: 18px;
-        border-bottom: 1px solid var(--gold);
-      }
-
-      nav.open {
-        display: flex;
-      }
-
-      .about-grid,
-      .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 35px;
-      }
-
-      .service-grid,
-      .process-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero {
-        min-height: 580px;
-      }
-
-      section {
-        padding: 75px 0;
-      }
-
-      .about-mark {
-        min-height: 280px;
-      }
     }
+}
 
-    @media (max-width: 480px) {
-      .brand-name {
-        font-size: 23px;
-      }
-
-      .hero-content {
-        padding: 65px 0;
-      }
-
-      .contact-form {
-        padding: 25px 20px;
-      }
-
-      .contact-info h2,
-      .about-text h2 {
-        font-size: 40px;
-      }
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
     }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
-  <!-- Navigation -->
-  <header>
-    <div class="container nav">
+<div class="background-glow"></div>
+<div class="geometry"></div>
 
-      <a href="#start" class="brand">
-        <svg class="brand-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
-          <path d="M50 82 C20 65 22 37 50 13 C78 37 80 65 50 82Z"/>
-          <path d="M50 82 C32 56 37 34 50 13 C63 34 68 56 50 82Z"/>
-          <path d="M20 72 C28 47 43 44 50 82 C57 44 72 47 80 72"/>
-          <path d="M12 83 Q50 70 88 83"/>
-        </svg>
-        <span>
-          <span class="brand-name">HUMANENERGIE</span>
-          <span class="brand-sub">Bewusstsein · Klang · Balance</span>
-        </span>
-      </a>
+<nav class="nav" id="navbar">
+    <div class="nav-inner">
 
-      <button class="menu-button" id="menuButton" aria-label="Menü öffnen">
-        Menü
-      </button>
+        <a href="#start" class="logo">
+            <div class="logo-symbol">✧</div>
+            <div>
+                <div class="logo-name">Bastian Dießlin</div>
+                <span class="logo-sub">Humanenergetik</span>
+            </div>
+        </a>
 
-      <nav id="mainNav">
-        <a href="#start">Start</a>
-        <a href="#ueber-mich">Über mich</a>
-        <a href="#angebote">Angebote</a>
-        <a href="#ablauf">Ablauf</a>
-        <a href="#kontakt">Kontakt</a>
-      </nav>
+        <button class="menu-toggle" id="menuToggle" aria-label="Menü öffnen">
+            Menü
+        </button>
+
+        <div class="nav-links" id="navLinks">
+            <a href="#ueber-mich">Über mich</a>
+            <a href="#angebote">Angebote</a>
+            <a href="#ablauf">Ablauf</a>
+            <a href="#kontakt" class="nav-contact">Kontakt</a>
+        </div>
 
     </div>
-  </header>
+</nav>
 
-  <main>
+<main>
 
-    <!-- Hero -->
-    <section class="hero" id="start">
-      <div class="container hero-content">
+<section class="hero" id="start">
+    <div class="container hero-content reveal">
 
-        <svg class="hero-lotus" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2">
-          <path d="M50 88 C17 69 20 37 50 10 C80 37 83 69 50 88Z"/>
-          <path d="M50 88 C30 59 37 31 50 10 C63 31 70 59 50 88Z"/>
-          <path d="M18 76 C27 49 43 47 50 88 C57 47 73 49 82 76"/>
-          <path d="M10 88 Q50 73 90 88"/>
-          <path d="M28 91 Q50 83 72 91"/>
-        </svg>
+        <div class="hero-lotus">✿</div>
 
-        <div class="eyebrow">Ein Raum für Ruhe und Balance</div>
+        <div class="hero-kicker">
+            Klang · Energie · Bewusstsein
+        </div>
 
-        <h1>Humanenergie</h1>
+        <h1>
+            Raum für
+            <span>innere Balance</span>
+        </h1>
 
-        <div class="hero-line"></div>
-
-        <h2>Klang · Bewusstsein · innere Balance</h2>
-
-        <p>
-          Zeit für dich. Zeit zum Innehalten.
-          Entdecke Klang, bewusste Atmung und energetische Begleitung
-          als Möglichkeit, wieder mehr bei dir selbst anzukommen.
+        <p class="hero-description">
+            Ein bewusster Moment zum Innehalten, Loslassen und Zurückfinden
+            zur eigenen Mitte. Mit Klang, achtsamer Begleitung und
+            energetischen Impulsen.
         </p>
 
-        <a href="#angebote" class="button">Angebote entdecken</a>
-        <a href="#kontakt" class="button button-outline">Kontakt aufnehmen</a>
+        <a href="#angebote" class="hero-button">
+            Angebote entdecken
+        </a>
 
-      </div>
-    </section>
+    </div>
+</section>
 
-    <!-- About -->
-    <section class="about" id="ueber-mich">
-      <div class="container about-grid">
+<section class="section" id="ueber-mich">
+    <div class="container about-grid">
 
-        <div class="about-mark">
-          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.1">
-            <circle cx="50" cy="50" r="43"/>
-            <circle cx="50" cy="50" r="35"/>
-            <path d="M50 82 C20 65 22 37 50 13 C78 37 80 65 50 82Z"/>
-            <path d="M50 82 C32 56 37 34 50 13 C63 34 68 56 50 82Z"/>
-            <path d="M20 72 C28 47 43 44 50 82 C57 44 72 47 80 72"/>
-          </svg>
+        <div class="about-emblem reveal">
+            <span>✿</span>
         </div>
 
-        <div class="about-text">
-          <div class="eyebrow">Über mich</div>
-          <h2>Ein Moment nur für dich.</h2>
+        <div class="about-copy reveal">
+            <div class="section-label">Über mich</div>
 
-          <p>
-            Ich bin Bastian Dießlin. Mit Humanenergie möchte ich einen
-            bewussten Raum schaffen, in dem Entspannung, Wahrnehmung
-            und persönliche Entwicklung im Mittelpunkt stehen.
-          </p>
+            <h2 class="section-title">
+                Bewusst begleiten.<br>
+                Raum entstehen lassen.
+            </h2>
 
-          <p>
-            Meine Arbeit verbindet Klang, Schwingung, Atem und
-            energetische Methoden. Dabei steht nicht ein festes
-            Konzept im Vordergrund, sondern der Mensch mit seinen
-            individuellen Bedürfnissen.
-          </p>
+            <p>
+                Mein Name ist Bastian Dießlin. Als Dipl. Humanenergetiker
+                widme ich mich der bewussten Begleitung von Menschen
+                auf ihrem Weg zu mehr innerer Ausgeglichenheit.
+            </p>
 
-          <p>
-            In einer ruhigen Atmosphäre darfst du Abstand vom Alltag
-            gewinnen und dich ganz auf deine eigene Wahrnehmung
-            konzentrieren.
-          </p>
+            <p>
+                Im Mittelpunkt meiner Arbeit stehen Achtsamkeit,
+                Klang und die Wahrnehmung des eigenen Körpers.
+                Dabei geht es nicht darum, etwas zu erzwingen,
+                sondern einen geschützten Raum für Ruhe und
+                persönliche Erfahrungen zu schaffen.
+            </p>
 
-          <div class="signature">Bastian Dießlin</div>
-          <p>Dipl. Humanenergetiker</p>
+            <p>
+                Jeder Mensch bringt seine eigene Geschichte,
+                seine Bedürfnisse und seinen eigenen Rhythmus mit.
+                Dem begegne ich mit Offenheit und Respekt.
+            </p>
         </div>
 
-      </div>
-    </section>
+    </div>
+</section>
 
-    <!-- Services -->
-    <section class="services" id="angebote">
-      <div class="container">
+<section class="section services" id="angebote">
+    <div class="container">
 
-        <div class="section-heading">
-          <div class="eyebrow">Meine Angebote</div>
-          <h2>Wege zu mehr innerer Balance</h2>
-          <div class="small-line"></div>
-          <p>
-            Unterschiedliche Zugänge – verbunden durch Zeit,
-            Aufmerksamkeit und bewusste Wahrnehmung.
-          </p>
+        <div class="services-heading reveal">
+            <div class="section-label">Meine Angebote</div>
+
+            <h2 class="section-title">
+                Zeit für dich
+            </h2>
+
+            <p class="section-text">
+                Unterschiedliche Zugänge, ein gemeinsamer Gedanke:
+                bewusst innehalten und sich selbst wieder mehr
+                Aufmerksamkeit schenken.
+            </p>
         </div>
 
         <div class="service-grid">
 
-          <article class="service-card">
-            <svg class="service-icon" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.3">
-              <circle cx="30" cy="30" r="23"/>
-              <path d="M30 9 C17 24 18 37 30 49 C42 37 43 24 30 9Z"/>
-              <path d="M30 49 C23 32 25 20 30 9 C35 20 37 32 30 49Z"/>
-            </svg>
-            <h3>Energetische Arbeit</h3>
-            <p>
-              Achtsame Begleitung und bewusste Körperwahrnehmung
-              mit ausgewählten energetischen Methoden.
-            </p>
-            <ul>
-              <li>Kinesiologische Begleitung</li>
-              <li>Chakren-Harmonisierung</li>
-              <li>Meridianarbeit und Meridianziehen</li>
-            </ul>
-          </article>
+            <article class="service-card reveal">
+                <div class="service-number">01</div>
+                <h3>Klangreisen</h3>
+                <p>
+                    Eine geführte Auszeit mit ausgewählten Klängen
+                    und Schwingungen. Du darfst zur Ruhe kommen,
+                    wahrnehmen und dich ganz auf den Moment einlassen.
+                </p>
+            </article>
 
-          <article class="service-card">
-            <svg class="service-icon" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.3">
-              <circle cx="30" cy="30" r="5"/>
-              <path d="M30 5 C43 15 43 23 30 30 C17 23 17 15 30 5Z"/>
-              <path d="M30 55 C17 45 17 37 30 30 C43 37 43 45 30 55Z"/>
-              <path d="M5 30 C15 17 23 17 30 30 C23 43 15 43 5 30Z"/>
-              <path d="M55 30 C45 43 37 43 30 30 C37 17 45 17 55 30Z"/>
-            </svg>
-            <h3>Klang & Schwingung</h3>
-            <p>
-              Klang und Schwingung bewusst erleben und sich
-              eine Auszeit vom Alltag schenken.
-            </p>
-            <ul>
-              <li>Klangmassagen</li>
-              <li>Stressabbau mit Stimmgabeln</li>
-              <li>Klangreisen</li>
-            </ul>
-          </article>
+            <article class="service-card reveal">
+                <div class="service-number">02</div>
+                <h3>Klangmassagen</h3>
+                <p>
+                    Klangschalen und weitere Klanginstrumente werden
+                    achtsam eingesetzt. Die Anwendung lädt dazu ein,
+                    den Alltag loszulassen und den eigenen Körper
+                    bewusster wahrzunehmen.
+                </p>
+            </article>
 
-          <article class="service-card">
-          
+            <article class="service-card reveal">
+                <div class="service-number">03</div>
+                <h3>Chakren-Harmonisierung</h3>
+                <p>
+                    Eine energetische Anwendung, bei der die
+                    Aufmerksamkeit auf die sieben Chakren und
+                    das persönliche Empfinden gelenkt wird.
+                </p>
+            </article>
+
+            <article class="service-card reveal">
+                <div class="service-number">04</div>
+                <h3>Kinesiologischer Muskeltest</h3>
+                <p>
+                    Ein begleitendes Verfahren zur bewussten
+                    Auseinandersetzung mit individuellen Themen
+                    und möglichen energetischen Stressreaktionen.
+                </p>
+            </article>
+
+        </div>
+    </div>
+</section>
+
+<section class="statement">
+    <div class="container reveal">
+        <div class="section-label">Ein Gedanke</div>
+
+        <blockquote>
+            Manchmal beginnt Veränderung nicht damit,
+            etwas zu tun – sondern damit,
+            sich selbst wieder <span>wahrzunehmen.</span>
+        </blockquote>
+
+        <div class="gold-line"></div>
+    </div>
+</section>
+
+<section class="section" id="ablauf">
+    <div class="container">
+
+        <div class="reveal">
+            <div class="section-label">Deine Auszeit</div>
+
+            <h2 class="section-title">
+                In deinem eigenen Rhythmus
+            </h2>
+
+            <p class="section-text">
+                Jede Begleitung orientiert sich an deinen persönlichen
+                Bedürfnissen. Wir nehmen uns Zeit und gestalten
+                die Anwendung in einer angenehmen Atmosphäre.
+            </p>
+        </div>
+
+        <div class="process-grid">
+
+            <div class="process-step reveal">
+                <span>01</span>
+                <h3>Ankommen</h3>
+                <p>
+                    Wir nehmen uns Zeit für ein persönliches Gespräch
+                    und klären, was dich gerade beschäftigt und
+                    was du dir von der Anwendung wünschst.
+                </p>
+            </div>
+
+            <div class="process-step reveal">
+                <span>02</span>
+                <h3>Wahrnehmen</h3>
+                <p>
+                    Die Anwendung wird auf deine Bedürfnisse
+                    abgestimmt. Du kannst jederzeit Rückmeldung
+                    geben oder eine Pause einlegen.
+                </p>
+            </div>
+
+            <div class="process-step reveal">
+                <span>03</span>
+                <h3>Nachspüren</h3>
+                <p>
+                    Im Anschluss lassen wir Raum für deine
+                    Eindrücke und Erfahrungen. Ohne Zeitdruck
+                    und ohne Erwartungen.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="section contact" id="kontakt">
+    <div class="container contact-grid">
+
+        <div 

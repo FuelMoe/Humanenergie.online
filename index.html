@@ -1,861 +1,905 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bastian Dießlin — Ganzheitliche energetische Begleitung</title>
-<meta name="description" content="Bastian Dießlin, Dipl. Humanenergetiker  — Klangreisen, Klangmassagen und Chakren-Harmonisierung. Ein Raum für Balance und Regeneration.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg-0:#0c0718;
-    --bg-1:#160c28;
-    --bg-2:#20143b;
-    --bg-3:#33204f;
-    --gold:#d8b45c;
-    --gold-bright:#f4e29a;
-    --gold-mid:#c39a45;
-    --gold-deep:#7a5f2c;
-    --cream:#ece4d1;
-    --cream-dim:#c4b99e;
-    --line:rgba(216,180,92,.20);
-    --line-soft:rgba(216,180,92,.12);
-    --maxw:1120px;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  *{ box-sizing:border-box; }
+  <title>Humanenergie | Bastian Dießlin</title>
+  <meta name="description" content="Humanenergie – Klangarbeit, energetische Begleitung, Atem und Entspannung mit Bastian Dießlin in Raubling.">
+  <meta name="theme-color" content="#dce7ec">
 
-  html{
-    scroll-behavior:smooth;
-    scroll-padding-top:84px;
-  }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-  body{
-    margin:0;
-    font-family:'Montserrat','Segoe UI',system-ui,sans-serif;
-    font-weight:300;
-    color:var(--cream);
-    background:var(--bg-0);
-    line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
-    overflow-x:hidden;
-  }
-
-  /* ===== persistent sacred-geometry field ===== */
-  .ambient{
-    position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
-    background:
-      radial-gradient(120% 70% at 82% -6%, var(--bg-3) 0%, rgba(51,32,79,0) 46%),
-      radial-gradient(140% 110% at 30% 8%,  var(--bg-2) 0%, var(--bg-1) 46%, var(--bg-0) 78%);
-  }
-  .ambient .glow{
-    position:absolute; border-radius:50%;
-    background:radial-gradient(circle, rgba(247,205,106,.16) 0%, rgba(247,205,106,0) 70%);
-    filter:blur(6px);
-  }
-  .glow--a{ width:52vw; height:52vw; top:-14vw; left:-12vw; }
-  .glow--b{ width:44vw; height:44vw; bottom:-16vw; right:-10vw; background:radial-gradient(circle, rgba(247,205,106,.20) 0%, rgba(247,205,106,0) 70%); }
-  .ambient .fol{
-    position:absolute; top:-9vw; right:-7vw; width:44vw; min-width:340px; aspect-ratio:1/1;
-    color:var(--gold-deep); opacity:.42;
-    -webkit-mask-image:radial-gradient(circle at 62% 38%, #000 26%, transparent 72%);
-            mask-image:radial-gradient(circle at 62% 38%, #000 26%, transparent 72%);
-  }
-  .fol circle{ fill:none; stroke:currentColor; stroke-width:.6; }
-
-  .page{ position:relative; z-index:1; }
-
-  /* ===== nav ===== */
-  .nav{
-    position:fixed; top:0; left:0; right:0; z-index:50;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:14px clamp(20px,5vw,40px);
-    transition:background .35s ease, box-shadow .35s ease, backdrop-filter .35s ease;
-  }
-  .nav.scrolled{
-    background:rgba(12,7,24,.82);
-    backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
-    box-shadow:0 1px 0 var(--line-soft);
-  }
-  .brand{ display:flex; align-items:center; gap:11px; text-decoration:none; color:var(--gold); }
-  .brand svg{ width:30px; height:30px; flex:none; }
-  .brand svg path{ fill:none; stroke:currentColor; stroke-width:2.4; stroke-linejoin:round; stroke-linecap:round; }
-  .brand b{
-    font-family:'Cormorant Garamond',Georgia,serif; font-weight:600;
-    font-size:1.32rem; letter-spacing:.02em; color:var(--gold-bright);
-  }
-
-  .nav-links{ display:flex; align-items:center; gap:clamp(18px,3vw,38px); }
-  .nav-links a{
-    color:var(--cream-dim); text-decoration:none;
-    font-size:.82rem; letter-spacing:.16em; text-transform:uppercase;
-    transition:color .25s ease; position:relative; padding:4px 0;
-  }
-  .nav-links a:not(.nav-cta)::after{
-    content:""; position:absolute; left:0; right:100%; bottom:-2px; height:1px;
-    background:var(--gold); transition:right .3s ease;
-  }
-  .nav-links a:not(.nav-cta):hover{ color:var(--gold-bright); }
-  .nav-links a:not(.nav-cta):hover::after{ right:0; }
-  .nav-cta{
-    border:1px solid var(--gold); border-radius:999px;
-    padding:9px 20px; color:var(--gold-bright);
-    transition:background .3s ease, color .3s ease;
-  }
-  .nav-cta:hover{ background:var(--gold); color:var(--bg-0); }
-
-  .nav-toggle{
-    display:none; background:none; border:0; cursor:pointer; padding:8px;
-    flex-direction:column; gap:5px;
-  }
-  .nav-toggle span{ width:24px; height:2px; background:var(--gold); border-radius:2px; transition:transform .3s ease, opacity .3s ease; }
-
-  /* ===== layout helpers ===== */
-  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 clamp(20px,5vw,40px); }
-  section{ padding:clamp(72px,11vw,132px) 0; }
-
-  .eyebrow{
-    font-size:.76rem; letter-spacing:.34em; text-transform:uppercase;
-    color:var(--gold); font-weight:400; margin:0 0 18px;
-  }
-  h2.section-title{
-    font-family:'Cormorant Garamond',Georgia,serif; font-weight:500;
-    font-size:clamp(1.95rem,4.4vw,3rem); line-height:1.1;
-    color:var(--cream); margin:0 0 clamp(28px,4vw,48px);
-  }
-
-  .btn{
-    display:inline-flex; align-items:center; gap:10px;
-    font-family:'Montserrat',sans-serif; font-weight:500;
-    font-size:.8rem; letter-spacing:.14em; text-transform:uppercase;
-    padding:15px 30px; border-radius:999px; text-decoration:none; cursor:pointer;
-    border:1px solid transparent; transition:transform .25s ease, box-shadow .3s ease, background .3s ease, color .3s ease;
-  }
-  .btn--primary{
-    background:linear-gradient(135deg,var(--gold-bright),var(--gold-mid));
-    color:#231708; box-shadow:0 10px 30px -12px rgba(216,180,92,.6);
-  }
-  .btn--primary:hover{ transform:translateY(-2px); box-shadow:0 16px 40px -12px rgba(216,180,92,.75); }
-  .btn--ghost{ border-color:var(--line); color:var(--gold-bright); }
-  .btn--ghost:hover{ border-color:var(--gold); background:rgba(216,180,92,.08); transform:translateY(-2px); }
-  .btn:focus-visible{ outline:2px solid var(--gold-bright); outline-offset:3px; }
-
-  /* ===== hero ===== */
-  .hero{
-    min-height:100svh; display:flex; flex-direction:column;
-    align-items:center; justify-content:center; text-align:center;
-    padding-top:96px; padding-bottom:64px; position:relative;
-  }
-  .hero .lotus{
-    width:clamp(78px,12vw,116px); color:var(--gold); margin-bottom:22px;
-    filter:drop-shadow(0 0 14px rgba(216,180,92,.3));
-  }
-  .hero .lotus path{ fill:none; stroke:currentColor; stroke-width:2.2; stroke-linejoin:round; stroke-linecap:round; }
-  .hero-name{
-    font-family:'Cormorant Garamond',Georgia,serif; font-weight:600;
-    font-size:clamp(3rem,8.6vw,6rem); line-height:.98; letter-spacing:.01em; margin:0;
-    background:linear-gradient(180deg,var(--gold-bright) 0%,var(--gold) 48%,var(--gold-mid) 100%);
-    -webkit-background-clip:text; background-clip:text;
-    -webkit-text-fill-color:transparent; color:transparent;
-    filter:drop-shadow(0 2px 14px rgba(216,180,92,.22));
-  }
-  .hero-credential{
-    font-family:'Cormorant Garamond',Georgia,serif; font-weight:500;
-    font-size:clamp(1.15rem,3vw,1.7rem); letter-spacing:.05em; color:var(--gold);
-    margin:10px 0 0;
-  }
-  .hero-divider{
-    width:min(60%,300px); height:1px; margin:clamp(24px,4vw,38px) 0;
-    background:linear-gradient(90deg,transparent,rgba(216,180,92,.55),transparent);
-  }
-  .hero-tagline{
-    font-family:'Cormorant Garamond',Georgia,serif; font-weight:500;
-    font-size:clamp(1.5rem,3.6vw,2.5rem); line-height:1.18; color:var(--cream);
-    margin:0; max-width:16ch;
-  }
-  .hero-sub{
-    font-size:.82rem; letter-spacing:.32em; text-transform:uppercase;
-    color:var(--gold); margin:18px 0 0;
-  }
-  .hero-cta{ display:flex; flex-wrap:wrap; gap:16px; justify-content:center; margin-top:clamp(34px,5vw,52px); }
-
-  .scroll-cue{
-    position:absolute; bottom:26px; left:50%; transform:translateX(-50%);
-    display:flex; flex-direction:column; align-items:center; gap:8px;
-    color:var(--gold-mid); font-size:.62rem; letter-spacing:.28em; text-transform:uppercase;
-  }
-  .scroll-cue span{ width:1px; height:34px; background:linear-gradient(180deg,var(--gold),transparent); animation:cue 2.4s ease-in-out infinite; }
-  @keyframes cue{ 0%,100%{ transform:scaleY(.4); opacity:.4; transform-origin:top; } 50%{ transform:scaleY(1); opacity:1; transform-origin:top; } }
-
-  /* ===== philosophy ===== */
-  .statement{ text-align:center; }
-  .statement .lead{
-    font-family:'Cormorant Garamond',Georgia,serif; font-weight:500;
-    font-size:clamp(1.5rem,3.4vw,2.35rem); line-height:1.35; color:var(--cream);
-    margin:0 auto 26px; max-width:20ch;
-  }
-  .statement p.body{
-    max-width:60ch; margin:0 auto; color:var(--cream-dim);
-    font-size:clamp(1rem,1.6vw,1.08rem);
-  }
-  .statement .mini-lotus{ width:34px; color:var(--gold); opacity:.85; margin:0 auto 26px; display:block; }
-  .statement .mini-lotus path{ fill:none; stroke:currentColor; stroke-width:2.4; stroke-linejoin:round; stroke-linecap:round; }
-
-  /* ===== services ===== */
-  #angebote{ border-top:1px solid var(--line-soft); }
-  .services{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(18px,2.4vw,28px); }
-  .card{
-    position:relative; padding:clamp(28px,3vw,40px) clamp(24px,2.6vw,34px);
-    border:1px solid var(--line); border-radius:18px;
-    background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
-    transition:transform .35s ease, border-color .35s ease, box-shadow .35s ease;
-    overflow:hidden;
-  }
-  .card::before{
-    content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
-    background:radial-gradient(120% 80% at 50% -10%, rgba(216,180,92,.10), transparent 60%);
-    opacity:0; transition:opacity .35s ease;
-  }
-  .card:hover{ transform:translateY(-6px); border-color:rgba(216,180,92,.5); box-shadow:0 24px 50px -26px rgba(0,0,0,.8); }
-  .card:hover::before{ opacity:1; }
-  .card .icon{
-    width:64px; height:64px; color:var(--gold); margin-bottom:22px;
-    filter:drop-shadow(0 0 8px rgba(216,180,92,.22));
-  }
-  .icon .ring{ fill:none; stroke:currentColor; stroke-width:1.4; opacity:.9; }
-  .icon .stroke{ fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-  .icon .fill{ fill:currentColor; }
-  .card h3{
-    font-size:.98rem; letter-spacing:.14em; text-transform:uppercase; font-weight:500;
-    color:var(--gold-bright); margin:0 0 14px; line-height:1.4;
-  }
-  .card p{ margin:0; color:var(--cream-dim); font-size:.96rem; }
-
-  /* ===== ablauf ===== */
-  #ablauf{ border-top:1px solid var(--line-soft); }
-  .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(24px,3vw,44px); }
-  .step{ position:relative; padding-top:14px; }
-  .step .num{
-    font-family:'Cormorant Garamond',Georgia,serif; font-weight:500;
-    font-size:clamp(2.4rem,4vw,3.4rem); line-height:1; color:var(--gold);
-    opacity:.55; margin-bottom:14px;
-  }
-  .step h3{
-    font-family:'Cormorant Garamond',Georgia,serif; font-weight:600;
-    font-size:1.4rem; color:var(--cream); margin:0 0 10px;
-  }
-  .step p{ margin:0; color:var(--cream-dim); font-size:.96rem; }
-  .step::before{
-    content:""; position:absolute; top:0; left:0; width:44px; height:1px; background:var(--gold);
-  }
-
-  /* ===== contact ===== */
-  #kontakt{ border-top:1px solid var(--line-soft); }
-  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(32px,6vw,72px); align-items:start; }
-  .contact-intro p{ color:var(--cream-dim); max-width:42ch; margin:0 0 32px; font-size:1.05rem; }
-  .contact-tiles{ display:flex; flex-direction:column; gap:16px; }
-  .tile{
-    display:flex; align-items:center; gap:16px; text-decoration:none;
-    padding:16px 20px; border:1px solid var(--line); border-radius:14px; color:var(--cream);
-    transition:border-color .3s ease, background .3s ease, transform .25s ease;
-  }
-  .tile:hover{ border-color:rgba(216,180,92,.5); background:rgba(216,180,92,.06); transform:translateY(-2px); }
-  .tile:focus-visible{ outline:2px solid var(--gold-bright); outline-offset:3px; }
-  .tile svg{ width:40px; height:40px; color:var(--gold); flex:none; }
-  .tile .ring{ fill:none; stroke:currentColor; stroke-width:1.4; }
-  .tile .stroke{ fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
-  .tile .fill{ fill:currentColor; }
-  .tile .lbl{ display:block; font-size:.68rem; letter-spacing:.24em; text-transform:uppercase; color:var(--gold); margin-bottom:3px; }
-  .tile .val{ font-size:1.02rem; letter-spacing:.01em; }
-
-  .form{ display:flex; flex-direction:column; gap:16px; }
-  .field label{ display:block; font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--gold); margin-bottom:8px; }
-  .field input, .field textarea, .field select{
-    width:100%; padding:13px 16px; border-radius:12px;
-    border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--cream);
-    font-family:inherit; font-size:1rem; transition:border-color .25s ease, background .25s ease;
-  }
-  .field textarea{ resize:vertical; min-height:130px; }
-  .field select{
-    width:100%; padding:13px 16px; border-radius:12px;
-    border:1px solid var(--line); background:rgba(255,255,255,.03); color:var(--cream);
-    font-family:inherit; font-size:1rem; transition:border-color .25s ease, background .25s ease;
-  }
-  .field select option{ color:#231708; background:var(--cream); }
-  .field input::placeholder, .field textarea::placeholder{ color:rgba(196,185,158,.5); }
-  .field input:focus, .field textarea:focus, .field select:focus{ outline:none; border-color:var(--gold); background:rgba(216,180,92,.05); }
-  .form .note{ font-size:.78rem; color:var(--cream-dim); margin:2px 0 0; }
-
-
-  .btn:disabled{
-    opacity:.58;
-    cursor:not-allowed;
-    transform:none;
-    box-shadow:none;
-  }
-  .hp-field{
-    position:absolute !important;
-    left:-10000px !important;
-    top:auto !important;
-    width:1px !important;
-    height:1px !important;
-    overflow:hidden !important;
-    opacity:0 !important;
-    pointer-events:none !important;
-  }
-  .form-status[data-state="success"]{ color:var(--gold-bright); }
-  .form-status[data-state="error"]{ color:#ffb4b4; }
-
-  /* ===== footer ===== */
-  .footer{
-    border-top:1px solid var(--line-soft);
-    padding:clamp(52px,7vw,80px) 0 40px; text-align:center;
-  }
-  .footer .foot-lotus{ width:40px; color:var(--gold); opacity:.8; margin:0 auto 22px; display:block; }
-  .footer .foot-lotus path{ fill:none; stroke:currentColor; stroke-width:2.4; stroke-linejoin:round; stroke-linecap:round; }
-  .footer .slogan{
-    font-size:.72rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); line-height:2; margin:0 0 26px;
-  }
-  .footer .foot-contact{ display:flex; gap:26px; justify-content:center; flex-wrap:wrap; margin-bottom:26px; }
-  .footer .foot-contact a{ color:var(--cream-dim); text-decoration:none; font-size:.92rem; transition:color .25s ease; }
-  .footer .foot-contact a:hover{ color:var(--gold-bright); }
-  .footer .foot-links{ display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-bottom:22px; }
-  .footer .foot-links a{ color:var(--gold-mid); text-decoration:none; font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; }
-  .footer .foot-links a:hover{ color:var(--gold-bright); }
-  .footer .copy{ font-size:.76rem; color:rgba(196,185,158,.55); letter-spacing:.04em; margin:0; }
-
-  /* ===== legal placeholder ===== */
-  .legal{ border-top:1px solid var(--line-soft); }
-  .legal h2{ font-family:'Cormorant Garamond',Georgia,serif; font-weight:600; font-size:1.8rem; color:var(--cream); margin:0 0 16px; }
-  .legal p{ color:var(--cream-dim); max-width:70ch; font-size:.96rem; }
-
-  .legal .legal-block{ max-width:78ch; }
-  .legal h3{
-    font-family:'Cormorant Garamond',Georgia,serif;
-    font-weight:600; font-size:1.35rem; color:var(--cream);
-    margin:34px 0 10px;
-  }
-  .legal h4{
-    font-size:.82rem; letter-spacing:.12em; text-transform:uppercase;
-    color:var(--gold-bright); margin:24px 0 8px;
-  }
-  .legal p, .legal li{ color:var(--cream-dim); font-size:.96rem; }
-  .legal ul{ padding-left:1.2rem; }
-  .legal a{ color:var(--gold-bright); }
-  .legal address{ font-style:normal; color:var(--cream-dim); line-height:1.8; }
-
-  .placeholder-tag{
-    display:inline-block; font-size:.66rem; letter-spacing:.18em; text-transform:uppercase;
-    color:var(--gold); border:1px solid var(--line); border-radius:999px; padding:4px 12px; margin-bottom:16px;
-  }
-
-  /* ===== reveal ===== */
-  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1); transition-delay:var(--d,0s); }
-  .reveal.in{ opacity:1; transform:none; }
-
-  /* ===== responsive ===== */
-  @media (max-width:860px){
-    .services, .steps{ grid-template-columns:1fr; }
-    .contact-grid{ grid-template-columns:1fr; }
-    .step{ padding-left:0; }
-  }
-  @media (max-width:680px){
-    .nav-links{
-      position:absolute; top:100%; right:clamp(20px,5vw,40px); left:clamp(20px,5vw,40px);
-      flex-direction:column; align-items:stretch; gap:0;
-      background:rgba(18,10,34,.96); backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-      border:1px solid var(--line); border-radius:14px; padding:10px;
-      opacity:0; transform:translateY(-10px) scale(.98); pointer-events:none;
-      transition:opacity .25s ease, transform .25s ease;
+  <style>
+    :root {
+      --blue: #dce7ec;
+      --blue-light: #edf3f5;
+      --blue-mid: #b8cbd4;
+      --blue-dark: #344e5d;
+      --blue-deep: #263d4b;
+      --gold: #b99a60;
+      --gold-light: #d9c69d;
+      --text: #344650;
+      --white: #ffffff;
+      --shadow: 0 12px 35px rgba(38, 61, 75, .09);
     }
-    .nav.open .nav-links{ opacity:1; transform:none; pointer-events:auto; }
-    .nav-links a{ padding:13px 14px; letter-spacing:.14em; }
-    .nav-links a:not(.nav-cta)::after{ display:none; }
-    .nav-cta{ text-align:center; margin-top:6px; }
-    .nav-toggle{ display:flex; }
-    .nav.open .nav-toggle span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
-    .nav.open .nav-toggle span:nth-child(2){ opacity:0; }
-    .nav.open .nav-toggle span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
-  }
 
-  @media (prefers-reduced-motion:reduce){
-    html{ scroll-behavior:auto; }
-    .reveal{ opacity:1; transform:none; transition:none; }
-    .scroll-cue span{ animation:none; }
-  }
-</style>
-<script defer src="https://cloud.umami.is/script.js" data-website-id="fb317397-3a39-4a7b-b389-d1c19196386f"></script>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--blue-light);
+      color: var(--text);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, input, textarea, select {
+      font: inherit;
+    }
+
+    .serif {
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    .gold {
+      color: var(--gold);
+    }
+
+    .container {
+      width: min(1120px, 90%);
+      margin: 0 auto;
+    }
+
+    /* Navigation */
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(237, 243, 245, .94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(185, 154, 96, .25);
+    }
+
+    .nav {
+      min-height: 78px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--blue-deep);
+    }
+
+    .brand-icon {
+      width: 43px;
+      height: 43px;
+    }
+
+    .brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 27px;
+      letter-spacing: 2px;
+      line-height: 1;
+    }
+
+    .brand-sub {
+      display: block;
+      color: var(--gold);
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 5px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    nav a {
+      font-size: 11px;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--blue-dark);
+      transition: color .2s;
+    }
+
+    nav a:hover {
+      color: var(--gold);
+    }
+
+    .menu-button {
+      display: none;
+      border: 1px solid var(--gold);
+      background: transparent;
+      color: var(--blue-deep);
+      padding: 7px 12px;
+      cursor: pointer;
+    }
+
+    /* Buttons */
+
+    .button {
+      display: inline-block;
+      padding: 13px 27px;
+      border: 1px solid var(--gold);
+      background: var(--gold);
+      color: white;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      transition: .25s;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background: transparent;
+      color: var(--blue-deep);
+    }
+
+    .button-outline {
+      background: transparent;
+      color: var(--blue-deep);
+    }
+
+    .button-outline:hover {
+      background: var(--gold);
+      color: white;
+    }
+
+    /* Hero */
+
+    .hero {
+      min-height: 660px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 45%, rgba(255,255,255,.85), transparent 60%),
+        linear-gradient(135deg, #eaf1f4, #cbdce3);
+      border-bottom: 1px solid rgba(185,154,96,.3);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      border: 1px solid rgba(185,154,96,.18);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      top: -210px;
+      left: -150px;
+    }
+
+    .hero::after {
+      bottom: -240px;
+      right: -150px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 80px 0;
+    }
+
+    .hero-lotus {
+      width: 105px;
+      height: 105px;
+      margin: 0 auto 25px;
+      color: var(--gold);
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      color: var(--blue-deep);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(48px, 8vw, 82px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: 2px;
+    }
+
+    .hero h2 {
+      color: var(--blue-dark);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(23px, 4vw, 34px);
+      font-weight: 400;
+      margin: 17px 0;
+    }
+
+    .hero p {
+      max-width: 590px;
+      margin: 20px auto 32px;
+      color: #526772;
+      font-weight: 300;
+    }
+
+    .hero-line {
+      width: 75px;
+      height: 1px;
+      background: var(--gold);
+      margin: 25px auto;
+    }
+
+    /* General sections */
+
+    section {
+      padding: 100px 0;
+    }
+
+    .section-heading {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 55px;
+    }
+
+    .section-heading h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(38px, 5vw, 54px);
+      color: var(--blue-deep);
+      font-weight: 400;
+      line-height: 1.15;
+    }
+
+    .section-heading p {
+      margin-top: 15px;
+      color: #667984;
+      font-weight: 300;
+    }
+
+    .small-line {
+      width: 55px;
+      height: 1px;
+      background: var(--gold);
+      margin: 20px auto;
+    }
+
+    /* About */
+
+    .about {
+      background: var(--white);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .about-mark {
+      min-height: 380px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #e5eef1, #c8d9e0);
+      border: 1px solid rgba(185,154,96,.45);
+      position: relative;
+    }
+
+    .about-mark::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(185,154,96,.45);
+    }
+
+    .about-mark svg {
+      width: 150px;
+      height: 150px;
+      color: var(--gold);
+      position: relative;
+    }
+
+    .about-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 400;
+      color: var(--blue-deep);
+      line-height: 1.1;
+      margin-bottom: 22px;
+    }
+
+    .about-text p {
+      margin-bottom: 16px;
+      color: #61737c;
+      font-weight: 300;
+    }
+
+    .signature {
+      margin-top: 25px;
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 27px;
+    }
+
+    /* Services */
+
+    .services {
+      background: var(--blue);
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .service-card {
+      background: rgba(255,255,255,.72);
+      padding: 38px 28px;
+      border: 1px solid rgba(185,154,96,.35);
+      text-align: center;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .service-icon {
+      width: 55px;
+      height: 55px;
+      margin: 0 auto 20px;
+      color: var(--gold);
+    }
+
+    .service-card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 29px;
+      font-weight: 500;
+      color: var(--blue-deep);
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    .service-card p {
+      color: #647780;
+      font-size: 13px;
+      font-weight: 300;
+    }
+
+    .service-card ul {
+      list-style: none;
+      margin-top: 18px;
+      color: #526772;
+      font-size: 12px;
+    }
+
+    .service-card li {
+      padding: 5px 0;
+      border-top: 1px solid rgba(185,154,96,.18);
+    }
+
+    /* Philosophy */
+
+    .philosophy {
+      background: var(--blue-deep);
+      color: white;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .philosophy .section-heading h2 {
+      color: white;
+    }
+
+    .philosophy .section-heading p {
+      color: #d0dce1;
+    }
+
+    .philosophy-text {
+      max-width: 760px;
+      margin: auto;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(25px, 4vw, 36px);
+      line-height: 1.5;
+      color: #e9e1d0;
+    }
+
+    /* Process */
+
+    .process {
+      background: var(--white);
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      text-align: center;
+    }
+
+    .process-number {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 18px;
+      border: 1px solid var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+    }
+
+    .process-grid h3 {
+      color: var(--blue-deep);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 27px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .process-grid p {
+      color: #6b7d85;
+      font-size: 13px;
+      font-weight: 300;
+    }
+
+    /* Contact */
+
+    .contact {
+      background: linear-gradient(135deg, #dce7ec, #edf3f5);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 55px;
+      align-items: start;
+    }
+
+    .contact-info h2 {
+      color: var(--blue-deep);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 48px;
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .contact-info p {
+      color: #60737d;
+      font-weight: 300;
+      margin-bottom: 25px;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(185,154,96,.3);
+    }
+
+    .contact-item strong {
+      display: block;
+      color: var(--blue-deep);
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .contact-item span,
+    .contact-item a {
+      color: #637780;
+      font-size: 13px;
+    }
+
+    .contact-symbol {
+      color: var(--gold);
+      font-size: 22px;
+      width: 30px;
+      text-align: center;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .contact-form {
+      background: rgba(255,255,255,.8);
+      border: 1px solid rgba(185,154,96,.4);
+      padding: 35px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-form h3 {
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--blue-deep);
+      font-size: 32px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--blue-dark);
+      margin-bottom: 6px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #c8d6dc;
+      background: white;
+      color: var(--text);
+      outline: none;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--gold);
+    }
+
+    .form-group textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .form-note {
+      color: #71828a;
+      font-size: 10px;
+      margin-top: 12px;
+    }
+
+    /* Footer */
+
+    footer {
+      background: var(--blue-deep);
+      color: #d6e0e4;
+      padding: 40px 0;
+      text-align: center;
+    }
+
+    .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      letter-spacing: 2px;
+      color: white;
+    }
+
+    footer p {
+      font-size: 11px;
+      color: #b7c7ce;
+      margin-top: 8px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 22px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .footer-links a {
+      color: var(--gold-light);
+      font-size: 11px;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    /* Legal sections */
+
+    .legal {
+      background: #f7f9fa;
+      padding: 55px 0;
+    }
+
+    .legal h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      font-weight: 500;
+      color: var(--blue-deep);
+      margin-bottom: 15px;
+    }
+
+    .legal h3 {
+      color: var(--blue-dark);
+      font-size: 15px;
+      margin: 22px 0 8px;
+    }
+
+    .legal p {
+      color: #657780;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+
+    /* Mobile */
+
+    @media (max-width: 800px) {
+      .menu-button {
+        display: block;
+      }
+
+      nav {
+        display: none;
+        position: absolute;
+        top: 78px;
+        left: 0;
+        right: 0;
+        background: var(--blue-light);
+        padding: 25px;
+        flex-direction: column;
+        gap: 18px;
+        border-bottom: 1px solid var(--gold);
+      }
+
+      nav.open {
+        display: flex;
+      }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 35px;
+      }
+
+      .service-grid,
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        min-height: 580px;
+      }
+
+      section {
+        padding: 75px 0;
+      }
+
+      .about-mark {
+        min-height: 280px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .brand-name {
+        font-size: 23px;
+      }
+
+      .hero-content {
+        padding: 65px 0;
+      }
+
+      .contact-form {
+        padding: 25px 20px;
+      }
+
+      .contact-info h2,
+      .about-text h2 {
+        font-size: 40px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-  <!-- persistent sacred-geometry background -->
-  <div class="ambient" aria-hidden="true">
-    <div class="glow glow--a"></div>
-    <div class="glow glow--b"></div>
-    <svg class="fol" viewBox="-100 -100 200 200">
-      <circle cx="0" cy="0" r="90"/>
-      <circle cx="0" cy="0" r="30"/>
-      <circle cx="30" cy="0" r="30"/><circle cx="15" cy="25.98" r="30"/><circle cx="-15" cy="25.98" r="30"/>
-      <circle cx="-30" cy="0" r="30"/><circle cx="-15" cy="-25.98" r="30"/><circle cx="15" cy="-25.98" r="30"/>
-      <circle cx="60" cy="0" r="30"/><circle cx="30" cy="51.96" r="30"/><circle cx="-30" cy="51.96" r="30"/>
-      <circle cx="-60" cy="0" r="30"/><circle cx="-30" cy="-51.96" r="30"/><circle cx="30" cy="-51.96" r="30"/>
-      <circle cx="45" cy="25.98" r="30"/><circle cx="0" cy="51.96" r="30"/><circle cx="-45" cy="25.98" r="30"/>
-      <circle cx="-45" cy="-25.98" r="30"/><circle cx="0" cy="-51.96" r="30"/><circle cx="45" cy="-25.98" r="30"/>
-    </svg>
-  </div>
+  <!-- Navigation -->
+  <header>
+    <div class="container nav">
 
-  <div class="page">
-
-    <!-- ===== NAV ===== -->
-    <nav class="nav" id="nav">
-      <a class="brand" href="#top" aria-label="Bastian Dießlin — Startseite">
-        <svg viewBox="0 0 120 78" aria-hidden="true">
-          <g transform="translate(60,70)">
-            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z"/>
-            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z" transform="rotate(-42) scale(.8 .8)"/>
-            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z" transform="rotate(42) scale(.8 .8)"/>
-          </g>
+      <a href="#start" class="brand">
+        <svg class="brand-icon" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M50 82 C20 65 22 37 50 13 C78 37 80 65 50 82Z"/>
+          <path d="M50 82 C32 56 37 34 50 13 C63 34 68 56 50 82Z"/>
+          <path d="M20 72 C28 47 43 44 50 82 C57 44 72 47 80 72"/>
+          <path d="M12 83 Q50 70 88 83"/>
         </svg>
-        <b>Bastian Dießlin</b>
+        <span>
+          <span class="brand-name">HUMANENERGIE</span>
+          <span class="brand-sub">Bewusstsein · Klang · Balance</span>
+        </span>
       </a>
-      <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-expanded="false" aria-controls="navLinks">
-        <span></span><span></span><span></span>
+
+      <button class="menu-button" id="menuButton" aria-label="Menü öffnen">
+        Menü
       </button>
-      <div class="nav-links" id="navLinks">
+
+      <nav id="mainNav">
+        <a href="#start">Start</a>
+        <a href="#ueber-mich">Über mich</a>
         <a href="#angebote">Angebote</a>
         <a href="#ablauf">Ablauf</a>
-        <a href="#kontakt" class="nav-cta">Termin anfragen</a>
-      </div>
-    </nav>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
 
-    <!-- ===== HERO ===== -->
-    <header class="hero" id="top">
-      <svg class="lotus" viewBox="0 0 260 158" role="img" aria-label="Lotus">
-        <g transform="translate(130,140)">
-          <path d="M0 0 C -22 -30 -22 -62 0 -94 C 22 -62 22 -30 0 0 Z" transform="rotate(-60) scale(.82 .78)"/>
-          <path d="M0 0 C -22 -30 -22 -62 0 -94 C 22 -62 22 -30 0 0 Z" transform="rotate(60) scale(.82 .78)"/>
-          <path d="M0 0 C -22 -30 -22 -62 0 -94 C 22 -62 22 -30 0 0 Z" transform="rotate(-31) scale(.95 .92)"/>
-          <path d="M0 0 C -22 -30 -22 -62 0 -94 C 22 -62 22 -30 0 0 Z" transform="rotate(31) scale(.95 .92)"/>
-          <path d="M0 0 C -22 -30 -22 -62 0 -94 C 22 -62 22 -30 0 0 Z"/>
-          <path d="M0 0 C -13 -26 -13 -52 0 -78 C 13 -52 13 -26 0 0 Z" transform="scale(.66 .82)"/>
-        </g>
-      </svg>
-      <h1 class="hero-name">Bastian Dießlin</h1>
-      <p class="hero-credential">Dipl. Humanenergetiker i.A.</p>
-      <div class="hero-divider" aria-hidden="true"></div>
-      <p class="hero-tagline">Ganzheitliche energetische Begleitung</p>
-      <p class="hero-sub">Raum für Balance und Regeneration</p>
-      <div class="hero-cta">
-        <a href="#kontakt" class="btn btn--primary">Termin anfragen</a>
-        <a href="#angebote" class="btn btn--ghost">Angebote entdecken</a>
-      </div>
-      <div class="scroll-cue" aria-hidden="true"><span></span>Scroll</div>
-    </header>
+    </div>
+  </header>
 
-    <!-- ===== PHILOSOPHY ===== -->
-    <section id="ankommen">
-      <div class="wrap statement reveal">
-        <svg class="mini-lotus" viewBox="0 0 120 78" aria-hidden="true">
-          <g transform="translate(60,70)">
-            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z"/>
-            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z" transform="rotate(-42) scale(.8 .8)"/>
-            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z" transform="rotate(42) scale(.8 .8)"/>
-          </g>
+  <main>
+
+    <!-- Hero -->
+    <section class="hero" id="start">
+      <div class="container hero-content">
+
+        <svg class="hero-lotus" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M50 88 C17 69 20 37 50 10 C80 37 83 69 50 88Z"/>
+          <path d="M50 88 C30 59 37 31 50 10 C63 31 70 59 50 88Z"/>
+          <path d="M18 76 C27 49 43 47 50 88 C57 47 73 49 82 76"/>
+          <path d="M10 88 Q50 73 90 88"/>
+          <path d="M28 91 Q50 83 72 91"/>
         </svg>
-        <p class="lead">Zeit für dich. Zeit zum Ankommen. Zeit, deinen eigenen Rhythmus wieder zu spüren.</p>
-        <p class="body">In einer energetischen Begleitung geht es darum, für einen Moment zur Ruhe zu kommen – abseits von Reizüberflutung und Alltagstempo. Klang und achtsame Aufmerksamkeit können dabei unterstützen, den eigenen Rhythmus wieder wahrzunehmen und neue Kraft zu schöpfen.</p>
-      </div>
-    </section>
 
-    <!-- ===== SERVICES ===== -->
-    <section id="angebote">
-      <div class="wrap">
-        <p class="eyebrow reveal">Angebote</p>
-        <h2 class="section-title reveal" style="--d:.05s">Wege zu mehr Ruhe und Ausgleich</h2>
-        <div class="services">
+        <div class="eyebrow">Ein Raum für Ruhe und Balance</div>
 
-          <article class="card reveal" style="--d:.05s">
-            <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
-              <circle class="ring" cx="32" cy="32" r="27"/>
-              <g class="stroke" stroke-width="2.4">
-                <line x1="17" y1="24" x2="17" y2="40"/>
-                <line x1="22" y1="18" x2="22" y2="46"/>
-                <line x1="27" y1="27" x2="27" y2="37"/>
-                <line x1="32" y1="14" x2="32" y2="50"/>
-                <line x1="37" y1="23" x2="37" y2="41"/>
-                <line x1="42" y1="19" x2="42" y2="45"/>
-                <line x1="47" y1="28" x2="47" y2="36"/>
-              </g>
-            </svg>
-            <h3>Klangreisen</h3>
-            <p>Tauche ein in die Welt der Klänge und schenke dir Zeit für Ruhe, Achtsamkeit und neue Impulse.</p>
-          </article>
+        <h1>Humanenergie</h1>
 
-          <article class="card reveal" style="--d:.12s">
-            <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
-              <circle class="ring" cx="32" cy="32" r="27"/>
-              <ellipse class="stroke" cx="32" cy="30" rx="13" ry="3.4"/>
-              <path class="stroke" d="M19 30 C 19 42 25.5 46.5 32 46.5 C 38.5 46.5 45 42 45 30"/>
-              <path class="stroke" d="M31 29 L 45 15"/>
-              <circle class="fill" cx="45.4" cy="14.6" r="2.6"/>
-            </svg>
-            <h3>Klangmassagen</h3>
-            <p>Sanfte Klänge können dabei unterstützen, zur Ruhe zu kommen und das eigene Wohlbefinden bewusst wahrzunehmen.</p>
-          </article>
+        <div class="hero-line"></div>
 
-          <article class="card reveal" style="--d:.19s">
-            <svg class="icon" viewBox="0 0 64 64" aria-hidden="true">
-              <circle class="ring" cx="32" cy="32" r="27"/>
-              <circle class="stroke" cx="32" cy="18" r="4"/>
-              <path class="stroke" d="M32 23 C 40 31 45.5 43 47.5 47.5 L 16.5 47.5 C 18.5 43 24 31 32 23 Z"/>
-              <path class="stroke" stroke-width="1.6" d="M23 41 C 20 43 18.5 45.5 19 47.5"/>
-              <path class="stroke" stroke-width="1.6" d="M41 41 C 44 43 45.5 45.5 45 47.5"/>
-              <g class="fill">
-                <circle cx="32" cy="28" r="1.7"/><circle cx="32" cy="33" r="1.7"/>
-                <circle cx="32" cy="38" r="1.7"/><circle cx="32" cy="43" r="1.7"/>
-              </g>
-            </svg>
-            <h3>Chakren-Harmonisierung</h3>
-            <p>Aktiviere und harmonisiere deine Chakren für mehr Lebenskraft, Ausgeglichenheit und inneren Frieden.</p>
-          </article>
+        <h2>Klang · Bewusstsein · innere Balance</h2>
 
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== ABLAUF ===== -->
-    <section id="ablauf">
-      <div class="wrap">
-        <p class="eyebrow reveal">Ablauf einer Sitzung</p>
-        <h2 class="section-title reveal" style="--d:.05s">In deinem Tempo — Schritt für Schritt</h2>
-        <div class="steps">
-          <div class="step reveal" style="--d:.05s">
-            <div class="num">01</div>
-            <h3>Ankommen</h3>
-            <p>Wir nehmen uns Zeit für ein kurzes Gespräch, damit du entspannt und in deinem Tempo ankommen kannst.</p>
-          </div>
-          <div class="step reveal" style="--d:.12s">
-            <div class="num">02</div>
-            <h3>Klang &amp; Energie</h3>
-            <p>Sanfte Klänge und energetische Arbeit schaffen einen geschützten Raum, in dem du einfach loslassen darfst.</p>
-          </div>
-          <div class="step reveal" style="--d:.19s">
-            <div class="num">03</div>
-            <h3>Nachspüren</h3>
-            <p>Zum Abschluss bleibt Raum, um dem Erlebten nachzuspüren und die Ruhe in den Alltag mitzunehmen.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== CONTACT ===== -->
-    <section id="kontakt">
-      <div class="wrap">
-        <div class="contact-grid">
-          <div class="contact-intro reveal">
-            <p class="eyebrow">Kontakt</p>
-            <h2 class="section-title">Lass uns in Verbindung treten</h2>
-            <p>Du möchtest einen Termin vereinbaren oder hast eine Frage zu den Angeboten? Melde dich gern – ich freue mich, von dir zu hören.</p>
-            <div class="contact-tiles">
-              <a class="tile" href="mailto:B.diesslin@gmail.com">
-                <svg viewBox="0 0 48 48" aria-hidden="true">
-                  <circle class="ring" cx="24" cy="24" r="21.5"/>
-                  <rect class="stroke" x="14" y="18" width="20" height="13" rx="1.6"/>
-                  <path class="stroke" d="M14.5 19 L24 26 L33.5 19"/>
-                </svg>
-                <span><span class="lbl">E-Mail</span><span class="val">B.diesslin@gmail.com</span></span>
-              </a>
-              <a class="tile" href="tel:+491794194250">
-                <svg viewBox="0 0 48 48" aria-hidden="true">
-                  <circle class="ring" cx="24" cy="24" r="21.5"/>
-                  <path class="fill" d="M19.4 15.6c-.9-.4-2-.1-2.6.7l-1.7 2.3c-.5.7-.6 1.6-.2 2.4 2.6 5.2 6.8 9.4 12 12 .8.4 1.7.3 2.4-.2l2.3-1.7c.8-.6 1.1-1.7.7-2.6l-1.3-3c-.4-.9-1.4-1.4-2.4-1.1l-2.7.7c-.5.1-1 0-1.4-.3-1.5-1.2-2.8-2.5-4-4-.3-.4-.4-.9-.3-1.4l.7-2.7c.3-1-.2-2-1.1-2.4z"/>
-                </svg>
-                <span><span class="lbl">Telefon</span><span class="val">+49 179 4194250</span></span>
-              </a>
-            </div>
-          </div>
-
-          <form class="form reveal" id="contactForm" style="--d:.1s" novalidate>
-            <div class="field">
-              <label for="cName">Name</label>
-              <input type="text" id="cName" name="name" placeholder="Dein Name" minlength="2" maxlength="100" autocomplete="name" required>
-            </div>
-            <div class="field">
-              <label for="cMail">E-Mail</label>
-              <input type="email" id="cMail" name="email" placeholder="deine@mail.de" maxlength="254" autocomplete="email" required>
-            </div>
-            <div class="field">
-              <label for="cPhone">Telefonnummer <span aria-hidden="true">(optional)</span></label>
-              <input type="tel" id="cPhone" name="phone" placeholder="+49 …" maxlength="40" autocomplete="tel">
-            </div>
-            <div class="field">
-              <label for="cService">Angebot</label>
-              <select id="cService" name="service" required>
-                <option value="" selected disabled>Bitte auswählen</option>
-                <option value="Klangreise">Klangreise</option>
-                <option value="Klangmassage">Klangmassage</option>
-                <option value="Chakren-Harmonisierung">Chakren-Harmonisierung</option>
-                <option value="Kinesiologischer Muskeltest">Kinesiologischer Muskeltest</option>
-                <option value="Allgemeine Anfrage">Allgemeine Anfrage</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="cMsg">Deine Nachricht</label>
-              <textarea id="cMsg" name="message" placeholder="Worum geht es? Wann würde es dir passen?" minlength="5" maxlength="5000" required></textarea>
-            </div>
-
-            <div class="hp-field" aria-hidden="true">
-              <label for="cWebsite">Website</label>
-              <input type="text" id="cWebsite" name="website" tabindex="-1" autocomplete="off">
-            </div>
-
-            <button type="submit" class="btn btn--primary">Nachricht senden</button>
-            <p class="note form-status" id="formStatus" role="status" aria-live="polite">
-              Deine Angaben werden zur Bearbeitung der Anfrage übermittelt.
-            </p>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== FOOTER ===== -->
-    <footer class="footer">
-      <div class="wrap">
-        <svg class="foot-lotus" viewBox="0 0 120 78" aria-hidden="true">
-          <g transform="translate(60,70)">
-            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z"/>
-            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z" transform="rotate(-42) scale(.8 .8)"/>
-            <path d="M0 0 C -12 -16 -12 -34 0 -52 C 12 -34 12 -16 0 0 Z" transform="rotate(42) scale(.8 .8)"/>
-          </g>
-        </svg>
-        <p class="slogan">Klänge. Energie. Du.<br>Im Einklang mit dir selbst.</p>
-        <div class="foot-contact">
-          <a href="mailto:B.diesslin@gmail.com">B.diesslin@gmail.com</a>
-          <a href="tel:+491794194250">+49 179 4194250</a>
-        </div>
-        <div class="foot-links">
-          <a href="#impressum">Impressum</a>
-          <a href="#datenschutz">Datenschutz</a>
-        </div>
-        <p class="copy">© <span id="year"></span> Bastian Dießlin · Alle Rechte vorbehalten</p>
-      </div>
-    </footer>
-
-    <!-- ===== IMPRESSUM ===== -->
-    <section class="legal" id="impressum">
-      <div class="wrap legal-block">
-        <p class="eyebrow">Rechtliches</p>
-        <h2>Impressum</h2>
-
-        <h3>Angaben gemäß § 5 DDG</h3>
-        <address>
-          Bastian Diesslin<br>
-          Breitensteinweg 2<br>
-          83064 Raubling<br>
-          Deutschland
-        </address>
-
-        <h3>Kontakt</h3>
         <p>
-          Telefon: <a href="tel:+491794194250">+49 179 4194250</a><br>
-          E-Mail: <a href="mailto:B.diesslin@gmail.com">B.diesslin@gmail.com</a>
+          Zeit für dich. Zeit zum Innehalten.
+          Entdecke Klang, bewusste Atmung und energetische Begleitung
+          als Möglichkeit, wieder mehr bei dir selbst anzukommen.
         </p>
 
-        <h3>Berufsbezeichnung</h3>
-        <p>Dipl. Humanenergetiker i.A. (in Ausbildung)</p>
+        <a href="#angebote" class="button">Angebote entdecken</a>
+        <a href="#kontakt" class="button button-outline">Kontakt aufnehmen</a>
 
-        <h3>Verantwortlich für den Inhalt</h3>
-        <address>
-          Bastian Diesslin<br>
-          Breitensteinweg 2<br>
-          83064 Raubling
-        </address>
-
-        <h3>Haftung für Inhalte</h3>
-        <p>Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann jedoch keine Gewähr übernommen werden.</p>
-
-        <h3>Haftung für Links</h3>
-        <p>Diese Website kann Links zu externen Websites enthalten, auf deren Inhalte kein Einfluss besteht. Für diese fremden Inhalte ist stets der jeweilige Anbieter oder Betreiber verantwortlich.</p>
-
-        <h3>Urheberrecht</h3>
-        <p>Die auf dieser Website erstellten Inhalte und Werke unterliegen dem deutschen Urheberrecht. Jede nicht gesetzlich gestattete Verwertung bedarf der vorherigen schriftlichen Zustimmung des jeweiligen Rechteinhabers.</p>
-
-        <h3>Hinweis zu den angebotenen Leistungen</h3>
-        <p>Die angebotenen energetischen Anwendungen dienen der Entspannung und der Förderung des allgemeinen Wohlbefindens. Sie ersetzen keine ärztliche, psychotherapeutische oder sonstige heilkundliche Diagnose oder Behandlung.</p>
       </div>
     </section>
 
-    <!-- ===== DATENSCHUTZ ===== -->
-    <section class="legal" id="datenschutz">
-      <div class="wrap legal-block">
-        <p class="eyebrow">Rechtliches</p>
-        <h2>Datenschutzerklärung</h2>
+    <!-- About -->
+    <section class="about" id="ueber-mich">
+      <div class="container about-grid">
 
-        <h3>1. Verantwortlicher</h3>
-        <address>
-          Bastian Diesslin<br>
-          Breitensteinweg 2<br>
-          83064 Raubling<br>
-          Deutschland<br>
-          Telefon: <a href="tel:+491794194250">+49 179 4194250</a><br>
-          E-Mail: <a href="mailto:B.diesslin@gmail.com">B.diesslin@gmail.com</a>
-        </address>
+        <div class="about-mark">
+          <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="1.1">
+            <circle cx="50" cy="50" r="43"/>
+            <circle cx="50" cy="50" r="35"/>
+            <path d="M50 82 C20 65 22 37 50 13 C78 37 80 65 50 82Z"/>
+            <path d="M50 82 C32 56 37 34 50 13 C63 34 68 56 50 82Z"/>
+            <path d="M20 72 C28 47 43 44 50 82 C57 44 72 47 80 72"/>
+          </svg>
+        </div>
 
-        <h3>2. Allgemeine Hinweise</h3>
-        <p>Personenbezogene Daten sind alle Informationen, mit denen eine Person direkt oder indirekt identifiziert werden kann. Diese Datenschutzerklärung erläutert, welche Daten beim Besuch dieser Website und bei Nutzung des Kontaktformulars verarbeitet werden.</p>
+        <div class="about-text">
+          <div class="eyebrow">Über mich</div>
+          <h2>Ein Moment nur für dich.</h2>
 
-        <h3>3. Hosting über GitHub Pages</h3>
-        <p>Diese Website wird über GitHub Pages bereitgestellt. Beim Aufruf der Website können technisch erforderliche Verbindungsdaten verarbeitet werden, insbesondere IP-Adresse, Datum und Uhrzeit des Zugriffs, aufgerufene Seite, Browsertyp, Betriebssystem und Referrer-URL. Die Verarbeitung erfolgt zur sicheren und stabilen Bereitstellung der Website auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in der zuverlässigen und sicheren Bereitstellung des Internetauftritts.</p>
-        <p>Anbieter ist GitHub, Inc., 88 Colin P Kelly Jr Street, San Francisco, CA 94107, USA. Eine Übermittlung in die USA kann nicht ausgeschlossen werden. Weitere Informationen enthält die Datenschutzerklärung von GitHub: <a href="https://docs.github.com/de/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener noreferrer">GitHub-Datenschutzerklärung</a>.</p>
+          <p>
+            Ich bin Bastian Dießlin. Mit Humanenergie möchte ich einen
+            bewussten Raum schaffen, in dem Entspannung, Wahrnehmung
+            und persönliche Entwicklung im Mittelpunkt stehen.
+          </p>
 
-        <h3>4. Kontaktformular</h3>
-        <p>Wenn du das Kontaktformular nutzt, werden folgende Angaben verarbeitet:</p>
-        <ul>
-          <li>Name</li>
-          <li>E-Mail-Adresse</li>
-          <li>freiwillig angegebene Telefonnummer</li>
-          <li>ausgewähltes Angebot</li>
-          <li>Nachricht</li>
-          <li>IP-Adresse</li>
-          <li>Datum und Uhrzeit der Übermittlung</li>
-        </ul>
-        <p>Die Verarbeitung erfolgt zur Bearbeitung deiner Anfrage. Soweit die Anfrage auf den Abschluss oder die Durchführung eines Vertrags gerichtet ist, ist Art. 6 Abs. 1 lit. b DSGVO die Rechtsgrundlage. In allen übrigen Fällen erfolgt die Verarbeitung auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse besteht in der Bearbeitung und Dokumentation von Anfragen sowie im Schutz des Formulars vor Missbrauch und Spam.</p>
-        <p>Die IP-Adresse wird zur Missbrauchs- und Spamabwehr gespeichert. Kontaktanfragen werden spätestens zwölf Monate nach Eingang automatisch gelöscht, sofern keine gesetzlichen Aufbewahrungspflichten oder die weitere Bearbeitung der Anfrage eine längere Speicherung erfordern.</p>
+          <p>
+            Meine Arbeit verbindet Klang, Schwingung, Atem und
+            energetische Methoden. Dabei steht nicht ein festes
+            Konzept im Vordergrund, sondern der Mensch mit seinen
+            individuellen Bedürfnissen.
+          </p>
 
-        <h3>5. Verarbeitung durch Supabase</h3>
-        <p>Für die Verarbeitung und Speicherung der Kontaktanfragen wird Supabase eingesetzt. Anbieter ist Supabase, Inc., 970 Toa Payoh North #07-04, Singapore 318992. Die Daten werden in einer PostgreSQL-Datenbank gespeichert und über eine Supabase Edge Function verarbeitet. Eine Verarbeitung außerhalb der Europäischen Union beziehungsweise des Europäischen Wirtschaftsraums kann abhängig von der gewählten Projektregion und den eingesetzten Unterauftragnehmern nicht ausgeschlossen werden.</p>
-        <p>Die Verarbeitung erfolgt im Rahmen einer Auftragsverarbeitung. Weitere Informationen: <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Supabase</a> und <a href="https://supabase.com/legal/dpa" target="_blank" rel="noopener noreferrer">Data Processing Addendum von Supabase</a>.</p>
+          <p>
+            In einer ruhigen Atmosphäre darfst du Abstand vom Alltag
+            gewinnen und dich ganz auf deine eigene Wahrnehmung
+            konzentrieren.
+          </p>
 
-        <h3>6. Reichweitenmessung mit Umami</h3>
-        <p>Diese Website verwendet Umami Cloud zur statistischen Auswertung der Nutzung. Dabei werden insbesondere Seitenaufrufe, Referrer, verwendeter Browser, Betriebssystem, Gerätetyp und ungefähre geografische Angaben verarbeitet. Umami setzt nach Angaben des Anbieters keine Cookies ein, führt kein websiteübergreifendes Tracking durch und erhebt keine unmittelbar personenbezogenen Daten.</p>
-        <p>Die Verarbeitung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in der datensparsamen Auswertung der Nutzung und der technischen sowie inhaltlichen Verbesserung der Website. Anbieter ist Umami Software, Inc. Weitere Informationen: <a href="https://umami.is/privacy" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Umami</a>.</p>
+          <div class="signature">Bastian Dießlin</div>
+          <p>Dipl. Humanenergetiker</p>
+        </div>
 
-        <h3>7. Google Fonts</h3>
-        <p>Diese Website lädt die Schriftarten „Cormorant Garamond“ und „Montserrat“ von Servern von Google. Beim Aufruf der Website wird dadurch eine Verbindung zu Google-Servern hergestellt. Dabei kann insbesondere die IP-Adresse des verwendeten Geräts an Google übertragen werden. Die Nutzung erfolgt auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in einer einheitlichen und ansprechenden Darstellung der Website.</p>
-        <p>Anbieter ist Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Eine Übermittlung an Google LLC in den USA kann nicht ausgeschlossen werden. Weitere Informationen: <a href="https://policies.google.com/privacy?hl=de" target="_blank" rel="noopener noreferrer">Datenschutzerklärung von Google</a>.</p>
-
-        <h3>8. Empfänger der Daten</h3>
-        <p>Empfänger personenbezogener Daten können die für Hosting, Datenbankbetrieb, Formularverarbeitung und Reichweitenmessung eingesetzten Dienstleister sein. Eine Weitergabe an andere Dritte erfolgt nur, wenn dies gesetzlich erlaubt oder erforderlich ist.</p>
-
-        <h3>9. Speicherdauer</h3>
-        <p>Personenbezogene Daten werden nur so lange gespeichert, wie es für den jeweiligen Zweck erforderlich ist oder gesetzliche Aufbewahrungspflichten bestehen. Kontaktanfragen werden grundsätzlich nach zwölf Monaten gelöscht. Technische Protokoll- und Analysedaten richten sich nach den Speicherfristen der jeweiligen Dienstleister.</p>
-
-        <h3>10. Deine Rechte</h3>
-        <p>Du hast im Rahmen der gesetzlichen Voraussetzungen insbesondere das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch gegen eine Verarbeitung auf Grundlage berechtigter Interessen. Außerdem besteht ein Beschwerderecht bei einer Datenschutzaufsichtsbehörde.</p>
-
-        <h3>11. Widerspruchsrecht</h3>
-        <p>Werden personenbezogene Daten auf Grundlage von Art. 6 Abs. 1 lit. f DSGVO verarbeitet, kannst du aus Gründen, die sich aus deiner besonderen Situation ergeben, jederzeit Widerspruch gegen diese Verarbeitung einlegen.</p>
-
-        <h3>12. SSL- beziehungsweise TLS-Verschlüsselung</h3>
-        <p>Diese Website wird verschlüsselt übertragen. Eine verschlüsselte Verbindung ist an „https://“ und dem Schloss-Symbol im Browser erkennbar.</p>
-
-        <h3>13. Stand</h3>
-        <p>Stand: Juli 2026</p>
       </div>
     </section>
 
-  </div>
+    <!-- Services -->
+    <section class="services" id="angebote">
+      <div class="container">
 
-  <script>
-    // year
-    document.getElementById('year').textContent = new Date().getFullYear();
+        <div class="section-heading">
+          <div class="eyebrow">Meine Angebote</div>
+          <h2>Wege zu mehr innerer Balance</h2>
+          <div class="small-line"></div>
+          <p>
+            Unterschiedliche Zugänge – verbunden durch Zeit,
+            Aufmerksamkeit und bewusste Wahrnehmung.
+          </p>
+        </div>
 
-    // nav background on scroll
-    var nav = document.getElementById('nav');
-    var onScroll = function(){ nav.classList.toggle('scrolled', window.scrollY > 20); };
-    onScroll(); window.addEventListener('scroll', onScroll, { passive:true });
+        <div class="service-grid">
 
-    // mobile menu
-    var toggle = document.getElementById('navToggle');
-    toggle.addEventListener('click', function(){
-      var open = nav.classList.toggle('open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
-    });
-    document.getElementById('navLinks').addEventListener('click', function(e){
-      if (e.target.tagName === 'A') { nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
-    });
+          <article class="service-card">
+            <svg class="service-icon" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.3">
+              <circle cx="30" cy="30" r="23"/>
+              <path d="M30 9 C17 24 18 37 30 49 C42 37 43 24 30 9Z"/>
+              <path d="M30 49 C23 32 25 20 30 9 C35 20 37 32 30 49Z"/>
+            </svg>
+            <h3>Energetische Arbeit</h3>
+            <p>
+              Achtsame Begleitung und bewusste Körperwahrnehmung
+              mit ausgewählten energetischen Methoden.
+            </p>
+            <ul>
+              <li>Kinesiologische Begleitung</li>
+              <li>Chakren-Harmonisierung</li>
+              <li>Meridianarbeit und Meridianziehen</li>
+            </ul>
+          </article>
 
-    // scroll reveal
-    var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
-    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced || !('IntersectionObserver' in window)) {
-      reveals.forEach(function(el){ el.classList.add('in'); });
-    } else {
-      var io = new IntersectionObserver(function(entries, obs){
-        entries.forEach(function(en){
-          if (en.isIntersecting) { en.target.classList.add('in'); obs.unobserve(en.target); }
-        });
-      }, { threshold:0.14, rootMargin:'0px 0px -8% 0px' });
-      reveals.forEach(function(el){ io.observe(el); });
-    }
+          <article class="service-card">
+            <svg class="service-icon" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1.3">
+              <circle cx="30" cy="30" r="5"/>
+              <path d="M30 5 C43 15 43 23 30 30 C17 23 17 15 30 5Z"/>
+              <path d="M30 55 C17 45 17 37 30 30 C43 37 43 45 30 55Z"/>
+              <path d="M5 30 C15 17 23 17 30 30 C23 43 15 43 5 30Z"/>
+              <path d="M55 30 C45 43 37 43 30 30 C37 17 45 17 55 30Z"/>
+            </svg>
+            <h3>Klang & Schwingung</h3>
+            <p>
+              Klang und Schwingung bewusst erleben und sich
+              eine Auszeit vom Alltag schenken.
+            </p>
+            <ul>
+              <li>Klangmassagen</li>
+              <li>Stressabbau mit Stimmgabeln</li>
+              <li>Klangreisen</li>
+            </ul>
+          </article>
 
-    // contact form -> Supabase Edge Function
-    var SUPABASE_FUNCTION_URL =
-      'https://muahhtlggbbcafojswho.supabase.co/functions/v1/contact-request';
-    var SUPABASE_PUBLISHABLE_KEY =
-      'sb_publishable_e7I7mmX1gFZR9mduGmd2-A_CdNcrHcX';
-
-    var form = document.getElementById('contactForm');
-    var formStatus = document.getElementById('formStatus');
-    var submitButton = form.querySelector('button[type="submit"]');
-
-    form.addEventListener('submit', async function(e){
-      e.preventDefault();
-
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      var payload = {
-        name: document.getElementById('cName').value.trim(),
-        email: document.getElementById('cMail').value.trim(),
-        phone: document.getElementById('cPhone').value.trim(),
-        service: document.getElementById('cService').value,
-        message: document.getElementById('cMsg').value.trim(),
-        website: document.getElementById('cWebsite').value.trim()
-      };
-
-      submitButton.disabled = true;
-      submitButton.textContent = 'Wird gesendet …';
-      formStatus.dataset.state = '';
-      formStatus.textContent = 'Deine Anfrage wird übermittelt …';
-
-      try {
-        var response = await fetch(SUPABASE_FUNCTION_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_PUBLISHABLE_KEY
-          },
-          body: JSON.stringify(payload)
-        });
-
-        var result = await response.json().catch(function(){ return {}; });
-
-        if (!response.ok) {
-          throw new Error(result.error || 'Die Anfrage konnte nicht gespeichert werden.');
-        }
-
-        form.reset();
-        formStatus.dataset.state = 'success';
-        formStatus.textContent =
-          'Vielen Dank. Deine Anfrage wurde erfolgreich übermittelt.';
-      } catch (error) {
-        console.error('Kontaktformular-Fehler:', error);
-        formStatus.dataset.state = 'error';
-        formStatus.textContent =
-          'Die Anfrage konnte nicht gesendet werden. Bitte versuche es erneut oder nutze die angegebene E-Mail-Adresse.';
-      } finally {
-        submitButton.disabled = false;
-        submitButton.textContent = 'Nachricht senden';
-      }
-    });
-  </script>
-
-</body>
-</html>
+          <article class="service-card">
+          

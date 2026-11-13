@@ -12,7 +12,7 @@
 <meta property="og:title" content="Bastian Dießlin — Dipl. Humanenergetiker">
 <meta property="og:description" content="Raum für Klarheit, neue Kraft und innere Ruhe. Kinesiologie, Klang und Chakren-Harmonisierung in Raubling.">
 <meta property="og:url" content="https://humanenergie.online/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23142338'/%3E%3Ccircle cx='32' cy='30' r='9' fill='%23e3c178'/%3E%3Cpath d='M6 46 L22 30 L30 38 L40 26 L58 46 Z' fill='%23f3ecdf'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='31' fill='%23142338'/%3E%3Cg fill='none' stroke='%23e3c178' stroke-width='2.6' stroke-linejoin='round' transform='translate(32,46)'%3E%3Cpath d='M0 0 C -7 -9 -7 -19 0 -29 C 7 -19 7 -9 0 0 Z'/%3E%3Cpath d='M0 0 C -7 -9 -7 -19 0 -29 C 7 -19 7 -9 0 0 Z' transform='rotate(-42) scale(.82)'/%3E%3Cpath d='M0 0 C -7 -9 -7 -19 0 -29 C 7 -19 7 -9 0 0 Z' transform='rotate(42) scale(.82)'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
@@ -123,7 +123,7 @@
   .hero{
     position:relative; min-height:max(660px,100svh); overflow:hidden; isolation:isolate;
     display:flex; flex-direction:column; align-items:center; text-align:center;
-    padding:clamp(140px,21vh,200px) 20px 0;
+    padding:clamp(108px,15vh,150px) 20px 0;
     background:
       radial-gradient(55% 50% at 76% 62%, rgba(241,220,162,.30) 0%, rgba(214,176,102,.10) 35%, transparent 65%),
       linear-gradient(180deg, #0b1626 0%, #13223a 34%, #25426a 64%, #4d6b8c 82%, #8fa0b0 100%);
@@ -316,6 +316,38 @@
     *, *::before, *::after{ animation:none !important; }
     .reveal, .rise{ opacity:1; transform:none; transition:none; }
   }
+
+  /* ===== Heilige Geometrie & Lotus ===== */
+  .mandala{ position:absolute; z-index:-1; left:50%; top:46%; width:min(780px,135vw); aspect-ratio:1; transform:translate(-50%,-50%); pointer-events:none;
+    -webkit-mask-image:radial-gradient(circle, #000 30%, transparent 68%); mask-image:radial-gradient(circle, #000 30%, transparent 68%); }
+  .mandala svg{ position:absolute; inset:0; width:100%; height:100%; color:var(--gold-light); }
+  .m-outer{ opacity:.13; animation:spin 240s linear infinite; filter:drop-shadow(0 0 6px rgba(241,220,162,.6)); }
+  .m-inner{ opacity:.10; transform:scale(.5); animation:spinr 180s linear infinite; }
+  @keyframes spinr{ from{ transform:scale(.5) rotate(0); } to{ transform:scale(.5) rotate(-360deg); } }
+  body.sound-on .m-outer{ opacity:.24; transition:opacity 2s ease; }
+  .hero-lotus{ width:clamp(70px,9vw,96px); height:auto; aspect-ratio:260/158; color:var(--gold-light); margin:0 0 18px; filter:drop-shadow(0 0 10px rgba(241,220,162,.75)) drop-shadow(0 0 28px rgba(214,176,102,.45)); }
+  .hero-lotus.rise{ animation:rise 1.2s var(--ease) forwards, glow 6s ease-in-out 1.2s infinite; }
+  @keyframes glow{ 0%,100%{ filter:drop-shadow(0 0 8px rgba(241,220,162,.6)) drop-shadow(0 0 22px rgba(214,176,102,.35)); } 50%{ filter:drop-shadow(0 0 14px rgba(255,240,200,.95)) drop-shadow(0 0 40px rgba(214,176,102,.6)); } }
+  .sun .rings{ opacity:.55; }
+  .motes{ position:absolute; inset:0; z-index:-1; pointer-events:none; overflow:hidden; }
+  .motes span{ position:absolute; bottom:-10px; border-radius:50%; background:radial-gradient(circle, #fff6d8 0%, rgba(241,220,162,.7) 40%, rgba(241,220,162,0) 70%); opacity:0; animation:float linear infinite; }
+  @keyframes float{ 0%{ transform:translate(0,0); opacity:0; } 12%{ opacity:.9; } 80%{ opacity:.6; } 100%{ transform:translate(var(--dx,20px),-85vh); opacity:0; } }
+  .arch-lotus{ filter:drop-shadow(0 0 8px rgba(255,240,200,.9)) drop-shadow(0 0 24px rgba(214,176,102,.7)); }
+  .arch-fol{ opacity:.55; }
+  .arch-fol use{ transform-origin:center; }
+  .quote-lotus{ width:110px; height:auto; aspect-ratio:260/158; margin:0 auto 26px; color:var(--gold-light); filter:drop-shadow(0 0 12px rgba(241,220,162,.7)); }
+  .quote-band blockquote::before{ display:none; }
+  .quote-band .fol{ width:min(820px,130vw); height:auto; aspect-ratio:1; opacity:.16; color:var(--gold-light); animation:spinc 300s linear infinite; }
+  @keyframes spinc{ from{ transform:translate(-50%,-50%) rotate(0); } to{ transform:translate(-50%,-50%) rotate(360deg); } }
+  #angebote{ position:relative; overflow:hidden; }
+  .corner-fol{ position:absolute; right:-180px; top:-160px; width:560px; height:560px; color:var(--gold); opacity:.08; pointer-events:none; }
+  #angebote .wrap{ position:relative; }
+  .footer{ overflow:hidden; }
+  .foot-fol{ position:absolute; left:50%; top:30px; width:420px; height:420px; transform:translateX(-50%); color:var(--gold); opacity:.07; pointer-events:none; }
+  .footer-inner{ position:relative; }
+  .kicker::before{ width:26px; }
+  .kicker{ gap:12px; }
+  .paper .kicker::before, .paper .kicker::after{ background:var(--gold-deep); }
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="fb317397-3a39-4a7b-b389-d1c19196386f"></script>
 </head>
@@ -326,11 +358,34 @@
       <linearGradient id="gSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#13223a"/><stop offset=".6" stop-color="#3a5d86"/><stop offset="1" stop-color="#c9b48a"/></linearGradient>
       <radialGradient id="gSun" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff5d6"/><stop offset=".55" stop-color="#f0d38c"/><stop offset="1" stop-color="#d6b066" stop-opacity="0"/></radialGradient>
     </defs>
+    <symbol id="fol" viewBox="-100 -100 200 200">
+      <g fill="none" stroke="currentColor" stroke-width=".55">
+        <circle r="92"/><circle r="96.5"/><circle cx="0.00" cy="0.00" r="30"/><circle cx="30.00" cy="0.00" r="30"/><circle cx="15.00" cy="25.98" r="30"/><circle cx="-15.00" cy="25.98" r="30"/><circle cx="-30.00" cy="0.00" r="30"/><circle cx="-15.00" cy="-25.98" r="30"/><circle cx="15.00" cy="-25.98" r="30"/><circle cx="60.00" cy="0.00" r="30"/><circle cx="45.00" cy="25.98" r="30"/><circle cx="30.00" cy="51.96" r="30"/><circle cx="0.00" cy="51.96" r="30"/><circle cx="-30.00" cy="51.96" r="30"/><circle cx="-45.00" cy="25.98" r="30"/><circle cx="-60.00" cy="0.00" r="30"/><circle cx="-45.00" cy="-25.98" r="30"/><circle cx="-30.00" cy="-51.96" r="30"/><circle cx="-0.00" cy="-51.96" r="30"/><circle cx="30.00" cy="-51.96" r="30"/><circle cx="45.00" cy="-25.98" r="30"/>
+      </g>
+    </symbol>
+    <symbol id="lotus" viewBox="0 0 260 158">
+      <g fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+      <g transform="translate(130,140)">
+        <path d="M0 0 C -22 -30 -22 -62 0 -94 C 22 -62 22 -30 0 0 Z" transform="rotate(-60) scale(.82 .78)"/>
+        <path d="M0 0 C -22 -30 -22 -62 0 -94 C 22 -62 22 -30 0 0 Z" transform="rotate(60) scale(.82 .78)"/>
+        <path d="M0 0 C -22 -30 -22 -62 0 -94 C 22 -62 22 -30 0 0 Z" transform="rotate(-31) scale(.95 .92)"/>
+        <path d="M0 0 C -22 -30 -22 -62 0 -94 C 22 -62 22 -30 0 0 Z" transform="rotate(31) scale(.95 .92)"/>
+        <path d="M0 0 C -22 -30 -22 -62 0 -94 C 22 -62 22 -30 0 0 Z"/>
+        <path d="M0 0 C -13 -26 -13 -52 0 -78 C 13 -52 13 -26 0 0 Z" transform="scale(.66 .82)"/>
+      </g>
+      </g>
+      <path d="M40 150 H220" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".6"/>
+    </symbol>
     <symbol id="logo" viewBox="0 0 64 64">
       <circle cx="32" cy="32" r="30.5" fill="none" stroke="#d6b066" stroke-width="1.2"/>
-      <circle cx="32" cy="29" r="8.5" fill="#e3c178"/>
-      <path d="M8 45 L22 31 L29 38 L39 27 L56 45 Z" fill="#f3ecdf"/>
-      <path d="M8 45 L22 31 L29 38 L39 27 L56 45" fill="none" stroke="#d6b066" stroke-width="1"/>
+      <circle cx="32" cy="32" r="26" fill="none" stroke="#d6b066" stroke-width=".6" opacity=".6"/>
+      <g fill="none" stroke="#f1dca2" stroke-width="1.6" stroke-linejoin="round" transform="translate(32,44)">
+        <path d="M0 0 C -6 -8 -6 -17 0 -26 C 6 -17 6 -8 0 0 Z"/>
+        <path d="M0 0 C -6 -8 -6 -17 0 -26 C 6 -17 6 -8 0 0 Z" transform="rotate(-40) scale(.82)"/>
+        <path d="M0 0 C -6 -8 -6 -17 0 -26 C 6 -17 6 -8 0 0 Z" transform="rotate(40) scale(.82)"/>
+        <path d="M0 0 C -6 -8 -6 -17 0 -26 C 6 -17 6 -8 0 0 Z" transform="rotate(-72) scale(.62)"/>
+        <path d="M0 0 C -6 -8 -6 -17 0 -26 C 6 -17 6 -8 0 0 Z" transform="rotate(72) scale(.62)"/>
+      </g>
     </symbol>
   </svg>
 
@@ -371,13 +426,14 @@
         <i style="left:4%;top:60%;animation-delay:2.7s"></i><i style="left:96%;top:56%;animation-delay:1.5s"></i>
       </div>
       <div class="sun" aria-hidden="true">
-        <svg class="rings" viewBox="-100 -100 200 200">
-          <circle r="96"/><circle r="84"/><circle r="30"/>
-          <circle cx="30" r="30"/><circle cx="15" cy="25.98" r="30"/><circle cx="-15" cy="25.98" r="30"/>
-          <circle cx="-30" r="30"/><circle cx="-15" cy="-25.98" r="30"/><circle cx="15" cy="-25.98" r="30"/>
-        </svg>
+        <svg class="rings" aria-hidden="true"><use href="#fol"/></svg>
         <div class="core"></div>
       </div>
+      <div class="mandala" aria-hidden="true">
+        <svg class="m-outer"><use href="#fol"/></svg>
+        <svg class="m-inner"><use href="#fol"/></svg>
+      </div>
+      <div class="motes" id="motes" aria-hidden="true"></div>
       <div class="mist mist--a" aria-hidden="true"></div>
 
       <svg class="mountains" viewBox="0 0 1440 420" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
@@ -389,6 +445,7 @@
       </svg>
       <div class="mist mist--b" aria-hidden="true"></div>
 
+      <svg class="hero-lotus rise" style="--d:0s" aria-hidden="true"><use href="#lotus"/></svg>
       <p class="hero-eyebrow rise" style="--d:.1s">Bastian Dießlin · Dipl. Humanenergetiker · Raubling</p>
       <h1 class="rise" style="--d:.25s">Raum für Klarheit, <em>neue Kraft</em> und innere Ruhe.</h1>
       <p class="hero-sub rise" style="--d:.45s">Ganzheitliche energetische Begleitung mit Kinesiologie, Klang und Chakren-Harmonisierung – geerdet, achtsam und in deinem eigenen Tempo.</p>
@@ -406,15 +463,18 @@
           <div class="arch-wrap reveal">
             <div class="arch">
               <!-- Porträtfoto einsetzen: <img src="bastian.jpg" alt="Bastian Dießlin" loading="lazy"> und das SVG darunter entfernen -->
-              <svg viewBox="0 0 400 520" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Berglandschaft in der Abenddämmerung">
-                <rect width="400" height="520" fill="url(#gSky)"/>
-                <circle cx="200" cy="300" r="120" fill="url(#gSun)" opacity=".8"/>
-                <circle cx="200" cy="300" r="46" fill="#f6e2a6"/>
-                <path fill="#5f7b9b" opacity=".7" d="M0 330 L60 290 L120 310 L190 240 L250 290 L320 260 L400 300 V520 H0Z"/>
-                <path fill="#3d5a7c" d="M0 370 L80 330 L150 356 L230 300 L290 340 L350 320 L400 340 V520 H0Z"/>
-                <path fill="none" stroke="#f1dca2" stroke-opacity=".6" d="M150 356 L230 300 L290 340"/>
-                <path fill="#25426a" d="M0 420 L110 384 L220 414 L320 380 L400 400 V520 H0Z"/>
-                <path fill="#13223a" d="M0 470 L140 440 L260 462 L400 436 V520 H0Z"/>
+              <svg viewBox="0 0 400 520" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Leuchtende Lotusblüte unter der Blume des Lebens">
+                <defs>
+                  <linearGradient id="gArch" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0e1a2b"/><stop offset=".55" stop-color="#25426a"/><stop offset="1" stop-color="#13223a"/></linearGradient>
+                  <radialGradient id="gHalo" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#fff1c8" stop-opacity=".95"/><stop offset=".35" stop-color="#f1d58e" stop-opacity=".45"/><stop offset="1" stop-color="#d6b066" stop-opacity="0"/></radialGradient>
+                </defs>
+                <rect width="400" height="520" fill="url(#gArch)"/>
+                <circle cx="200" cy="250" r="170" fill="url(#gHalo)" opacity=".55"/>
+                <svg x="40" y="90" width="320" height="320" class="arch-fol" style="color:#f1dca2"><use href="#fol"/></svg>
+                <g fill="#fff8e4"><circle cx="70" cy="70" r="1.4"/><circle cx="320" cy="110" r="1.2"/><circle cx="110" cy="160" r="1"/><circle cx="300" cy="50" r="1.6"/><circle cx="350" cy="200" r="1"/><circle cx="50" cy="230" r="1.2"/></g>
+                <path d="M0 400 H400 V520 H0Z" fill="#13223a"/>
+                <g fill="none" stroke="#d6b066" stroke-opacity=".5"><ellipse cx="200" cy="402" rx="150" ry="10"/><ellipse cx="200" cy="420" rx="110" ry="7" stroke-opacity=".35"/><ellipse cx="200" cy="436" rx="70" ry="4" stroke-opacity=".25"/></g>
+                <svg x="80" y="250" width="240" height="146" style="color:#f6e3a8" class="arch-lotus"><use href="#lotus"/></svg>
               </svg>
             </div>
             <span class="arch-frame" aria-hidden="true"></span>
@@ -445,14 +505,9 @@
 
     <!-- ===== ZITAT ===== -->
     <section class="quote-band" aria-label="Mein Anliegen">
-      <svg class="fol" viewBox="-100 -100 200 200" aria-hidden="true">
-        <circle r="90"/><circle r="30"/>
-        <circle cx="30" r="30"/><circle cx="15" cy="25.98" r="30"/><circle cx="-15" cy="25.98" r="30"/>
-        <circle cx="-30" r="30"/><circle cx="-15" cy="-25.98" r="30"/><circle cx="15" cy="-25.98" r="30"/>
-        <circle cx="60" r="30"/><circle cx="30" cy="51.96" r="30"/><circle cx="-30" cy="51.96" r="30"/>
-        <circle cx="-60" r="30"/><circle cx="-30" cy="-51.96" r="30"/><circle cx="30" cy="-51.96" r="30"/>
-      </svg>
+      <svg class="fol" aria-hidden="true"><use href="#fol"/></svg>
       <div class="wrap">
+        <svg class="quote-lotus reveal" aria-hidden="true"><use href="#lotus"/></svg>
         <blockquote class="reveal">Menschen Raum für Klarheit, neue Kraft und innere Ruhe ermöglichen – das ist mein Herzensanliegen.</blockquote>
         <cite class="reveal" style="--d:.1s">Individuelle Kraft- und Wohlfühlräume</cite>
       </div>
@@ -460,6 +515,7 @@
 
     <!-- ===== ANGEBOTE ===== -->
     <section id="angebote">
+      <svg class="corner-fol" aria-hidden="true"><use href="#fol"/></svg>
       <div class="wrap">
         <div class="center">
           <p class="kicker reveal">Angebote</p>
@@ -480,7 +536,7 @@
             <div><h3>Klangmassagen</h3><p>Die Klänge und Schwingungen ausgewählter Klanginstrumente in ruhiger Atmosphäre – Entspannung und Körperwahrnehmung ganz bewusst erleben.</p><a class="more" href="#kontakt" data-service="Klangmassage">Anfragen</a></div>
           </article>
           <article class="offer reveal" style="--d:.08s">
-            <div class="offer-icon"><svg viewBox="0 0 40 40" aria-hidden="true"><circle class="s" cx="20" cy="8" r="3"/><path class="s" d="M20 12c6 6 10 14 11.5 19h-23C10 26 14 18 20 12z"/><g class="f"><circle cx="20" cy="17" r="1.4"/><circle cx="20" cy="21" r="1.4"/><circle cx="20" cy="25" r="1.4"/><circle cx="20" cy="29" r="1.4"/></g></svg></div>
+            <div class="offer-icon"><svg viewBox="0 0 40 40" aria-hidden="true"><circle class="s" cx="20" cy="8" r="3"/><path class="s" d="M20 12c6 6 10 14 11.5 19h-23C10 26 14 18 20 12z"/><circle cx="20" cy="8" r="1.3" fill="#b9a0e8"/><circle cx="20" cy="15" r="1.3" fill="#8a8fe0"/><circle cx="20" cy="18.5" r="1.3" fill="#6fb3e0"/><circle cx="20" cy="22" r="1.3" fill="#7fcf8e"/><circle cx="20" cy="25.5" r="1.3" fill="#f2d36b"/><circle cx="20" cy="28.5" r="1.3" fill="#f0a35e"/><circle cx="20" cy="31" r="1.3" fill="#e46f6f"/></svg></div>
             <div><h3>Chakren-Harmonisierung</h3><p>Die sieben Chakren als traditionelles Modell der Energiearbeit stehen im Mittelpunkt – für eine bewusste Auseinandersetzung mit deinem inneren Gleichgewicht.</p><a class="more" href="#kontakt" data-service="Chakren-Harmonisierung">Anfragen</a></div>
           </article>
         </div>
@@ -576,6 +632,7 @@
       <path d="M0 60 L140 44 L240 52 L360 30 L450 44 L560 20 L640 38 L760 26 L880 44 L960 14 L1020 32 L1100 40 L1220 24 L1330 42 L1440 34"/>
     </svg>
     <div class="wrap footer-inner">
+      <svg class="foot-fol" aria-hidden="true"><use href="#fol"/></svg>
       <a class="brand" href="#top" aria-label="Zum Seitenanfang">
         <svg class="brand-mark" aria-hidden="true"><use href="#logo"/></svg>
         <span class="brand-text" style="display:flex"><b>Bastian Dießlin</b><small>Dipl. Humanenergetiker</small></span>
@@ -720,6 +777,24 @@
     document.querySelectorAll('[data-service]').forEach(function(a){
       a.addEventListener('click', function(){ document.getElementById('cService').value = a.getAttribute('data-service'); });
     });
+
+
+
+    // ---------- Lichtfunken ----------
+    (function(){
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var box = document.getElementById('motes'); if (!box) return;
+      var n = window.innerWidth < 700 ? 14 : 26;
+      for (var i = 0; i < n; i++){
+        var s = document.createElement('span'), size = 3 + Math.random()*6;
+        s.style.left = (Math.random()*100) + '%';
+        s.style.width = s.style.height = size + 'px';
+        s.style.setProperty('--dx', (Math.random()*80 - 40) + 'px');
+        s.style.animationDuration = (14 + Math.random()*16) + 's';
+        s.style.animationDelay = (-Math.random()*24) + 's';
+        box.appendChild(s);
+      }
+    })();
 
     // ---------- Klangschale (Web Audio, ohne Audiodatei) ----------
     (function(){

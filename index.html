@@ -321,7 +321,7 @@
   .mandala{ position:absolute; z-index:-1; left:50%; top:46%; width:min(780px,135vw); aspect-ratio:1; transform:translate(-50%,-50%); pointer-events:none;
     -webkit-mask-image:radial-gradient(circle, #000 30%, transparent 68%); mask-image:radial-gradient(circle, #000 30%, transparent 68%); }
   .mandala svg{ position:absolute; inset:0; width:100%; height:100%; color:var(--gold-light); }
-  .m-outer{ opacity:.13; animation:spin 240s linear infinite; filter:drop-shadow(0 0 6px rgba(241,220,162,.6)); }
+  .m-outer{ opacity:.15; animation:spin 240s linear infinite; will-change:transform; }
   .m-inner{ opacity:.10; transform:scale(.5); animation:spinr 180s linear infinite; }
   @keyframes spinr{ from{ transform:scale(.5) rotate(0); } to{ transform:scale(.5) rotate(-360deg); } }
   body.sound-on .m-outer{ opacity:.24; transition:opacity 2s ease; }
@@ -799,104 +799,39 @@
     })();
 
     // ---------- Klangschale ----------
-    // Die Sequenz wird einmalig vorab berechnet (OfflineAudioContext) und dann
-    // als nahtloser Loop abgespielt – das braucht kaum Rechenleistung und knistert nicht.
+    // Echte Audiodatei über das normale Audio-Element: robust, ohne Knistern.
     (function(){
       var btn = document.getElementById('bowlBtn');
       var hint = document.getElementById('bowlHint');
-      var AC = window.AudioContext || window.webkitAudioContext;
-      var OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext;
-      if (!AC || !OAC) { btn.hidden = true; hint.hidden = true; return; }
+      var probe = document.createElement('audio');
+      var src = probe.canPlayType('audio/ogg; codecs="opus"') ? 'audio/klangschale.ogg'
+              : probe.canPlayType('audio/mp4; codecs="mp4a.40.2"') ? 'audio/klangschale.m4a' : '';
+      if (!src) { btn.hidden = true; hint.hidden = true; return; }
 
-      var SR = 32000, LOOP = 48, TAIL = 13;
-      var ctx = null, gain = null, src = null, loopBuf = null, rendering = null, on = false;
-
-      function renderLoop(){
-        var off = new OAC(1, SR * (LOOP + TAIL), SR);
-        var out = off.createGain(); out.gain.value = 1;
-        var lp = off.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2400; lp.Q.value = .4;
-        out.connect(lp); lp.connect(off.destination);
-
-        // weicher Hall: tiefpassgefiltertes, langsam ausklingendes Rauschen
-        var irLen = Math.floor(SR * 3.2), ir = off.createBuffer(1, irLen, SR);
-        for (var c = 0; c < 1; c++){
-          var d = ir.getChannelData(c), y = 0;
-          for (var i = 0; i < irLen; i++){
-            y += .05 * ((Math.random()*2 - 1) - y);
-            d[i] = y * 3.2 * Math.pow(1 - i/irLen, 3) * Math.min(1, i/(SR*.05));
-          }
-        }
-        var conv = off.createConvolver(); conv.buffer = ir;
-        var wet = off.createGain(); wet.gain.value = .5; conv.connect(wet); wet.connect(out);
-        var dry = off.createGain(); dry.gain.value = .6; dry.connect(out);
-
-        // Grundton-Teppich: Frequenzen mit ganzzahligen Perioden pro Loop -> nahtloser Übergang
-        [[3525/LOOP, .016], [5280/LOOP, .010]].forEach(function(v, i){
-          var o = off.createOscillator(); o.frequency.value = v[0];
-          var g = off.createGain(); g.gain.value = v[1];
-          var lfo = off.createOscillator(); lfo.frequency.value = (3 + i) / LOOP;
-          var lg = off.createGain(); lg.gain.value = v[1] * .5; lfo.connect(lg); lg.connect(g.gain);
-          o.connect(g); g.connect(dry); g.connect(conv);
-          o.start(0); lfo.start(0);
-        });
-
-        // Schalenanschläge
-        var hits = [[0.4,196.00],[8.2,146.83],[15.6,220.00],[23.8,174.61],[31.4,130.81],[39.6,196.00]];
-        var partials = [[1, 1],[2.71, .3],[5.15, .06]];
-        hits.forEach(function(h, n){
-          var t = h[0], f0 = h[1], vel = n % 2 ? .085 : .1;
-          var bus = off.createGain(); bus.connect(dry); bus.connect(conv);
-          partials.forEach(function(p, idx){
-            [0, 1].forEach(function(k){
-              var o = off.createOscillator(); o.type = 'sine';
-              o.frequency.value = f0 * p[0] * (k ? 1.0015 + idx*.0005 : 1);
-              var g = off.createGain(), a = vel * p[1] * .5, dec = 15 / (1 + idx*1.6);
-              g.gain.setValueAtTime(0, t);
-              g.gain.linearRampToValueAtTime(a, t + .1 + idx*.03);
-              g.gain.exponentialRampToValueAtTime(.00001, t + dec);
-              o.connect(g); g.connect(bus); o.start(t); o.stop(t + dec + .05);
-            });
-          });
-        });
-
-        return off.startRendering().then(function(r){
-          // Ausklang des Loop-Endes an den Anfang falten -> lückenlos & ohne Knacken
-          var L = SR * LOOP, s = r.getChannelData(0), m = new Float32Array(L), peak = 0;
-          for (var i = 0; i < L; i++){ var v = s[i] + (i + L < s.length ? s[i + L] : 0); m[i] = v; if (Math.abs(v) > peak) peak = Math.abs(v); }
-          var norm = peak > 0 ? .55 / peak : 1;
-          // sanfte Raumbreite: rechter Kanal minimal versetzt (zyklisch, bleibt nahtlos)
-          var buf = new AudioBuffer({ length:L, numberOfChannels:2, sampleRate:SR }), l = buf.getChannelData(0), rr = buf.getChannelData(1), off2 = Math.floor(SR * .013);
-          for (var j = 0; j < L; j++){ l[j] = m[j] * norm; rr[j] = m[(j + L - off2) % L] * norm; }
-          return buf;
-        });
-      }
-
-      function fade(to, secs){
-        var now = ctx.currentTime;
-        gain.gain.cancelScheduledValues(now);
-        gain.gain.setValueAtTime(gain.gain.value, now);
-        gain.gain.linearRampToValueAtTime(to, now + secs);
+      var audio = null, on = false, fadeTimer = null, TARGET = .8;
+      function fadeTo(v, ms, done){
+        clearInterval(fadeTimer);
+        var start = audio.volume, t0 = Date.now();
+        fadeTimer = setInterval(function(){
+          var k = Math.min(1, (Date.now() - t0) / ms);
+          audio.volume = Math.max(0, Math.min(1, start + (v - start) * k));
+          if (k >= 1){ clearInterval(fadeTimer); if (done) done(); }
+        }, 40);
       }
       function play(){
-        if (!ctx){ ctx = new AC(); gain = ctx.createGain(); gain.gain.value = 0; gain.connect(ctx.destination); }
-        ctx.resume();
-        if (!loopBuf){
-          btn.classList.add('loading');
-          rendering = rendering || renderLoop().then(function(b){ loopBuf = b; });
-          rendering.then(function(){ btn.classList.remove('loading'); if (on) play(); })
-                   .catch(function(e){ console.error(e); btn.classList.remove('loading'); });
-          return;
+        if (!audio){
+          audio = new Audio(src); audio.loop = true; audio.preload = 'auto'; audio.volume = 0;
+          audio.addEventListener('waiting', function(){ btn.classList.add('loading'); });
+          audio.addEventListener('playing', function(){ btn.classList.remove('loading'); });
         }
-        if (!src){
-          src = ctx.createBufferSource(); src.buffer = loopBuf; src.loop = true;
-          src.connect(gain); src.start();
-        }
-        fade(1, 2.5);
+        btn.classList.add('loading');
+        var p = audio.play();
+        if (p && p.catch) p.catch(function(e){ console.error(e); btn.classList.remove('loading'); });
+        fadeTo(TARGET, 2500);
       }
-      function pause(){
-        if (!ctx) return;
-        fade(0, 1.2);
-        setTimeout(function(){ if (!on && ctx) ctx.suspend(); }, 1300);
+      function stop(){
+        if (!audio) return;
+        fadeTo(0, 1200, function(){ if (!on) audio.pause(); });
       }
       btn.addEventListener('click', function(){
         on = !on;
@@ -904,11 +839,11 @@
         btn.setAttribute('aria-label', on ? 'Klangschale stummschalten' : 'Klangschale einschalten');
         document.body.classList.toggle('sound-on', on);
         hint.classList.add('hide');
-        on ? play() : pause();
+        on ? play() : stop();
       });
       document.addEventListener('visibilitychange', function(){
-        if (!ctx || !on) return;
-        document.hidden ? ctx.suspend() : ctx.resume();
+        if (!audio || !on) return;
+        if (document.hidden) audio.pause(); else audio.play().catch(function(){});
       });
     })();
 

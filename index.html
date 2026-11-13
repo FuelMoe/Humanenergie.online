@@ -483,8 +483,8 @@
 
           <div class="about-text">
             <p class="kicker reveal">Über mich</p>
-            <h2 class="h2 reveal" style="--d:.05s">Vom Schrauber zum <em>Begleiter</em></h2>
-            <p class="lede reveal" style="--d:.1s">Meine eigene Reise begann mit einer Ausbildung zum Kfz-Mechatroniker. Nach einem schweren Motorradunfall habe ich mich zunehmend mit Gesundheit, Spiritualität und Meditation beschäftigt.</p>
+            <h2 class="h2 reveal" style="--d:.05s">Mein Weg zur <em>Humanenergetik</em></h2>
+            <p class="lede reveal" style="--d:.1s">Meine eigene Reise begann mit einer technischen Ausbildung. Nach einem schweren Motorradunfall habe ich mich zunehmend mit Gesundheit, Spiritualität und Meditation beschäftigt.</p>
             <p class="reveal" style="--d:.14s">Seit mittlerweile sieben Jahren praktiziere ich Kriya Yoga. Eisbaden, Zeit in der Natur, die Berge und das Sammeln von Kristallen begleiten mich als weitere Leidenschaften. Als zweifacher Familienvater sind mir Erdung, Achtsamkeit und ein bewusster Umgang mit dem Leben besonders wichtig.</p>
             <p class="reveal" style="--d:.18s">Nach einer langen Suche, inspirierenden Aufenthalten am Arthur Findlay College, eigenen Erfahrungen mit energetischer Begleitung im familiären Umfeld und meiner abgeschlossenen Ausbildung zum diplomierten Humanenergetiker an der Vitalakademie Salzburg freue ich mich nun darauf, meine Erfahrungen und mein Wissen weiterzugeben.</p>
             <ul class="facts reveal" style="--d:.22s" aria-label="Was mich ausmacht">
@@ -495,7 +495,7 @@
         </div>
 
         <ol class="journey reveal" aria-label="Mein Weg">
-          <li><span class="dot">I</span><h3>Kfz-Mechatroniker</h3><p>Handwerk, Technik und ein genauer Blick fürs Detail</p></li>
+          <li><span class="dot">I</span><h3>Technische Ausbildung</h3><p>Handwerk, Struktur und ein genauer Blick fürs Detail</p></li>
           <li><span class="dot">II</span><h3>Der Wendepunkt</h3><p>Nach einem Motorradunfall: Hinwendung zu Gesundheit &amp; Meditation</p></li>
           <li><span class="dot">III</span><h3>Kriya Yoga</h3><p>Sieben Jahre Praxis, Aufenthalte am Arthur Findlay College</p></li>
           <li><span class="dot">IV</span><h3>Dipl. Humanenergetiker</h3><p>Ausbildung an der Vitalakademie Salzburg</p></li>
@@ -804,31 +804,33 @@
       if (!AC) { btn.hidden = true; hint.hidden = true; return; }
       var ctx = null, master = null, wet = null, timer = null, on = false;
       // sanfte, harmonische Grundtöne (D-Dur-Pentatonik, tief)
-      var notes = [146.83, 164.81, 196.00, 220.00, 293.66];
-      var partials = [ [1, 1], [2.71, .42], [5.15, .2], [8.43, .08] ];
+      var notes = [130.81, 146.83, 174.61, 196.00, 220.00];
+      var partials = [ [1, 1], [2.71, .32], [5.15, .07] ];
 
       function makeReverb(){
         var len = ctx.sampleRate * 5.5, buf = ctx.createBuffer(2, len, ctx.sampleRate);
         for (var c = 0; c < 2; c++){
           var d = buf.getChannelData(c);
-          for (var i = 0; i < len; i++) d[i] = (Math.random()*2 - 1) * Math.pow(1 - i/len, 2.6);
+          var lp = 0; for (var i = 0; i < len; i++){ lp += .06 * ((Math.random()*2 - 1) - lp); d[i] = lp * 3 * Math.pow(1 - i/len, 3) * Math.min(1, i/(ctx.sampleRate*.04)); }
         }
         var conv = ctx.createConvolver(); conv.buffer = buf; return conv;
       }
       function setup(){
         ctx = new AC();
-        master = ctx.createGain(); master.gain.value = 0; master.connect(ctx.destination);
-        var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -18; comp.ratio.value = 3; comp.connect(master);
+        master = ctx.createGain(); master.gain.value = 0;
+        var tone = ctx.createBiquadFilter(); tone.type = 'lowpass'; tone.frequency.value = 2200; tone.Q.value = .5;
+        master.connect(tone); tone.connect(ctx.destination);
+        var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -24; comp.knee.value = 20; comp.ratio.value = 2.5; comp.attack.value = .05; comp.release.value = .6; comp.connect(master);
         var dry = ctx.createGain(); dry.gain.value = .55; dry.connect(comp);
-        var rev = makeReverb(); var revGain = ctx.createGain(); revGain.gain.value = .7;
+        var rev = makeReverb(); var revGain = ctx.createGain(); revGain.gain.value = .45;
         rev.connect(revGain); revGain.connect(comp);
         wet = { dry:dry, rev:rev };
         // leiser, warmer Grundton-Teppich
-        var drone = ctx.createGain(); drone.gain.value = .035; drone.connect(rev); drone.connect(dry);
+        var drone = ctx.createGain(); drone.gain.value = .02; drone.connect(rev); drone.connect(dry);
         [73.42, 110.0].forEach(function(f, i){
           var o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = f;
           var lfo = ctx.createOscillator(); lfo.frequency.value = .07 + i*.03;
-          var lg = ctx.createGain(); lg.gain.value = .6; lfo.connect(lg);
+          var lg = ctx.createGain(); lg.gain.value = .25; lfo.connect(lg);
           var g = ctx.createGain(); g.gain.value = .5; lg.connect(g.gain);
           o.connect(g); g.connect(drone); o.start(); lfo.start();
         });
@@ -836,7 +838,7 @@
       function strike(){
         var t = ctx.currentTime + .05;
         var f0 = notes[Math.floor(Math.random()*notes.length)];
-        var vel = .16 + Math.random()*.08;
+        var vel = .09 + Math.random()*.04;
         var pan = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
         var out = ctx.createGain(); out.gain.value = 1;
         if (pan){ pan.pan.value = (Math.random()*2 - 1)*.5; out.connect(pan); pan.connect(wet.dry); pan.connect(wet.rev); }
@@ -847,11 +849,11 @@
             // leicht verstimmte Paare erzeugen das typische "Wabern" der Schale
             o.frequency.value = f0 * p[0] * (k ? 1.0016 + idx*.0006 : 1);
             var g = ctx.createGain(); var a = vel * p[1] * .5;
-            var decay = 14 / (1 + idx*1.4);
+            var decay = 16 / (1 + idx*1.6);
             g.gain.setValueAtTime(0, t);
-            g.gain.linearRampToValueAtTime(a, t + .012 + idx*.004);
-            g.gain.exponentialRampToValueAtTime(.0001, t + decay);
-            o.connect(g); g.connect(out); o.start(t); o.stop(t + decay + .1);
+            g.gain.linearRampToValueAtTime(a, t + .09 + idx*.03);
+            g.gain.setTargetAtTime(0, t + .1, decay / 4.5);
+            o.connect(g); g.connect(out); o.start(t); o.stop(t + decay + 1);
           });
         });
       }
@@ -861,7 +863,7 @@
         ctx.resume();
         master.gain.cancelScheduledValues(ctx.currentTime);
         master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
-        master.gain.linearRampToValueAtTime(.9, ctx.currentTime + 2.5);
+        master.gain.linearRampToValueAtTime(1.1, ctx.currentTime + 3);
         clearTimeout(timer); strike(); timer = setTimeout(loop, 6000);
       }
       function stop(){

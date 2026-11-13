@@ -348,6 +348,8 @@
   .kicker::before{ width:26px; }
   .kicker{ gap:12px; }
   .paper .kicker::before, .paper .kicker::after{ background:var(--gold-deep); }
+  .bowl-btn.loading{ animation:bowlwait 1.2s ease-in-out infinite; }
+  @keyframes bowlwait{ 0%,100%{ box-shadow:0 0 0 0 rgba(214,176,102,.0); } 50%{ box-shadow:0 0 0 8px rgba(214,176,102,.18); } }
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="fb317397-3a39-4a7b-b389-d1c19196386f"></script>
 </head>
@@ -796,83 +798,105 @@
       }
     })();
 
-    // ---------- Klangschale (Web Audio, ohne Audiodatei) ----------
+    // ---------- Klangschale ----------
+    // Die Sequenz wird einmalig vorab berechnet (OfflineAudioContext) und dann
+    // als nahtloser Loop abgespielt – das braucht kaum Rechenleistung und knistert nicht.
     (function(){
       var btn = document.getElementById('bowlBtn');
       var hint = document.getElementById('bowlHint');
       var AC = window.AudioContext || window.webkitAudioContext;
-      if (!AC) { btn.hidden = true; hint.hidden = true; return; }
-      var ctx = null, master = null, wet = null, timer = null, on = false;
-      // sanfte, harmonische Grundtöne (D-Dur-Pentatonik, tief)
-      var notes = [130.81, 146.83, 174.61, 196.00, 220.00];
-      var partials = [ [1, 1], [2.71, .32], [5.15, .07] ];
+      var OAC = window.OfflineAudioContext || window.webkitOfflineAudioContext;
+      if (!AC || !OAC) { btn.hidden = true; hint.hidden = true; return; }
 
-      function makeReverb(){
-        var len = ctx.sampleRate * 5.5, buf = ctx.createBuffer(2, len, ctx.sampleRate);
-        for (var c = 0; c < 2; c++){
-          var d = buf.getChannelData(c);
-          var lp = 0; for (var i = 0; i < len; i++){ lp += .06 * ((Math.random()*2 - 1) - lp); d[i] = lp * 3 * Math.pow(1 - i/len, 3) * Math.min(1, i/(ctx.sampleRate*.04)); }
+      var SR = 32000, LOOP = 48, TAIL = 13;
+      var ctx = null, gain = null, src = null, loopBuf = null, rendering = null, on = false;
+
+      function renderLoop(){
+        var off = new OAC(1, SR * (LOOP + TAIL), SR);
+        var out = off.createGain(); out.gain.value = 1;
+        var lp = off.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2400; lp.Q.value = .4;
+        out.connect(lp); lp.connect(off.destination);
+
+        // weicher Hall: tiefpassgefiltertes, langsam ausklingendes Rauschen
+        var irLen = Math.floor(SR * 3.2), ir = off.createBuffer(1, irLen, SR);
+        for (var c = 0; c < 1; c++){
+          var d = ir.getChannelData(c), y = 0;
+          for (var i = 0; i < irLen; i++){
+            y += .05 * ((Math.random()*2 - 1) - y);
+            d[i] = y * 3.2 * Math.pow(1 - i/irLen, 3) * Math.min(1, i/(SR*.05));
+          }
         }
-        var conv = ctx.createConvolver(); conv.buffer = buf; return conv;
-      }
-      function setup(){
-        ctx = new AC();
-        master = ctx.createGain(); master.gain.value = 0;
-        var tone = ctx.createBiquadFilter(); tone.type = 'lowpass'; tone.frequency.value = 2200; tone.Q.value = .5;
-        master.connect(tone); tone.connect(ctx.destination);
-        var comp = ctx.createDynamicsCompressor(); comp.threshold.value = -24; comp.knee.value = 20; comp.ratio.value = 2.5; comp.attack.value = .05; comp.release.value = .6; comp.connect(master);
-        var dry = ctx.createGain(); dry.gain.value = .55; dry.connect(comp);
-        var rev = makeReverb(); var revGain = ctx.createGain(); revGain.gain.value = .45;
-        rev.connect(revGain); revGain.connect(comp);
-        wet = { dry:dry, rev:rev };
-        // leiser, warmer Grundton-Teppich
-        var drone = ctx.createGain(); drone.gain.value = .02; drone.connect(rev); drone.connect(dry);
-        [73.42, 110.0].forEach(function(f, i){
-          var o = ctx.createOscillator(); o.type = 'sine'; o.frequency.value = f;
-          var lfo = ctx.createOscillator(); lfo.frequency.value = .07 + i*.03;
-          var lg = ctx.createGain(); lg.gain.value = .25; lfo.connect(lg);
-          var g = ctx.createGain(); g.gain.value = .5; lg.connect(g.gain);
-          o.connect(g); g.connect(drone); o.start(); lfo.start();
+        var conv = off.createConvolver(); conv.buffer = ir;
+        var wet = off.createGain(); wet.gain.value = .5; conv.connect(wet); wet.connect(out);
+        var dry = off.createGain(); dry.gain.value = .6; dry.connect(out);
+
+        // Grundton-Teppich: Frequenzen mit ganzzahligen Perioden pro Loop -> nahtloser Übergang
+        [[3525/LOOP, .016], [5280/LOOP, .010]].forEach(function(v, i){
+          var o = off.createOscillator(); o.frequency.value = v[0];
+          var g = off.createGain(); g.gain.value = v[1];
+          var lfo = off.createOscillator(); lfo.frequency.value = (3 + i) / LOOP;
+          var lg = off.createGain(); lg.gain.value = v[1] * .5; lfo.connect(lg); lg.connect(g.gain);
+          o.connect(g); g.connect(dry); g.connect(conv);
+          o.start(0); lfo.start(0);
         });
-      }
-      function strike(){
-        var t = ctx.currentTime + .05;
-        var f0 = notes[Math.floor(Math.random()*notes.length)];
-        var vel = .09 + Math.random()*.04;
-        var pan = ctx.createStereoPanner ? ctx.createStereoPanner() : null;
-        var out = ctx.createGain(); out.gain.value = 1;
-        if (pan){ pan.pan.value = (Math.random()*2 - 1)*.5; out.connect(pan); pan.connect(wet.dry); pan.connect(wet.rev); }
-        else { out.connect(wet.dry); out.connect(wet.rev); }
-        partials.forEach(function(p, idx){
-          [0, 1].forEach(function(k){
-            var o = ctx.createOscillator(); o.type = 'sine';
-            // leicht verstimmte Paare erzeugen das typische "Wabern" der Schale
-            o.frequency.value = f0 * p[0] * (k ? 1.0016 + idx*.0006 : 1);
-            var g = ctx.createGain(); var a = vel * p[1] * .5;
-            var decay = 16 / (1 + idx*1.6);
-            g.gain.setValueAtTime(0, t);
-            g.gain.linearRampToValueAtTime(a, t + .09 + idx*.03);
-            g.gain.setTargetAtTime(0, t + .1, decay / 4.5);
-            o.connect(g); g.connect(out); o.start(t); o.stop(t + decay + 1);
+
+        // Schalenanschläge
+        var hits = [[0.4,196.00],[8.2,146.83],[15.6,220.00],[23.8,174.61],[31.4,130.81],[39.6,196.00]];
+        var partials = [[1, 1],[2.71, .3],[5.15, .06]];
+        hits.forEach(function(h, n){
+          var t = h[0], f0 = h[1], vel = n % 2 ? .085 : .1;
+          var bus = off.createGain(); bus.connect(dry); bus.connect(conv);
+          partials.forEach(function(p, idx){
+            [0, 1].forEach(function(k){
+              var o = off.createOscillator(); o.type = 'sine';
+              o.frequency.value = f0 * p[0] * (k ? 1.0015 + idx*.0005 : 1);
+              var g = off.createGain(), a = vel * p[1] * .5, dec = 15 / (1 + idx*1.6);
+              g.gain.setValueAtTime(0, t);
+              g.gain.linearRampToValueAtTime(a, t + .1 + idx*.03);
+              g.gain.exponentialRampToValueAtTime(.00001, t + dec);
+              o.connect(g); g.connect(bus); o.start(t); o.stop(t + dec + .05);
+            });
           });
         });
+
+        return off.startRendering().then(function(r){
+          // Ausklang des Loop-Endes an den Anfang falten -> lückenlos & ohne Knacken
+          var L = SR * LOOP, s = r.getChannelData(0), m = new Float32Array(L), peak = 0;
+          for (var i = 0; i < L; i++){ var v = s[i] + (i + L < s.length ? s[i + L] : 0); m[i] = v; if (Math.abs(v) > peak) peak = Math.abs(v); }
+          var norm = peak > 0 ? .55 / peak : 1;
+          // sanfte Raumbreite: rechter Kanal minimal versetzt (zyklisch, bleibt nahtlos)
+          var buf = new AudioBuffer({ length:L, numberOfChannels:2, sampleRate:SR }), l = buf.getChannelData(0), rr = buf.getChannelData(1), off2 = Math.floor(SR * .013);
+          for (var j = 0; j < L; j++){ l[j] = m[j] * norm; rr[j] = m[(j + L - off2) % L] * norm; }
+          return buf;
+        });
       }
-      function loop(){ strike(); timer = setTimeout(loop, 7000 + Math.random()*6000); }
-      function start(){
-        if (!ctx) setup();
+
+      function fade(to, secs){
+        var now = ctx.currentTime;
+        gain.gain.cancelScheduledValues(now);
+        gain.gain.setValueAtTime(gain.gain.value, now);
+        gain.gain.linearRampToValueAtTime(to, now + secs);
+      }
+      function play(){
+        if (!ctx){ ctx = new AC(); gain = ctx.createGain(); gain.gain.value = 0; gain.connect(ctx.destination); }
         ctx.resume();
-        master.gain.cancelScheduledValues(ctx.currentTime);
-        master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
-        master.gain.linearRampToValueAtTime(1.1, ctx.currentTime + 3);
-        clearTimeout(timer); strike(); timer = setTimeout(loop, 6000);
+        if (!loopBuf){
+          btn.classList.add('loading');
+          rendering = rendering || renderLoop().then(function(b){ loopBuf = b; });
+          rendering.then(function(){ btn.classList.remove('loading'); if (on) play(); })
+                   .catch(function(e){ console.error(e); btn.classList.remove('loading'); });
+          return;
+        }
+        if (!src){
+          src = ctx.createBufferSource(); src.buffer = loopBuf; src.loop = true;
+          src.connect(gain); src.start();
+        }
+        fade(1, 2.5);
       }
-      function stop(){
-        clearTimeout(timer);
+      function pause(){
         if (!ctx) return;
-        master.gain.cancelScheduledValues(ctx.currentTime);
-        master.gain.setValueAtTime(master.gain.value, ctx.currentTime);
-        master.gain.linearRampToValueAtTime(0, ctx.currentTime + 1.2);
-        setTimeout(function(){ if (!on && ctx) ctx.suspend(); }, 1400);
+        fade(0, 1.2);
+        setTimeout(function(){ if (!on && ctx) ctx.suspend(); }, 1300);
       }
       btn.addEventListener('click', function(){
         on = !on;
@@ -880,11 +904,11 @@
         btn.setAttribute('aria-label', on ? 'Klangschale stummschalten' : 'Klangschale einschalten');
         document.body.classList.toggle('sound-on', on);
         hint.classList.add('hide');
-        on ? start() : stop();
+        on ? play() : pause();
       });
       document.addEventListener('visibilitychange', function(){
         if (!ctx || !on) return;
-        if (document.hidden) { clearTimeout(timer); ctx.suspend(); } else { ctx.resume(); clearTimeout(timer); timer = setTimeout(loop, 1500); }
+        document.hidden ? ctx.suspend() : ctx.resume();
       });
     })();
 

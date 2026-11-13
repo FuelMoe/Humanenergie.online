@@ -32,9 +32,9 @@
 <style>
   :root{
     --night:#0e1a2b; --deep:#13223a; --blue:#1b3150; --blue-2:#25426a; --blue-3:#3a5d86;
-    --paper:#f6f0e4; --paper-2:#ede3cf;
+    --paper:#ecdfc6; --paper-2:#e3d2b2;
     --gold:#d6b066; --gold-light:#f1dca2; --gold-deep:#a17a34; --gold-ink:#8a6526;
-    --ink:#15243a; --ink-soft:#4b5a6d; --on-blue:#ece5d6; --on-blue-soft:#b9c3cf;
+    --ink:#15243a; --ink-soft:#43505f; --on-blue:#ece5d6; --on-blue-soft:#b9c3cf;
     --hair-gold:rgba(214,176,102,.35); --hair-blue:rgba(185,195,207,.16); --hair-ink:rgba(21,36,58,.12);
     --serif:'Cormorant Garamond', Garamond, Georgia, serif;
     --sans:'Montserrat', 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -152,7 +152,7 @@
   .hero-cta{ display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin-top:36px; }
 
   /* ---------- Creme ---------- */
-  .paper{ position:relative; color:var(--ink); background:var(--paper); background-image:radial-gradient(80% 60% at 100% 0%, rgba(214,176,102,.14), transparent 60%), radial-gradient(60% 50% at 0% 100%, rgba(37,66,106,.06), transparent 60%); }
+  .paper{ position:relative; color:var(--ink); background:var(--paper); background-image:radial-gradient(80% 60% at 100% 0%, rgba(214,176,102,.22), transparent 60%), radial-gradient(70% 60% at 0% 100%, rgba(161,122,52,.12), transparent 65%), linear-gradient(180deg, var(--paper), var(--paper-2)); }
   .paper .kicker{ color:var(--gold-ink); }
   .paper .h2 em{ color:var(--gold-deep); }
   section{ padding:clamp(80px,10vw,140px) 0; }
@@ -171,13 +171,13 @@
   .about-text .lede{ color:var(--ink); }
   .signature{ font-family:var(--serif); font-style:italic; font-size:1.7rem !important; color:var(--gold-deep) !important; margin:22px 0 0 !important; }
   .facts{ display:flex; flex-wrap:wrap; gap:10px; margin:24px 0 0; padding:0; list-style:none; }
-  .facts li{ display:flex; align-items:center; gap:8px; font-size:.82rem; color:var(--ink); background:rgba(255,255,255,.6); border:1px solid var(--hair-ink); border-radius:999px; padding:7px 14px 7px 12px; }
+  .facts li{ display:flex; align-items:center; gap:8px; font-size:.82rem; color:var(--ink); background:rgba(246,238,222,.7); border:1px solid var(--hair-ink); border-radius:999px; padding:7px 14px 7px 12px; }
   .facts li::before{ content:""; width:6px; height:6px; transform:rotate(45deg); background:var(--gold); }
 
   .journey{ margin:clamp(64px,8vw,104px) 0 0; display:grid; grid-template-columns:repeat(4,1fr); position:relative; list-style:none; padding:0; }
   .journey::before{ content:""; position:absolute; top:23px; left:12.5%; right:12.5%; height:1px; background:linear-gradient(90deg, rgba(161,122,52,.2), rgba(161,122,52,.7), rgba(161,122,52,.2)); }
   .journey li{ text-align:center; padding:0 14px; position:relative; }
-  .journey .dot{ width:46px; height:46px; margin:0 auto 18px; border-radius:50%; background:var(--paper); border:1px solid rgba(161,122,52,.55); display:grid; place-items:center; font-family:var(--serif); font-size:1.1rem; color:var(--gold-deep); position:relative; z-index:1; }
+  .journey .dot{ width:46px; height:46px; margin:0 auto 18px; border-radius:50%; background:#f3e9d6; border:1px solid rgba(161,122,52,.55); display:grid; place-items:center; font-family:var(--serif); font-size:1.1rem; color:var(--gold-deep); position:relative; z-index:1; }
   .journey li:last-child .dot{ background:var(--deep); color:var(--gold-light); border-color:var(--gold); box-shadow:0 0 0 6px rgba(214,176,102,.15); }
   .journey h3{ font-family:var(--serif); font-weight:600; font-size:1.3rem; line-height:1.2; color:var(--ink); margin:0 0 6px; }
   .journey p{ margin:0; font-size:.86rem; line-height:1.6; color:var(--ink-soft); }
@@ -211,7 +211,7 @@
 
   /* ---------- Ablauf ---------- */
   .steps{ display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(20px,3vw,36px); margin-top:clamp(40px,5vw,60px); }
-  .step{ position:relative; padding:34px 30px 32px; background:rgba(255,255,255,.55); border:1px solid var(--hair-ink); border-radius:24px; }
+  .step{ position:relative; padding:34px 30px 32px; background:rgba(246,238,222,.6); border:1px solid var(--hair-ink); border-radius:24px; }
   .step .n{ font-family:var(--serif); font-style:italic; font-size:3.4rem; line-height:1; color:var(--gold); display:block; margin-bottom:10px; }
   .step h3{ font-family:var(--serif); font-weight:600; font-size:1.5rem; color:var(--ink); margin:0 0 8px; }
   .step p{ margin:0; color:var(--ink-soft); font-size:.95rem; }
@@ -237,7 +237,7 @@
   .form-title{ grid-column:1 / -1; margin:0 0 4px; font-family:var(--serif); font-weight:500; font-size:2rem; line-height:1.1; color:var(--ink); }
   .form-title + p{ grid-column:1 / -1; margin:-6px 0 8px; font-size:.9rem; color:var(--ink-soft); }
   .field label{ display:block; margin-bottom:7px; font-size:.66rem; font-weight:500; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-ink); }
-  .field input, .field select, .field textarea{ width:100%; padding:13px 16px; border-radius:14px; border:1px solid rgba(21,36,58,.15); background:#fffdf9; color:var(--ink); font:inherit; font-size:1rem; transition:border-color .25s ease, box-shadow .25s ease; }
+  .field input, .field select, .field textarea{ width:100%; padding:13px 16px; border-radius:14px; border:1px solid rgba(21,36,58,.15); background:#f8f0e1; color:var(--ink); font:inherit; font-size:1rem; transition:border-color .25s ease, box-shadow .25s ease; }
   .field select{ appearance:none; -webkit-appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%238a6526' stroke-width='1.5'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 16px center; background-size:12px; padding-right:40px; }
   .field textarea{ min-height:120px; resize:vertical; }
   .field input::placeholder, .field textarea::placeholder{ color:#a29c8e; }
@@ -441,7 +441,7 @@
         <path fill="#3d5a7c" d="M0 292 L110 250 L200 272 L300 214 L370 246 L450 206 L560 262 L660 226 L760 266 L870 220 L960 236 L1040 160 L1090 196 L1150 220 L1250 246 L1340 214 L1440 250 V420 H0 Z"/>
         <path fill="#25426a" d="M0 330 L130 296 L250 322 L360 280 L470 316 L590 284 L700 326 L820 292 L940 330 L1070 290 L1190 318 L1310 286 L1440 312 V420 H0 Z"/>
         <path fill="#1a3150" d="M0 370 L160 340 L320 362 L470 336 L640 366 L800 342 L980 372 L1140 344 L1300 366 L1440 350 V420 H0 Z"/>
-        <path fill="#f6f0e4" d="M0 404 C 260 380 480 392 740 398 C 1000 404 1220 380 1440 390 V420 H0 Z"/>
+        <path fill="#ecdfc6" d="M0 404 C 260 380 480 392 740 398 C 1000 404 1220 380 1440 390 V420 H0 Z"/>
       </svg>
       <div class="mist mist--b" aria-hidden="true"></div>
 

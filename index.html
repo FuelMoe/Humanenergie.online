@@ -350,6 +350,21 @@
   .paper .kicker::before, .paper .kicker::after{ background:var(--gold-deep); }
   .bowl-btn.loading{ animation:bowlwait 1.2s ease-in-out infinite; }
   @keyframes bowlwait{ 0%,100%{ box-shadow:0 0 0 0 rgba(214,176,102,.0); } 50%{ box-shadow:0 0 0 8px rgba(214,176,102,.18); } }
+
+  /* ===== Rechtliches: sauber mittig auf dem Handy ===== */
+  dialog.legal{ box-sizing:border-box; max-width:calc(100vw - 24px); max-height:min(88vh,920px); max-height:min(88dvh,920px); margin:auto; overflow:hidden; }
+  .legal-head{ flex:none; }
+  .legal-head h2{ min-width:0; font-size:clamp(1.25rem,5.6vw,1.9rem); line-height:1.15; overflow-wrap:anywhere; -webkit-hyphens:auto; hyphens:auto; }
+  .legal-body{ flex:1 1 auto; min-height:0; overflow-x:hidden; overflow-wrap:break-word; -webkit-hyphens:auto; hyphens:auto; -webkit-overflow-scrolling:touch; }
+  .journey{ grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .journey h3{ overflow-wrap:anywhere; -webkit-hyphens:auto; hyphens:auto; }
+  @media (max-width:960px){ .journey{ grid-template-columns:repeat(2,minmax(0,1fr)); } }
+  @media (max-width:560px){
+    .legal-head{ padding:14px 20px; }
+    .legal-body{ padding:4px 20px 28px; }
+    .legal-close{ width:38px; height:38px; }
+    .journey li{ padding:0 8px; }
+  }
 </style>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="fb317397-3a39-4a7b-b389-d1c19196386f"></script>
 </head>
